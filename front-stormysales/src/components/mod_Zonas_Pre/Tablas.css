@@ -3,12 +3,11 @@
     font-size: 16px;
     font-weight:bold;
     color: rgb(120, 120, 120);
-    padding: .5%;
+    padding: auto;
     margin-left: 0.3%;
     margin-right: 0.3%;
     text-align: left;
     border-radius: 15px;
-    /*width: 100%;*/
 }
 
 
@@ -142,11 +141,20 @@
 }
 
 
-.b1 {
-    background-color: #32c0db;
+.botonAC{
+    background-color: #fff;
+    color: #000;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
-.b2 {
-    background-color: #f57483;
+.botonAC:hover {
+    background-color: #eee; 
+  }
+.botonAC img {
+    width: 20%;
+    height: 20%;
 }
 .b3 {
     background-color: #2dc55a;
@@ -168,7 +176,7 @@
 }
 .tabla thead,.tabla th{
     color: #a3a3a3;
-    text-align: left;
+    text-align: center;
     position: sticky;
     top: 0;
     left: 0;
@@ -177,7 +185,7 @@
 
 .tabla ,.tabla th,.tabla td {
     border-collapse: collapse;
-    padding: 1rem;
+    padding: 0.3%;
 }
 
 
@@ -185,7 +193,7 @@
   .tabla th:nth-child(4), .tabla td:nth-child(4),
   .tabla th:nth-child(5), .tabla td:nth-child(5),
   .tabla th:nth-child(6), .tabla td:nth-child(6) {
-    display: none; /* Ocultar las columnas de Estado, Cantidad de Rutas y Email en pantallas pequeñas */
+    display: none; 
   }
 }
 

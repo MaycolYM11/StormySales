@@ -48,8 +48,8 @@ export const Tabla_zonas_item = ({ consulta, ...props }) => {
                     await axios.put(`http://localhost:3001/zonas/rutas/${val.Id_zona}`, {
                         "state": newEstado
                     }).then(() => {
-                        setEstado(newEstado); // Mover la actualización del estado aquí
-                        ponerTexto(); // Actualizar el texto del botón
+                        setEstado(newEstado); 
+                        ponerTexto(); 
                         Swal.fire({
                             title: "Actualizado!",
                             text: `Se cambio el estado del Gerente ${val.Nombre_zona}`,
@@ -86,8 +86,8 @@ export const Tabla_zonas_item = ({ consulta, ...props }) => {
                     <h3>{props.Email}</h3>
                 </td>
                 <td className="actions-column">
-                    <button type="button" id="edit" name="edit" className="boton b1" onClick={handleMostrarEdit}>Editar</button>
-                    <button type="button" id="delete" name="delete" className="boton b2" onClick={() => { confirmDelete(props) }}>{textoActivar}</button>
+                    <button type="button" id="edit" name="edit" className="botonAC" onClick={handleMostrarEdit}><i class="bi bi-1-square-fill"></i></button>
+                    <button type="button" id="delete" name="delete" className="botonAC" onClick={() =>{confirmDelete(props) }}>{textoActivar}</button>
                 </td>
 
             </tr>
