@@ -16,14 +16,14 @@ const MainLayout = () => {
     <div className='fullContainerSistem'>
       <SideMenu />
       <div className="Main_ContentPages">
-        {/* <Routes>
+         <Routes>
           <Route path="/inicio" element={<Inicio />} />
           <Route path="/gestion-usuarios" element={<GestionUsuarios />} />
           <Route path="/facturacion" element={<Facturacion />} />
           <Route path="/zonas" element={<Zonas />} />
           <Route path="/informes" element={<Informes />} />
           <Route path="/Abonos" element={<Abonos />} />
-        </Routes> */}
+        </Routes>
       </div>
     </div>
   );
