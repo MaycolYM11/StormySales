@@ -1,0 +1,286 @@
+@import url(../../styles/ColorsAll.css);
+
+Link {
+    text-decoration: none;
+    color: inherit
+}
+
+.containerSideMenu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    margin: 0;
+    padding: 0;
+    vertical-align: baseline;
+    display: flex;
+    flex-direction: column;
+    width: 240px;
+    z-index: 10;
+}
+
+.subContainer_SideMenu {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--BG-MainContainer);
+    width: 100%;
+    height: 100vh;
+}
+
+
+/* UP LOGO ---------------- */
+
+.upLogoNames {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 20px;
+}
+
+.logoContent {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--BG-Logo-Up);
+    border-radius: 50%;
+    min-width: 100px;
+    min-height: 100px;
+}
+
+.logoSideMenu {
+    min-width: 120px;
+    min-height: 120px;
+    width: 120px;
+    height: 120px;
+}
+
+/* MENÚS MIDDLE ---------------- */
+
+.container_Menu {
+    display: flex;
+    flex-direction: column;
+    padding: 0 10px;
+    overflow-y: auto;
+}
+
+.optionContainer {
+    display: flex;
+    flex-direction: column;
+    font-size: 13px;
+    color: var(--Txt-BG-No-Active);
+    padding: 10px 15px;
+    background-color: var(--BG-Button-No-Active);
+    border-radius: 15px;
+    cursor: pointer;
+    transition-property: color, background-color;
+    transition-duration: 1s, .18s;
+    margin: 7px 0;
+}
+
+.optionContainer:hover {
+    background-color: var(--BG-Button-BG-Hover);
+    color: var(--Icon-BG-Active);
+}
+
+.optionContainer:active {
+    background-color: var(--BG-Button-Active);
+}
+
+.containerMenu--BTN {
+    width: 100%;
+    display: flex;
+}
+
+.containerBNT {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.iconMenu {
+    margin-right: 20px;
+    font-size: 27px;
+}
+
+.RightArrow {
+    width: 15px;
+    height: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 0 2.5px 0;
+    margin-left: 10px;
+    transition: all .5s ease;
+}
+
+
+/* SUB MENU ------> */
+.subMenu--BTN {
+    display: flex;
+    flex-direction: column;
+    margin-top: 5px;
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height 0.8s ease, opacity 0.8s ease;
+    opacity: 0;
+}
+
+.option_SubMenu {
+    display: flex;
+    align-items: center;
+    padding: 5px;
+    background-color: var(--BG-Button-Sub-No-Active);
+    border-radius: 50px;
+    color: rgb(255, 255, 255);
+    margin: 5px 0;
+    transition: all 0.3s ease;
+}
+
+.point_SubMenu {
+    width: 15px;
+    height: 15px;
+    background-color: rgb(255, 255, 255);
+    border-radius: 50%;
+    margin-left: 2px;
+}
+
+.option_SubMenu:hover {
+    background-color: var(--BG-Button-Sub-Hover);
+    opacity: 100%;
+}
+
+.option_SubMenu:active {
+    opacity: 50%;
+}
+
+.text_SubMenu {
+    margin-left: 21px;
+}
+
+
+
+/* MENÚS BOTTOM ---------------- */
+.containerBottom_Menu {
+    display: flex;
+    flex-direction: column;
+    margin-top: auto;
+}
+
+
+.optionContainer_Bottom {
+    display: flex;
+    align-items: center;
+    font-size: 13px;
+    color: var(--Txt-BG-No-Active);
+    padding: 10px 15px;
+    background-color: var(--BG-Button-No-Active);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.optionContainer_Bottom:hover {
+    background-color: var(--BG-Button-Active);
+    color: var(--Icon-BG-Active);
+}
+
+.optionContainer_Bottom:active {
+    opacity: 50%;
+}
+
+.iconMenu_Bottom {
+    margin-right: 20px;
+    margin-left: 10px;
+    font-size: 27px;
+}
+
+/* INFO USER --------- */
+.infoContainer_Bottom {
+    background-color: var(--Info-Bottom-Bg);
+    color: aliceblue;
+    cursor: pointer;
+    padding: 20px;
+    display: flex;
+}
+
+.imageIcon_User {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 40px;
+    min-height: 40px;
+    max-width: 40px;
+    max-height: 40px;
+    background-color: #5a5f6d;
+    border-radius: 50%;
+    margin-right: 15px;
+    font-size: 30px;
+    color: var(--Info-Text-3-Bottom);
+}
+
+.infoTexts_User {
+    display: flex;
+    flex-direction: column;
+}
+
+.Cargo_User {
+    font-size: 11px;
+    color: var(--Info-Text-1-Bottom);
+}
+
+.Name_User {
+    font-size: 13px;
+    color: var(--Info-Text-2-Bottom);
+}
+
+
+/* Modificadores click --->>*/
+.clicBTN {
+    background-color: var(--BG-Button-Active);
+    color: #fff;
+    display: flex;
+    opacity: 1;
+    transition: all .5s ease;
+}
+
+.clicBTN:hover {
+    background-color: var(--BG-Button-Active);
+}
+
+.--Rotate {
+    rotate: 90deg;
+}
+
+.activeSubMenu {
+    max-height: 200px;
+    opacity: 1;
+}
+
+/* Scroll bar -----------> */
+/* Estilo de la barra de desplazamiento */
+.container_Menu::-webkit-scrollbar {
+    width: 8px;
+    /* Ancho de la barra de desplazamiento */
+}
+
+/* Estilo del riel de la barra de desplazamiento */
+.container_Menu::-webkit-scrollbar-track {
+    background: #31343d;
+    /* Color del riel */
+    border-radius: 4px;
+    /* Borde redondeado del pulgar */
+    margin: 8px 0;
+}
+
+/* Estilo del pulgar de la barra de desplazamiento */
+.container_Menu::-webkit-scrollbar-thumb {
+    background: #3d424e;
+    /* Color del pulgar */
+    border-radius: 4px;
+    /* Borde redondeado del pulgar */
+}
+
+/* Cambiar el color del pulgar en estado hover */
+.container_Menu::-webkit-scrollbar-thumb:hover {
+    background: #494d58;
+}

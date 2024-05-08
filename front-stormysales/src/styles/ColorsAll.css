@@ -1,0 +1,47 @@
+:root{
+    /* Side Menu */
+    --BG-MainContainer: #282b32;
+
+    /* Top */
+    --BG-Logo-Up: #202329;
+
+    /* Middle Botones*/
+    --BG-Button-Active: #6663fe;
+    --BG-Button-BG-Hover: #494d58;
+    --BG-Button-No-Active: #31343d;
+    --Icon-BG-No-Active: #aeaeb1;
+    --Icon-BG-Active: #ffffff;
+    --Txt-BG-No-Active: #aeaeb1;
+    --Txt-BG-Active: #ffffff;
+
+    /* Middle Botones SUBMENU*/
+    --BG-Button-Sub-No-Active: #514fca;
+    --BG-Button-Sub-Active: #ffffff;
+    --BG-Button-Sub-Hover: #8684ff;
+
+
+    /* Bottom Botones*/
+    --Info-Bottom-Bg: #3d414c;
+    --Info-Text-1-Bottom: #aeacff;
+    --Info-Text-2-Bottom: #ffffff;
+    --Info-Text-3-Bottom: #aeacff;
+
+    --Button-Bottom-Bg-Active: #353841;
+    --Txt-Bottom-Bg-Active: #ffffff;
+    --Button-Bottom-Bg-No-Active: #2c2f37;
+    --Txt-Bottom-Bg-No-Active: #aeaeb1;
+
+    /* Main Container Layout */
+    --Main-Container-BG: #30333c;
+    --Main-Text-01: #fff;
+
+    /* HOME USES */
+    --Home-Pattern-Lines: #282b32;
+    --Home-Container-BG: #272a31;
+    --Home-Text-01: #fff;
+    --Home-Tittle-BG-01: #282b32;
+    --Home-BG-01: #6663fe;
+    --Home-BG-02: #00a0b6;
+    --Home-BG-03: #266fd5;
+    --Home-BG-04: #e06c9f;
+}
