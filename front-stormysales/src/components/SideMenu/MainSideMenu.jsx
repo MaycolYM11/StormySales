@@ -15,7 +15,7 @@ const MainSideMenu = () => {
     const linkStyles = {
         textDecoration: 'none',
         color: 'inherit',
-      };
+    };
     const toggleSubMenu = (menu) => {
         setSubMenusOpen({
             ...subMenusOpen,
@@ -68,14 +68,18 @@ const MainSideMenu = () => {
                             </div>
                         </div>
                         <div className={`subMenu--BTN ${subMenusOpen.gestionUsuarios ? 'activeSubMenu' : ''}`}>
-                            <div className="option_SubMenu" onClick={handleSubMenuClick}>
-                                <div className="point_SubMenu"></div>
-                                <span className='text_SubMenu'>Empleados</span>
-                            </div>
-                            <div className="option_SubMenu" onClick={handleSubMenuClick}>
-                                <div className="point_SubMenu"></div>
-                                <span className='text_SubMenu'>Clientes</span>
-                            </div>
+
+                            <Link to='/gestion-usuarios' style={linkStyles}>
+                                <div className="option_SubMenu" onClick={handleSubMenuClick}>
+                                    <div className="point_SubMenu"></div>
+                                    <span className='text_SubMenu'>Empleados</span>
+                                </div></Link>
+
+                            <Link to='/gestion-usuarios' style={linkStyles}>
+                                <div className="option_SubMenu" onClick={handleSubMenuClick}>
+                                    <div className="point_SubMenu"></div>
+                                    <span className='text_SubMenu'>Clientes</span>
+                                </div></Link>
                         </div>
                     </div>
 
@@ -95,14 +99,18 @@ const MainSideMenu = () => {
                             </div>
                         </div>
                         <div className={`subMenu--BTN ${subMenusOpen.facturacion ? 'activeSubMenu' : ''}`}>
-                            <div className="option_SubMenu" onClick={handleSubMenuClick}>
-                                <div className="point_SubMenu"></div>
-                                <span className='text_SubMenu'>Facturación</span>
-                            </div>
-                            <div className="option_SubMenu" onClick={handleSubMenuClick}>
-                                <div className="point_SubMenu"></div>
-                                <span className='text_SubMenu'>Abonos</span>
-                            </div>
+                            <Link to='/facturacion' style={linkStyles}>
+                                <div className="option_SubMenu" onClick={handleSubMenuClick}>
+                                    <div className="point_SubMenu"></div>
+                                    <span className='text_SubMenu'>Facturación</span>
+                                </div>
+                            </Link>
+                            <Link to='/Abonos' style={linkStyles}>
+                                <div className="option_SubMenu" onClick={handleSubMenuClick}>
+                                    <div className="point_SubMenu"></div>
+                                    <span className='text_SubMenu'>Abonos</span>
+                                </div>
+                            </Link>
                         </div>
                     </div>
 
@@ -122,10 +130,12 @@ const MainSideMenu = () => {
                             </div>
                         </div>
                         <div className={`subMenu--BTN ${subMenusOpen.zonas ? 'activeSubMenu' : ''}`}>
-                            <div className="option_SubMenu" onClick={handleSubMenuClick}>
-                                <div className="point_SubMenu"></div>
-                                <span className='text_SubMenu'>Gestión de Zona</span>
-                            </div>
+                            <Link to='/zonas' style={linkStyles}>
+                                <div className="option_SubMenu" onClick={handleSubMenuClick}>
+                                    <div className="point_SubMenu"></div>
+                                    <span className='text_SubMenu'>Gestión de Zona</span>
+                                </div>
+                            </Link>
                         </div>
                     </div>
 
@@ -145,14 +155,18 @@ const MainSideMenu = () => {
                             </div>
                         </div>
                         <div className={`subMenu--BTN ${subMenusOpen.informes ? 'activeSubMenu' : ''}`}>
-                            <div className="option_SubMenu" onClick={handleSubMenuClick}>
-                                <div className="point_SubMenu"></div>
-                                <span className='text_SubMenu'>Ventas por Vendedor</span>
-                            </div>
-                            <div className="option_SubMenu" onClick={handleSubMenuClick}>
-                                <div className="point_SubMenu"></div>
-                                <span className='text_SubMenu'>Clientes</span>
-                            </div>
+                            <Link to='/informes' style={linkStyles}>
+                                <div className="option_SubMenu" onClick={handleSubMenuClick}>
+                                    <div className="point_SubMenu"></div>
+                                    <span className='text_SubMenu'>Ventas por Vendedor</span>
+                                </div>
+                            </Link>
+                            <Link to='/informes' style={linkStyles}>
+                                <div className="option_SubMenu" onClick={handleSubMenuClick}>
+                                    <div className="point_SubMenu"></div>
+                                    <span className='text_SubMenu'>Clientes</span>
+                                </div>
+                            </Link>
                         </div>
                     </div>
                 </div>
