@@ -62,11 +62,11 @@ const MainSideMenu = () => {
                                 </div>
                             </div>
                             <div className={`subMenu--BTN ${subMenusOpen.gestionUsuarios ? 'activeSubMenu' : ''}`}>
-                                <div className="option_SubMenu" onClick={handleSubMenuClick}>
+                                <Link to='/supervisores' ><div className="option_SubMenu" onClick={handleSubMenuClick}>
                                     <div className="point_SubMenu"></div>
                                     <span className='text_SubMenu'>Supervisores</span>
-                                </div>
-                                <Link to='/supervisores' ><div className="option_SubMenu" onClick={handleSubMenuClick}>
+                                </div></Link>
+                                <Link to='/vendedores' ><div className="option_SubMenu" onClick={handleSubMenuClick}>
                                     <div className="point_SubMenu"></div>
                                     <span className='text_SubMenu'>Vendedores</span>
                                 </div></Link>

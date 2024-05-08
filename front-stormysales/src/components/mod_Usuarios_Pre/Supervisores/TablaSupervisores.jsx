@@ -58,11 +58,7 @@ function TablaSupervisores() {
               <thead>
                 <tr>
                   <td>Nombre</td>
-                  
                   <td>Id</td>
-                  
-                  
-                  
                   <td>Estado</td>
                   <td>Acciones</td>
                 </tr>

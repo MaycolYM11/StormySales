@@ -4,7 +4,7 @@ const db = require('../../models/modelStormySales').promise();
 const busquedaSupervisor = async(req,res) => {
     try {
 
-        const query = `select Identificacion_Usuario,nombre,Apellido,Rol_Usuario,Estado_Usuario as id_estado,e.Nombre_estado,Contrasena 
+        const query = `select Identificacion_Usuario as id,nombre,Apellido,Rol_Usuario,Estado_Usuario as id_estado,e.Nombre_estado,Contrasena 
         from usuarios u
         inner join Estado e
         on u.Estado_Usuario = e.ID_estado
@@ -19,6 +19,23 @@ const busquedaSupervisor = async(req,res) => {
     }
 }
 
+const crearSupervisor = async(req,res) => {
+    const {id,nombre,apellido,contrasena} = req.body;
+
+    try {
+        
+        const query = `insert into usuarios values(?,?,?,1,2,?);`;
+
+        await db.query(query,[id,nombre,apellido,contrasena]);
+
+        res.json({message:'Datos registrados exitosamente'});
+
+    } catch (error) {
+        console.error('datos no ingresados :c',error);
+    }
+}
+
 module.exports = {
-    busquedaSupervisor
+    busquedaSupervisor,
+    crearSupervisor
 }

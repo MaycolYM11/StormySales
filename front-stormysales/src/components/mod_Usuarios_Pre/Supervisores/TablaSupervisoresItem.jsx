@@ -110,9 +110,9 @@ export const TablaAdminItem = (props) => {
                 <td>
                     <h3>{props.id}</h3>
                 </td>
-                <td>
+                {/* <td>
                     <h3>{props.cargo}</h3>
-                </td>
+                </td> */}
                 <td>
                     <h3>{props.estado}</h3>
                 </td>
