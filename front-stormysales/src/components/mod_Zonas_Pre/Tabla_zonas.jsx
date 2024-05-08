@@ -34,6 +34,13 @@ function Tabla_zonas() {
     <>
       <div>
       </div>
+      <div className='Buscar'>
+        <input type="text" id="buscar" name="buscar" className='text_cuadro' placeholder="Buscar..."/>
+        <button type="button" id="botonBuscar" className='botonBuscar'>Buscar</button>
+      </div>
+      <div className='teush'>
+        <button type="button" className="botonAgre" id="lanzar-modal" name="agregar" onClick={abrirFormularioRegistro}><i class="biNuevaRuta bi-flag"></i> Nueva ruta</button>
+      </div>
       <div className='main-container'>
         <hr/>
         <div className='table-container'>
@@ -42,9 +49,6 @@ function Tabla_zonas() {
               <div className='buscar'>
                 <input type="search" id="search" name="search" placeholder="buscar" className='barra-buscar' />
                 <button className='boton b7'>Buscar</button>
-              </div>
-              <div className='teush'>
-                <button type="button" className="botonAgre" id="lanzar-modal" name="agregar" onClick={abrirFormularioRegistro}>Nueva ruta</button>
               </div>
             </form>
             <Register_zonas isOpen={registerform} closeModal={()=> setRegisterform(false)} reConsulta={actualizarTabla}/>

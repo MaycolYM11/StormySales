@@ -1,0 +1,125 @@
+@import url(../../styles/ColorsAll.css);
+
+
+.background-pattern {
+    margin-top: 200px;
+}
+
+.home_Container,
+.home_Container--Center {
+    z-index: 10;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* LOGO HOME ---------> */
+.logoHome-Content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 30px 0;
+}
+
+.logoHome_Img {
+    max-width: 100px;
+    max-height: 100px;
+}
+
+.logoHome_Text {
+    text-transform: uppercase;
+    font-size: 15pt;
+    font-weight: bold;
+}
+
+/* TITTLES HOME ---------->*/
+.TittleHome {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;   
+    background-color: var(--Home-Container-BG);
+    border-radius: 15px;
+    width: 550px;
+    padding: 15px;
+    margin-bottom: 40px; 
+}
+
+.TittleHome_Text,
+.SubTittleHome_Text {
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.TittleHome_Text {
+    font-size: 35px;
+}
+
+.SubTittleHome_Text {
+    font-size: 20px;
+    opacity: 50%;
+}
+
+/* RESUMENES ---------------> */
+.resumenesHome_Container{
+    display: flex;
+}
+
+.resumenContent{
+    display: flex;
+    flex-direction: column;
+    min-width: 110px;
+    min-height: 110px;
+    max-width: 110px;
+    max-height: 140px;
+    margin: 0 10px;
+    padding: 15px;
+    background-color: var(--Home-Container-BG);
+    border-radius: 15px;
+}
+
+/* Icons */
+.iconResumen{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 40px;
+    min-height: 40px;
+    max-width: 40px;
+    max-height: 40px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+}
+
+.iconResumen i{    
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.vendedoresIcon{
+    background-color: var(--Home-BG-01);
+}
+
+.ClientesIcon{
+    background-color: var(--Home-BG-02);
+}
+
+.RutasIcon{
+    background-color: var(--Home-BG-03);
+}
+
+.VentasIcon{
+    background-color: var(--Home-BG-04);
+}
+
+/* Tittles */
+.titleResumenHome{
+    font-weight: bold;
+}
+.contadorHome{
+    opacity: 60%;
+    word-wrap: break-word;
+}

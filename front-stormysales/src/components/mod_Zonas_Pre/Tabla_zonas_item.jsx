@@ -86,8 +86,8 @@ export const Tabla_zonas_item = ({ consulta, ...props }) => {
                     <h3>{props.Email}</h3>
                 </td>
                 <td className="actions-column">
-                    <button type="button" id="edit" name="edit" className="botonAC" onClick={handleMostrarEdit}><i class="bi bi-1-square-fill"></i></button>
-                    <button type="button" id="delete" name="delete" className="botonAC" onClick={() =>{confirmDelete(props) }}>{textoActivar}</button>
+                    <button type="button" id="edit" name="edit" className="botonAC" onClick={handleMostrarEdit}><i class="bi bi-pencil-square"></i></button>
+                    <button type="button" id="delete" name="delete" className="botonAC" onClick={() =>{confirmDelete(props) }}><i class="bi bi-toggles"></i></button>
                 </td>
 
             </tr>

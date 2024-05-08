@@ -1,10 +1,14 @@
-
+import React from 'react';
+import { BrowserRouter } from 'react-router-dom'; 
 import './App.css';
-import Tabla_zonas from './components/mod_Zonas_Pre/Tabla_zonas';
+import MainLayout from './components/Layout/Main_Layout.jsx';
 
-function App() {
+const App = () => {
   return (
-    <Tabla_zonas/>
+    <BrowserRouter>
+      <MainLayout />  
+    </BrowserRouter>
+      
   );
 }
 
