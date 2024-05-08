@@ -10,20 +10,22 @@ import Facturacion from '../../components/mod_Facturacion_Pre/Main_Facturacion_P
 import Abonos from '../../components/mod_Abonos_Pre/Main_Abonos_Pre';
 import Zonas from '../../components/mod_Zonas_Pre/Main_Zonas_Pre';
 import Informes from '../../components/mod_Informes_pre/Main_Informes_Pre';
+import TablaSupervisores from '../mod_Usuarios_Pre/Supervisores/TablaSupervisores';
 
 const MainLayout = () => {
   return (
     <div className='fullContainerSistem'>
       <SideMenu />
       <div className="Main_ContentPages">
-        {/* <Routes>
+        <Routes>
           <Route path="/inicio" element={<Inicio />} />
           <Route path="/gestion-usuarios" element={<GestionUsuarios />} />
+          <Route path="/supervisores" element={<TablaSupervisores />} />
           <Route path="/facturacion" element={<Facturacion />} />
           <Route path="/zonas" element={<Zonas />} />
           <Route path="/informes" element={<Informes />} />
           <Route path="/Abonos" element={<Abonos />} />
-        </Routes> */}
+        </Routes>
       </div>
     </div>
   );

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './stylesSideMenu.css';
 import ImgenLogo from '../../assets/Logo/Logo_SideMenu.png';
+import { Link } from 'react-router-dom';
 
 
 const MainSideMenu = () => {
@@ -32,7 +33,7 @@ const MainSideMenu = () => {
                     </div>
                     {/* Opción de Inicio */}
                     <div className="container_Menu">
-                        <div className='optionContainer'>
+                        <Link to='/inicio' ><div className='optionContainer'>
                             <div className="containerMenu--BTN">
                                 <div className="iconMenu">
                                     <i className="bi bi-house-heart-fill"></i>
@@ -43,7 +44,7 @@ const MainSideMenu = () => {
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div></Link>
 
                         {/* Opción de Gestión de Usuarios */}
                         <div className={`optionContainer ${subMenusOpen.gestionUsuarios ? 'clicBTN' : ''}`} onClick={() => toggleSubMenu('gestionUsuarios')}>
@@ -63,8 +64,12 @@ const MainSideMenu = () => {
                             <div className={`subMenu--BTN ${subMenusOpen.gestionUsuarios ? 'activeSubMenu' : ''}`}>
                                 <div className="option_SubMenu" onClick={handleSubMenuClick}>
                                     <div className="point_SubMenu"></div>
-                                    <span className='text_SubMenu'>Empleados</span>
+                                    <span className='text_SubMenu'>Supervisores</span>
                                 </div>
+                                <Link to='/supervisores' ><div className="option_SubMenu" onClick={handleSubMenuClick}>
+                                    <div className="point_SubMenu"></div>
+                                    <span className='text_SubMenu'>Vendedores</span>
+                                </div></Link>
                                 <div className="option_SubMenu" onClick={handleSubMenuClick}>
                                     <div className="point_SubMenu"></div>
                                     <span className='text_SubMenu'>Clientes</span>
