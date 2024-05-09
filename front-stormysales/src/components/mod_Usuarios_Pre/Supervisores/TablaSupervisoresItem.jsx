@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import '../Tabla.css';
-import EditAdmin from './EditSupervisor';
 import Swal from 'sweetalert2';
 import axios from 'axios';
+import EditSupervisor from './EditSupervisor';
 
 export const TablaAdminItem = (props) => {
     const [textoActivar,setTextoActivar]= useState('');
@@ -121,7 +121,7 @@ export const TablaAdminItem = (props) => {
                     <button type="button" id="delete" name="delete" className="boton b2" onClick={() => { confirmDelete(props) }}>{textoActivar}</button>
                 </td>
             </tr>
-            {mostrarEditForm && <EditAdmin closeModal={handleMostrarEdit} datos={props} consulta={props.consulta} />}
+            {mostrarEditForm && <EditSupervisor closeModal={handleMostrarEdit} datos={props} consulta={props.consulta} />}
 
         </>
     )

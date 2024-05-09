@@ -237,17 +237,17 @@ export const RegisterAdmin = ({isOpen, closeModal,reConsulta}) => {
             /*console.log(con);*/
         }
     
-        axios.get(`http://localhost:3001/usuario/usuario_empleado/${numid}`)
+        axios.get(`http://localhost:3001/usuario/verifyidsupervisor/${numid}`)
         .then(response => {
             console.log("Respuesta del servidor:", response.data);
-            if (response.data.ID_Numero_Identificacion_PK === numid) {
+            if (response.data.Identificacion_Usuario === numid) {
                 Swal.fire({
                     icon: 'warning',
                     title: 'El número de identificación ya existe en la base de datos',
                     toast: true
                 });
                 con = false;
-            } else {
+            } else if(con){
                 agregarRegistro();
                 reConsulta();
                 closeModal();

@@ -19,6 +19,17 @@ const busquedaSupervisor = async(req,res) => {
     }
 }
 
+const verificarSupervisorID = async(req,res)=>{
+    const { id } = req.params;
+    try {
+        const [result] = await db.query('SELECT * FROM usuarios WHERE Identificacion_Usuario = ?', [id]);
+        res.json(result[0] || {});
+    } catch (error) {
+        console.log(`Error al verificar el usuario.: ${error}`);
+        res.status(500).json({ error: 'Error al verificar el usuario.' });
+    }
+}
+
 const crearSupervisor = async(req,res) => {
     const {id,nombre,apellido,contrasena} = req.body;
 
@@ -37,5 +48,6 @@ const crearSupervisor = async(req,res) => {
 
 module.exports = {
     busquedaSupervisor,
-    crearSupervisor
+    crearSupervisor,
+    verificarSupervisorID
 }
