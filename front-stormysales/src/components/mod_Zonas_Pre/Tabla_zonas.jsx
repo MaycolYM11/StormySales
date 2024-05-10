@@ -32,14 +32,14 @@ function Tabla_zonas() {
 
   return (
     <>
-      <div>
-      </div>
-      <div className='Buscar'>
-        <input type="text" id="buscar" name="buscar" className='text_cuadro' placeholder="Buscar..."/>
-        <button type="button" id="botonBuscar" className='botonBuscar'>Buscar</button>
-      </div>
-      <div className='teush'>
-        <button type="button" className="botonAgre" id="lanzar-modal" name="agregar" onClick={abrirFormularioRegistro}><i class="biNuevaRuta bi-flag"></i> Nueva ruta</button>
+      <div className='BotonesSuperior'>
+          <div className='Buscar'>
+            <input type="text" id="buscar" name="buscar" className='text_cuadro' placeholder="Buscar..."/>
+            <button type="button" id="botonBuscar" className='botonBuscar'>Buscar</button>
+          </div>
+          <div className='BotonNuru'>
+            <button type="button" className="botonAgre" id="lanzar-modal" name="agregar" onClick={abrirFormularioRegistro}><i class="biNuevaRuta bi-flag"></i> Nueva ruta</button>
+          </div>
       </div>
       <div className='main-container'>
         <hr/>
