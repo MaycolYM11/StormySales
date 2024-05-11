@@ -81,7 +81,7 @@ const desactivarEstadoSupervisor = async (req,res) =>{
 
     try {
         const query=`select Estado_Usuario as estado from usuarios where Rol_Usuario = 1;`;
-        const [result]  = await db.query (query);
+        const [result] = await db.query (query);
 
         console.log(result);
 

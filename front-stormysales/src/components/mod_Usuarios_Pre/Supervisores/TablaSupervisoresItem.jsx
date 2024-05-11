@@ -9,18 +9,20 @@ export const TablaAdminItem = (props) => {
     const [mostrarEditForm , setMostrarEditForm] = useState(false);
     const [estado,setEstado] = useState(parseInt(props.idEstado));
 
+    console.log('mira voz el estados',estado);
+
     const ponerTexto = () =>{
         console.log('estado actualmente',estado);
-        if(estado === 1){
+        if(estado === 2){
             setTextoActivar('Desactivar');
-        } else if (estado === 0) {
+        } else if (estado === 1) {
             setTextoActivar('Activar');
         }
     }
 
     useEffect(() => {
         ponerTexto();
-    }, []);
+    },[]);
 
     const handleMostrarEdit = () => {
         setMostrarEditForm(!mostrarEditForm);
@@ -38,28 +40,28 @@ export const TablaAdminItem = (props) => {
             toast: true
         }).then(async response => {
             if (response.isConfirmed) {
-                if (estado === 1 || estado === '1') {
-                    setEstado(0);
-                } else if (estado === 0 || estado === '0') {
+                if (estado === 2 || estado === '2') {
                     setEstado(1);
+                } else if (estado === 1 || estado === '1') {
+                    setEstado(2);
                 }
 
                 try {
-                    if(estado===1){
-                        await axios.put(`http://localhost:3001/usuario/activarestadoadmin/${val.id}`, {
+                    if(estado===2){
+                        await axios.put(`http://localhost:3001/usuario/activarsupervisor/${val.id}`, {
                         "state": estado
                         }).then(()=>{
                             Swal.fire({
                                 title: "Actualizado!",
-                                text: `Se cambio el estadp del Gerente ${val.name1}`,
+                                text: `Se cambio el estadp del Gerente ${val.name}`,
                                 icon: "success"
                             });
                             props.consulta();
                             ponerTexto();
                             console.log(estado);
                         })
-                    }else if(estado===0){
-                        await axios.put(`http://localhost:3001/usuario/desactivarestadoadmin/${val.id}`, {
+                    }else if(estado===1){
+                        await axios.put(`http://localhost:3001/usuario/desactivarsupervisor/${val.id}`, {
                         "state": estado
                         }).then((response)=>{
                             if(response.data.continue){
@@ -73,12 +75,12 @@ export const TablaAdminItem = (props) => {
                                 console.log(estado);
                             }else{
                                 Swal.fire({
-                                    title: "Actualizado!",
+                                    title: "No Actualizado!",
                                     text: `No se cambio el estado del Gerente ${val.name1}`,
                                     icon: "error"
                                 });
                                 props.consulta();
-                                setEstado(1);
+                                // setEstado(1);
                                 console.log(estado);
                             }
                             
