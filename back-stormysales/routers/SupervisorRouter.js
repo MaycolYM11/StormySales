@@ -10,4 +10,8 @@ rutaDatos.post('/postsupervisor',datosController.crearSupervisor);
 
 rutaDatos.put('/putsupervisor/:id',datosController.editarSupervisor);
 
+rutaDatos.put('/activarsupervisor/:id',datosController.activarEstadoSupervisor);
+
+rutaDatos.put('/desactivarsupervisor/:id',datosController.desactivarEstadoSupervisor);
+
 module.exports = rutaDatos;
