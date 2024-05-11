@@ -4,7 +4,7 @@ import Swal from 'sweetalert2';
 
 const EditSupervisor = ({ closeModal, datos, consulta }) => {
     const [name, setName] = useState(datos.name);
-    
+    const [password,setPassword] = useState(datos.contrasena);
     const [lastname, setLastname] = useState(datos.lastname);
     
     // const [cel, setCel] = useState(datos.tel);
@@ -12,12 +12,12 @@ const EditSupervisor = ({ closeModal, datos, consulta }) => {
 
     const editarRegistro = async (x) => {
         try {
-            const response = await axios.put(`http://localhost:3001/usuario/Update/${x}`, {
+            const response = await axios.put(`http://localhost:3001/usuario/putsupervisor/${x}`, {
                 nombre: name,
                 apellido: lastname,
                 // cel: cel,
                 // email: email,
-                contrasena: datos.contrasena
+                contrasena: password
             });
             console.log(response.data);
             consulta(); 
@@ -101,6 +101,36 @@ const EditSupervisor = ({ closeModal, datos, consulta }) => {
         return con;
     }
 
+    function Verificar_password(){
+        const Inpassword = document.getElementById('password').value;
+    
+        let con=true;
+    
+        if(Inpassword.length < 8){
+            /*document.write('La contraseña debe ser mayor a 8 caracteres para preservar la seguridad');*/
+            document.getElementById('wrongpass').innerHTML='La contraseña debe ser mayor a 8 caracteres para preservar la seguridad';
+            con=false;
+        }else{
+            document.getElementById('wrongpass').innerHTML='';
+        }
+        return con;
+    }
+    
+    function Verificar_passwordcheck(){
+        const Inpassword = document.getElementById('password').value;
+        const Inpasswordchek = document.getElementById('passwordcheck').value;
+    
+        let con=true;
+    
+        if(Inpassword !== Inpasswordchek){
+            /*document.write('Las contraseñas no son identicas');*/
+            document.getElementById('wrongcheck').innerHTML='Las contraseñas no son identicas';
+            con=false;
+        }else{
+            document.getElementById('wrongcheck').innerHTML='';
+        }
+        return con;
+    }
 
     function Verificar_registro(){
 
@@ -126,6 +156,16 @@ const EditSupervisor = ({ closeModal, datos, consulta }) => {
             /*console.log(con);*/
         }
 
+        if(!Verificar_password()){
+            /*document.write('Las contraseñas no son identicas');*/
+            con=false;
+            /*console.log(con);*/
+        }
+        if(!Verificar_passwordcheck()){
+            /*document.write('Las contraseñas no son identicas');*/
+            con=false;
+            /*console.log(con);*/
+        }
 
         console.log(con);
         if(con){
@@ -177,8 +217,16 @@ const EditSupervisor = ({ closeModal, datos, consulta }) => {
                     <input readOnly className='input-form' type="text" name="numid" id="numid" value={datos.id} onBlur={Verificar_id} />
                     <p id="wrongid"></p>
                 </span>
-                
-                
+                <span>
+                    <label for="password">Contraseña</label>
+                    <input className='input-form' type="password" name="password" id="password" placeholder="Contraseña" value={password} onKeyUp={Verificar_password} onBlur={Verificar_password} onChange={(e) => setPassword(e.target.value)}/>
+                    <p id="wrongpass"></p>
+                </span>
+                <span>
+                    <label for="passwordcheck">Confirmar Contraseña</label>
+                    <input className='input-form' type="password" name="passwordcheck" id="passwordcheck" placeholder="Confirmar" onKeyUp={Verificar_passwordcheck} onBlur={Verificar_passwordcheck} />
+                    <p id="wrongcheck"></p>
+                </span>
                 <span>
                     <br/>
                     <button type="button" name="submit" id="submit" class="boton b4" onClick={Verificar_registro}>Guardar Cambios</button>

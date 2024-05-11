@@ -46,8 +46,34 @@ const crearSupervisor = async(req,res) => {
     }
 }
 
+const editarSupervisor = async(req,res)=>{
+    const {id} = req.params;
+    const {nombre,apellido,contrasena}=req.body;
+    
+    try {
+        const query = `update usuarios set nombre= ?,Apellido= ?,Contrasena= ? where Identificacion_Usuario= ?;`;
+        await db.query(query,[nombre,apellido,contrasena,id]);
+        res.json({message: 'Actualizacion done'});
+    } catch (error) {
+        
+    }
+}
+
+const eliminarSupervisor = async(req,res)=>{
+    const {id} = req.params;
+    const {state} = req.body;
+    let cont = 0;
+
+    try {
+        const query = ``
+    } catch (error) {
+        
+    }
+}
+
 module.exports = {
     busquedaSupervisor,
     crearSupervisor,
-    verificarSupervisorID
+    verificarSupervisorID,
+    editarSupervisor
 }

@@ -8,6 +8,6 @@ rutaDatos.get('/verifyidsupervisor/:id',datosController.verificarSupervisorID);
 
 rutaDatos.post('/postsupervisor',datosController.crearSupervisor);
 
-
+rutaDatos.put('/putsupervisor/:id',datosController.editarSupervisor);
 
 module.exports = rutaDatos;
