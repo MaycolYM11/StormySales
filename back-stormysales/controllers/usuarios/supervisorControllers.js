@@ -66,11 +66,11 @@ const activarEstadoSupervisor = async (req,res) =>{
     try {
         const query = `UPDATE usuarios SET Estado_Usuario = ? WHERE Identificacion_Usuario = ? ;`;
         await db.query(query,[state,id]);
-        res.json({message: "Estado cambiado"})
+        res.json({message: "Estado cambiado",continue:true})
         console.log(`Estado cambiado`);
       } catch (error) {
         console.error('Edsado no cambiado',error);
-        res.json({message:`Estado no cambiado, ${error}`});
+        res.json({message:`Estado no cambiado, ${error}`,continue:false});
       }
 }
 
@@ -94,10 +94,10 @@ const desactivarEstadoSupervisor = async (req,res) =>{
             try {
                 const desquery = `UPDATE usuarios SET Estado_Usuario = ? WHERE Identificacion_Usuario = ?;`;
                 db.query(desquery,[state,id])
-                res.json({message:'Desactivacion completa'})
+                res.json({message:'Desactivacion completa',continue:true})
             } catch (error) {
                 console.log('Estado no cambiado',error);
-                res.json({message:`Estado no cambiado, ${error}`})
+                res.json({message:`Estado no cambiado, ${error}`,continue:false})
             }
         }else{
             res.json({message: `NO SE PUEDE desactivar porque no hay mas supervisores activos`,continue:false});
