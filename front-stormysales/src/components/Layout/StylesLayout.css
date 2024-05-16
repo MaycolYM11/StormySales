@@ -1,14 +1,33 @@
 @import url(../../styles/ColorsAll.css);
 
 .Main_ContentPages {
-    width: auto;
-    height: auto;
-    margin-left: 230px;
-    padding: 20px;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
     color: var(--Main-Text-01);
+    overflow: auto;
+}
+
+.home_Container.fullHeight {
+    height: 100%;
+    width: 100%; 
 }
 
 .fullContainerSistem {
-    background-image: url("data:image/svg+xml,<svg id='patternId' width='100%' height='100%' xmlns='http://www.w3.org/2000/svg'><defs><pattern id='a' patternUnits='userSpaceOnUse' width='120' height='20' patternTransform='scale(1) rotate(145)'><rect x='0' y='0' width='100%' height='100%' fill='hsla(225, 11%, 21%, 1)'/><path d='M-50.129 12.685C-33.346 12.358-16.786 4.918 0 5c16.787.082 43.213 10 60 10s43.213-9.918 60-10c16.786-.082 33.346 7.358 50.129 7.685'  stroke-width='4' stroke='hsla(222, 11%, 18%, 1)' fill='none'/></pattern></defs><rect width='800%' height='800%' transform='translate(0,0)' fill='url(%23a)'/></svg>");
-    background-size: 100%;
+    display: flex;
+    height: 100vh; 
+    overflow: hidden;
+}
+
+.SideMenuLayout {
+    width: 240px;
+    background-color: red;
+    flex: 0 0 auto; 
+}
+
+.Main_ContentPages {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
 }

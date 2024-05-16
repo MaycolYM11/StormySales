@@ -14,10 +14,12 @@ import Informes from '../../components/mod_Informes_pre/Main_Informes_Pre';
 const MainLayout = () => {
   return (
     <div className='fullContainerSistem'>
-      <SideMenu />
+      <div className='SideMenuLayout'>
+        <SideMenu />
+      </div>
       <div className="Main_ContentPages">
-         <Routes>
-          <Route path="/inicio" element={<Inicio />} />
+        <Routes>
+          <Route path="/inicio" element={<Inicio className="fullHeight" />} />
           <Route path="/gestion-usuarios" element={<GestionUsuarios />} />
           <Route path="/facturacion" element={<Facturacion />} />
           <Route path="/zonas" element={<Zonas />} />

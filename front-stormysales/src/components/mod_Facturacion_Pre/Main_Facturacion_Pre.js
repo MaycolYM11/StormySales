@@ -1,9 +1,10 @@
 import React from 'react'
+import FacturaTop from './FacturaTop.jsx'
 
 const Main_Facturacion_Pre = () => {
   return (
-    <div>
-      Main_Facturacion_Pre
+    <div className='containerFactura'>
+      <FacturaTop />
     </div>
   )
 }
