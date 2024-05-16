@@ -1,5 +1,5 @@
 import React from 'react'
-import FacturaTop from './FacturaTop.jsx'
+import FacturaTop from './FacturaTop'
 
 const Main_Facturacion_Pre = () => {
   return (

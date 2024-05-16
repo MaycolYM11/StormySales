@@ -9,7 +9,6 @@ const facturaTop = () => {
             <span>#0001</span>
         </div>
         <div className="facturaMain-info">
-
         </div>
       </div>
     </div>
