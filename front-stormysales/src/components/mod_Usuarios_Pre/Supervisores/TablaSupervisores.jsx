@@ -39,7 +39,6 @@ function TablaSupervisores() {
       </div>
       <div className='main-container'>
         <hr />
-        <div className='table-container'>
           <div className="option-container">
             <form className="form">
               <div className='buscar'>
@@ -52,11 +51,12 @@ function TablaSupervisores() {
               <RegisterAdmin isOpen={registerform} closeModal={handleRegisterFormClose} reConsulta={actualizarTabla} />
             </form>
           </div>
+        <div className='table-container'>
 
           <section className="table__body">
             <table className='tabla'>
               <thead>
-                <tr>
+                <tr className='cabeza'>
                   <td>Nombre</td>
                   <td>Id</td>
                   <td>Estado</td>

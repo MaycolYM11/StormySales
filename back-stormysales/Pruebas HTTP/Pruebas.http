@@ -2,6 +2,10 @@
 GET http://localhost:3001/usuario/getsupervisor HTTP/1.1
 
 ###
+GET http://localhost:3001/usuario/barrabusqueda//jhon HTTP/1.1
+
+
+###
 GET http://localhost:3001/usuario/verifyidsupervisor/1112223 HTTP/1.1
 
 ###

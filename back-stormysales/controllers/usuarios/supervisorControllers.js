@@ -19,6 +19,36 @@ const busquedaSupervisor = async(req,res) => {
     }
 }
 
+const buquedaSingularId = async(req, res) => {
+    const {id,nombre} = req.params;
+    try {
+        const query = `SELECT 
+        Identificacion_Usuario AS id,
+        nombre,
+        Apellido,
+        Rol_Usuario,
+        Estado_Usuario AS id_estado,
+        e.Nombre_estado,
+        Contrasena 
+    FROM 
+        usuarios u
+    INNER JOIN 
+        Estado e ON u.Estado_Usuario = e.ID_estado
+    WHERE 
+        Rol_Usuario = 1
+        AND (
+            Identificacion_Usuario = COALESCE(NULLIF(?, ''), Identificacion_Usuario)
+            OR nombre = COALESCE(NULLIF(?, ''), nombre)
+        );`
+
+        const [result] = await db.query(query,[id || '',nombre || '']);
+        res.json(result);
+    } catch (error) {
+        console.log(`fail en la busqueda, ${error}`)
+        res.json({message:`fail en la busqueda, ${error}`});
+    }
+}
+
 const verificarSupervisorID = async(req,res)=>{
     const { id } = req.params;
     try {
@@ -115,5 +145,6 @@ module.exports = {
     verificarSupervisorID,
     editarSupervisor,
     activarEstadoSupervisor,
-    desactivarEstadoSupervisor
+    desactivarEstadoSupervisor,
+    buquedaSingularId
 }

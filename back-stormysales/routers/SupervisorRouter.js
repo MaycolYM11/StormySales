@@ -4,6 +4,8 @@ const rutaDatos = express.Router();
 
 rutaDatos.get('/getsupervisor',datosController.busquedaSupervisor);
 
+rutaDatos.get('/barrabusqueda/:id/:nombre',datosController.buquedaSingularId);
+
 rutaDatos.get('/verifyidsupervisor/:id',datosController.verificarSupervisorID);
 
 rutaDatos.post('/postsupervisor',datosController.crearSupervisor);

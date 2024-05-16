@@ -37,30 +37,33 @@ export const TablaAdminItem = (props) => {
             toast: true
         }).then(async response => {
             if (response.isConfirmed) {
-                const newEstado = estado === 2 ? 1 : 2;
+                let newEstado = estado === 2 ? 1 : 2;
                 try {
                     const apiUrl = `http://localhost:3001/usuario/${newEstado === 2 ? 'activarsupervisor' : 'desactivarsupervisor'}/${val.id}`;
-                    const result = await axios.put(apiUrl, { "state": newEstado });
-                    
-                    if (result.data.continue || newEstado === 2) {
-                        Swal.fire({
-                            title: "Actualizado!",
-                            text: `Se cambio el estado del Gerente ${val.name}`,
-                            icon: "success"
-                        });
-                    }else if (result.data.continue || newEstado === 1) {
+                    await axios.put(apiUrl, { "state": newEstado })
+                    .then(result => {
+                        if (result.data.continue && newEstado === 2) {
                             Swal.fire({
                                 title: "Actualizado!",
                                 text: `Se cambio el estado del Gerente ${val.name}`,
                                 icon: "success"
                             });
-                    }else {
-                        Swal.fire({
-                            title: "No Actualizado!",
-                            text: `No se cambio el estado del Gerente ${val.name1}`,
-                            icon: "error"
-                        });
-                    }
+                        }else if (result.data.continue && newEstado === 1) {
+                                Swal.fire({
+                                    title: "Actualizado!",
+                                    text: `Se cambio el estado del Gerente ${val.name}`,
+                                    icon: "success"
+                                });
+                        }else {
+                            Swal.fire({
+                                title: "No Actualizado!",
+                                text: `No se cambio el estado del Gerente ${val.name1}`,
+                                icon: "error"
+                            });
+                        }
+                    })
+                    
+                    
                     
                     setEstado(newEstado);
                     props.consulta();
@@ -74,16 +77,16 @@ export const TablaAdminItem = (props) => {
     return (
         <>
             <tr>
-                <td>
-                    <h3>{props.name + " " + props.lastname}</h3>
+                <td classname="columna__id">
+                    <h3 id='id'>{props.id}</h3>
                 </td>
-                <td>
-                    <h3>{props.id}</h3>
+                <td classname="columna__names">
+                    <h3 id='names'>{props.name + " " + props.lastname}</h3>
                 </td>
-                <td>
-                    <h3>{props.estado}</h3>
+                <td classname="columna__state">
+                    <h3 className=''>{props.estado}</h3>
                 </td>
-                <td>
+                <td classname="columna__acciones">
                     <button type="button" id="edit" name="edit" className="boton b1" onClick={handleMostrarEdit}>Editar</button>
                     <button type="button" id="delete" name="delete" className="boton b2" onClick={() => confirmDelete(props)}>{textoActivar}</button>
                 </td>
