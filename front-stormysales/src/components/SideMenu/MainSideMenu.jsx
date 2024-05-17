@@ -3,7 +3,6 @@ import './stylesSideMenu.css';
 import ImgenLogo from '../../assets/Logo/Logo_SideMenu.png';
 import { Link } from 'react-router-dom';
 
-
 const MainSideMenu = () => {
     const [subMenusOpen, setSubMenusOpen] = useState({
         gestionUsuarios: false,
