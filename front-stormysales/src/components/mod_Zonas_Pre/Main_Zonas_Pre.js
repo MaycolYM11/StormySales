@@ -1,9 +1,10 @@
 import React from 'react'
+import Tabla_zonas from './Tabla_zonas';
 
 const Main_Zonas_Pre = () => {
   return (
     <div>
-      Main_Zonas_Pre
+      <Tabla_zonas/>
     </div>
   )
 }

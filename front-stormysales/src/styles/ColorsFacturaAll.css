@@ -1,0 +1,24 @@
+:root{
+
+    /*Cards*/
+    --BG-01-Cards: #3d414c;
+    --TxT-Color-01: #9a98ff;
+    --TxT-Color-02: #ffffff;
+    --TxT-Color-03: #aeb5c8;
+
+    /*BTNS*/
+    --BtN-Color-BG-01: #e06c9f;
+    --BtN-Color-BG-02: #e0826c;
+    --BtN-Color-BG-03: #72b9c3;
+    --BtN-Color-BG-04: #6663fe;
+
+    /*Table*/
+    --Table-BG-Color: #3d414c;
+    --Table-Actions-BG-Color: #474c58;
+    --Table-Actions-Icons-Color: #aebbda;
+    --Table-Actions-BG-Icons-Color: #3d414c;
+    --Separador-Actions: #282b32;
+
+    /* RIGHT Content */
+    --Right-BG-Color: #282b32;
+}

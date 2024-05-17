@@ -2,11 +2,19 @@
 
 
 .background-pattern {
-    margin-top: 200px;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("data:image/svg+xml,<svg id='patternId' width='100%' height='100%' xmlns='http://www.w3.org/2000/svg'><defs><pattern id='a' patternUnits='userSpaceOnUse' width='120' height='20' patternTransform='scale(1) rotate(145)'><rect x='0' y='0' width='100%' height='100%' fill='hsla(225, 11%, 21%, 1)'/><path d='M-50.129 12.685C-33.346 12.358-16.786 4.918 0 5c16.787.082 43.213 10 60 10s43.213-9.918 60-10c16.786-.082 33.346 7.358 50.129 7.685'  stroke-width='4' stroke='hsla(222, 11%, 18%, 1)' fill='none'/></pattern></defs><rect width='800%' height='800%' transform='translate(0,0)' fill='url(%23a)'/></svg>");
+    background-size: 100%;
 }
 
-.home_Container,
-.home_Container--Center {
+.home_Container{
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
     z-index: 10;
     color: white;
     display: flex;
@@ -40,12 +48,12 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;   
+    justify-content: center;
     background-color: var(--Home-Container-BG);
     border-radius: 15px;
     width: 550px;
     padding: 15px;
-    margin-bottom: 40px; 
+    margin-bottom: 40px;
 }
 
 .TittleHome_Text,
@@ -64,11 +72,11 @@
 }
 
 /* RESUMENES ---------------> */
-.resumenesHome_Container{
+.resumenesHome_Container {
     display: flex;
 }
 
-.resumenContent{
+.resumenContent {
     display: flex;
     flex-direction: column;
     min-width: 110px;
@@ -82,7 +90,7 @@
 }
 
 /* Icons */
-.iconResumen{
+.iconResumen {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -94,32 +102,33 @@
     margin-bottom: 10px;
 }
 
-.iconResumen i{    
+.iconResumen i {
     font-size: 18px;
     font-weight: bold;
 }
 
-.vendedoresIcon{
+.vendedoresIcon {
     background-color: var(--Home-BG-01);
 }
 
-.ClientesIcon{
+.ClientesIcon {
     background-color: var(--Home-BG-02);
 }
 
-.RutasIcon{
+.RutasIcon {
     background-color: var(--Home-BG-03);
 }
 
-.VentasIcon{
+.VentasIcon {
     background-color: var(--Home-BG-04);
 }
 
 /* Tittles */
-.titleResumenHome{
+.titleResumenHome {
     font-weight: bold;
 }
-.contadorHome{
+
+.contadorHome {
     opacity: 60%;
     word-wrap: break-word;
 }
