@@ -1,5 +1,10 @@
 @import url(../../styles/ColorsAll.css);
 
+Link {
+    text-decoration: none;
+    color: inherit
+}
+
 .containerSideMenu {
     position: fixed;
     top: 0;
@@ -254,20 +259,25 @@
 /* Scroll bar -----------> */
 /* Estilo de la barra de desplazamiento */
 .container_Menu::-webkit-scrollbar {
-    width: 8px; /* Ancho de la barra de desplazamiento */
+    width: 8px;
+    /* Ancho de la barra de desplazamiento */
 }
 
 /* Estilo del riel de la barra de desplazamiento */
 .container_Menu::-webkit-scrollbar-track {
-    background: #31343d; /* Color del riel */
-    border-radius: 4px; /* Borde redondeado del pulgar */
+    background: #31343d;
+    /* Color del riel */
+    border-radius: 4px;
+    /* Borde redondeado del pulgar */
     margin: 8px 0;
 }
 
 /* Estilo del pulgar de la barra de desplazamiento */
 .container_Menu::-webkit-scrollbar-thumb {
-    background: #3d424e; /* Color del pulgar */
-    border-radius: 4px; /* Borde redondeado del pulgar */
+    background: #3d424e;
+    /* Color del pulgar */
+    border-radius: 4px;
+    /* Borde redondeado del pulgar */
 }
 
 /* Cambiar el color del pulgar en estado hover */

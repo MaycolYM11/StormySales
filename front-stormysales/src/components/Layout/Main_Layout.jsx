@@ -15,10 +15,12 @@ import TablaSupervisores from '../mod_Usuarios_Pre/Supervisores/TablaSupervisore
 const MainLayout = () => {
   return (
     <div className='fullContainerSistem'>
-      <SideMenu />
+      <div className='SideMenuLayout'>
+        <SideMenu />
+      </div>
       <div className="Main_ContentPages">
         <Routes>
-          <Route path="/inicio" element={<Inicio />} />
+          <Route path="/inicio" element={<Inicio className="fullHeight" />} />
           <Route path="/gestion-usuarios" element={<GestionUsuarios />} />
           <Route path="/supervisores" element={<TablaSupervisores />} />
           <Route path="/facturacion" element={<Facturacion />} />

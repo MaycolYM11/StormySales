@@ -1,0 +1,140 @@
+@import url(../../styles/ColorsFacturaAll.css);
+
+.factura_header--Container {
+    display: flex;
+    width: auto;
+}
+
+.facturaTop_Top-Lef--Container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-grow: 1;
+}
+
+.Factura_top-left,
+.Factura-Cliente_top-left {
+    display: flex;
+    padding: 20px;
+    width: 490px;
+    height: auto;
+    background-color: var(--BG-01-Cards);
+    border-radius: 15px;
+    box-shadow: 0px 0px 15px 0px rgba(15, 16, 23, 0.2);
+    transition: all .5s ease;
+}
+
+.Factura_top-left{    
+    margin-bottom: 20px;
+}
+
+.grupDiv_Factura-Right,
+.grupDiv_Factura-Left {
+    display: flex;
+    flex-direction: column;
+    margin-left: 5px;
+}
+
+.grupDiv_Factura-Left {
+    margin-left: 35px;
+}
+
+.tittleGrup_Factura,
+.resultGrup_Factura {
+    font-size: 15px;
+    margin-bottom: 5px;
+}
+
+.tittleGrup_Factura {
+    color: var(--TxT-Color-01);
+}
+
+.resultGrup_Factura {
+    color: var(--TxT-Color-02);
+}
+
+/* RIGHT HEADER */
+.facturaTop_Top-Right--Container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-left: 20px;
+}
+
+.tittlesFactura-TopRight {
+    display: flex;
+}
+
+.ID_Factura--Top-Right,
+.FacturaTittle--TopRight {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    height: auto;
+    background-color: var(--BG-01-Cards);
+    border-radius: 15px;
+    box-shadow: 0px 0px 15px 0px rgba(15, 16, 23, 0.2);
+    margin-bottom: 20px;
+    transition: all .5s ease;
+}
+
+.ID_Factura--Top-Right {
+    width: 35%;
+}
+
+.FacturaTittle--TopRight {
+    width: 65%;
+    margin-left: 20px;
+}
+
+.tittleGrup_Factura--ID {
+    color: var(--TxT-Color-01);
+    font-weight: 500;
+    font-size: 50px;
+}
+
+.Factura_Empleado--top-right {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: auto;
+    height: 100%;
+    background-color: var(--BG-01-Cards);
+    border-radius: 15px;
+    box-shadow: 0px 0px 15px 0px rgba(15, 16, 23, 0.2);
+    transition: all .5s ease;
+}
+
+.logoMini--Tittle-factura {
+    width: 50px;
+    height: 50px;
+    margin-right: 20px;
+}
+
+.Factura--Tittle {
+    color: var(--TxT-Color-01);
+    font-size: 50px;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.Factura_Empleado--top-right .grupDiv_Factura-Right .tittleGrup_Factura,
+.Factura_Empleado--top-right .grupDiv_Factura-Left .resultGrup_Factura {
+    margin-left: 20px;
+    font-size: 18px;
+}
+
+.separador__Factura-TopRight{
+    margin: 10px 0;
+    width: 100%;
+    height: 2px;
+    background-color: var(--Right-BG-Color);
+}
+
+.EmpleadoFactura--TopRight,
+.ClienteFactura--TopRight {
+    display: flex;
+}
