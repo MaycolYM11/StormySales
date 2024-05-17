@@ -42,28 +42,21 @@ export const TablaAdminItem = (props) => {
                     const apiUrl = `http://localhost:3001/usuario/${newEstado === 2 ? 'activarsupervisor' : 'desactivarsupervisor'}/${val.id}`;
                     await axios.put(apiUrl, { "state": newEstado })
                     .then(result => {
-                        if (result.data.continue && newEstado === 2) {
+                        if (result.data.continue) {
                             Swal.fire({
                                 title: "Actualizado!",
                                 text: `Se cambio el estado del Gerente ${val.name}`,
                                 icon: "success"
                             });
-                        }else if (result.data.continue && newEstado === 1) {
-                                Swal.fire({
-                                    title: "Actualizado!",
-                                    text: `Se cambio el estado del Gerente ${val.name}`,
-                                    icon: "success"
-                                });
-                        }else {
+                        } else {
                             Swal.fire({
                                 title: "No Actualizado!",
-                                text: `No se cambio el estado del Gerente ${val.name1}`,
+                                text: `No se cambio el estado del Gerente ${val.name}`,
                                 icon: "error"
                             });
+                            newEstado = 2;
                         }
                     })
-                    
-                    
                     
                     setEstado(newEstado);
                     props.consulta();
@@ -77,16 +70,16 @@ export const TablaAdminItem = (props) => {
     return (
         <>
             <tr>
-                <td classname="columna__id">
+                <td className="columna__id">
                     <h3 id='id'>{props.id}</h3>
                 </td>
-                <td classname="columna__names">
+                <td className="columna__names">
                     <h3 id='names'>{props.name + " " + props.lastname}</h3>
                 </td>
-                <td classname="columna__state">
-                    <h3 className=''>{props.estado}</h3>
+                <td className="columna__state">
+                    <h3 className={props.idEstado === 2 ? 'active' : 'inactive' } >{props.estado}</h3>
                 </td>
-                <td classname="columna__acciones">
+                <td className="columna_acciones" id='columna_acciones'>
                     <button type="button" id="edit" name="edit" className="boton b1" onClick={handleMostrarEdit}>Editar</button>
                     <button type="button" id="delete" name="delete" className="boton b2" onClick={() => confirmDelete(props)}>{textoActivar}</button>
                 </td>

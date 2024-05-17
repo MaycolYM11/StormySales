@@ -57,10 +57,10 @@ function TablaSupervisores() {
             <table className='tabla'>
               <thead>
                 <tr className='cabeza'>
-                  <td>Nombre</td>
                   <td>Id</td>
+                  <td>Nombre</td>
                   <td>Estado</td>
-                  <td>Acciones</td>
+                  <td className='columna_acciones' id='columna_acciones'>Acciones</td>
                 </tr>
               </thead>
               <tbody>
