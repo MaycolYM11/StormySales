@@ -5,10 +5,11 @@ import MainLayout from './components/Layout/Main_Layout.jsx';
 
 const App = () => {
   return (
+
     <BrowserRouter>
       <MainLayout />  
     </BrowserRouter>
-      
+    
   );
 }
 

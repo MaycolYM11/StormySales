@@ -32,7 +32,7 @@ const MainSideMenu = () => {
                     </div>
                     {/* Opción de Inicio */}
                     <div className="container_Menu">
-                        <div className='optionContainer'>
+                        <Link to='/inicio' ><div className='optionContainer'>
                             <div className="containerMenu--BTN">
                                 <div className="iconMenu">
                                     <i className="bi bi-house-heart-fill"></i>
@@ -43,7 +43,7 @@ const MainSideMenu = () => {
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div></Link>
 
                         {/* Opción de Gestión de Usuarios */}
                         <div className={`optionContainer ${subMenusOpen.gestionUsuarios ? 'clicBTN' : ''}`} onClick={() => toggleSubMenu('gestionUsuarios')}>
@@ -61,10 +61,14 @@ const MainSideMenu = () => {
                                 </div>
                             </div>
                             <div className={`subMenu--BTN ${subMenusOpen.gestionUsuarios ? 'activeSubMenu' : ''}`}>
-                                <div className="option_SubMenu" onClick={handleSubMenuClick}>
+                                <Link to='/supervisores' ><div className="option_SubMenu" onClick={handleSubMenuClick}>
                                     <div className="point_SubMenu"></div>
-                                    <span className='text_SubMenu'>Empleados</span>
-                                </div>
+                                    <span className='text_SubMenu'>Supervisores</span>
+                                </div></Link>
+                                <Link to='/vendedores' ><div className="option_SubMenu" onClick={handleSubMenuClick}>
+                                    <div className="point_SubMenu"></div>
+                                    <span className='text_SubMenu'>Vendedores</span>
+                                </div></Link>
                                 <div className="option_SubMenu" onClick={handleSubMenuClick}>
                                     <div className="point_SubMenu"></div>
                                     <span className='text_SubMenu'>Clientes</span>
@@ -115,12 +119,10 @@ const MainSideMenu = () => {
                                 </div>
                             </div>
                             <div className={`subMenu--BTN ${subMenusOpen.zonas ? 'activeSubMenu' : ''}`}>
-                                <Link to='/zonas'>
                                 <div className="option_SubMenu" onClick={handleSubMenuClick}>
                                     <div className="point_SubMenu"></div>
                                     <span className='text_SubMenu'>Gestión de Zona</span>
                                 </div>
-                                </Link>
                             </div>
                         </div>
 
