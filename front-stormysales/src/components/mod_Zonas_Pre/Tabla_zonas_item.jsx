@@ -6,62 +6,53 @@ import axios from 'axios';
 export const Tabla_zonas_item = ({ consulta, ...props }) => {
 
     const [estado, setEstado] = useState(props.Estado_zona === 'Activo' ? 1 : 0);
-    const [textoActivar, setTextoActivar] = useState(props.Estado_zona === 'Activo' ? 'Desactivar' : 'Activar');
-    const [mostrarEditForm, setMostrarEditForm] = useState(false); 
+    const [mostrarEditForm, setMostrarEditForm] = useState(false);
 
     useEffect(() => {
-        ponerTexto();
-    }, [estado]);
-
-    const ponerTexto = () => {
-        if (estado === 1) {
-            setTextoActivar('Desactivar');
-        } else if (estado === 0) {
-            setTextoActivar('Activar');
-        }
-    }
+        // Actualiza el estado del botón según el estado recibido
+        setEstado(props.Estado_zona === 'Activo' ? 1 : 0);
+    }, [props.Estado_zona]);
 
     const handleMostrarEdit = () => {
         setMostrarEditForm(!mostrarEditForm);
     }
 
-    function confirmDelete(val) {
-        let newEstado;
-        if (estado === 1) {
-            newEstado = 0;
-        } else if (estado === 0) {
-            newEstado = 1;
-        }
+    const confirmEstado = async (val) => {
+        const newEstado = estado === 1 ? 0 : 1; // Cambia el estado actual
 
         Swal.fire({
             icon: 'warning',
             title: '<h2 style="color:yellow">¿Desea Cambiar de estado este registro?</h2>',
             background: '#252327',
             confirmButtonColor: '#f2bb15',
-            confirmButtonText: textoActivar, 
+            confirmButtonText: newEstado === 1 ? 'Desactivar' : 'Activar', 
             showCancelButton: true,
             cancelButtonText: 'Cancelar',
             toast: true
-        }).then(async response => {
+        }).then(async (response) => {
             if (response.isConfirmed) {
                 try {
-                    await axios.put(`http://localhost:3001/zonas/rutas/${val.Id_zona}`, {
-                        "state": newEstado
-                    }).then(() => {
-                        setEstado(newEstado); 
-                        ponerTexto(); 
-                        Swal.fire({
-                            title: "Actualizado!",
-                            text: `Se cambio el estado del Gerente ${val.Nombre_zona}`,
-                            icon: "success"
-                        });
-                        consulta(); 
-                    })
+                    await axios.put(`http://localhost:3001/zonas/rutas/cambioestadorutas/${val.Id_zona}`, {
+                        state: newEstado
+                    });
+
+                    setEstado(newEstado); // Actualiza el estado local
+                    consulta(); // Actualiza la tabla
+                    Swal.fire({
+                        title: "Actualizado!",
+                        text: `Se cambió el estado de la Zona ${val.Nombre_zona}`,
+                        icon: "success"
+                    });
                 } catch (error) {
-                    console.error('no se pudo cambiar de estado en la funcion confirmdelete', error);
+                    console.error('No se pudo cambiar de estado en la función confirmEstado', error);
+                    Swal.fire({
+                        title: "Error!",
+                        text: `No se pudo cambiar el estado de la Zona ${val.Nombre_zona}`,
+                        icon: "error"
+                    });
                 }
             }
-        })
+        });
     }
 
     return (
@@ -74,7 +65,7 @@ export const Tabla_zonas_item = ({ consulta, ...props }) => {
                     <h3>{props.Nombre_zona}</h3>
                 </td>
                 <td>
-                    <h3 className={estado === 1 ? 'activo' : 'inactivo'}>{props.Estado_zona}</h3>
+                    <h3 className={estado === 1 ? 'activo' : 'inactivo'}>{estado === 1 ? 'Activo' : 'Inactivo'}</h3>
                 </td>
                 <td className="Empleado_asignado-column">
                     <h3>{props.Empleado_asignado}</h3>
@@ -86,8 +77,10 @@ export const Tabla_zonas_item = ({ consulta, ...props }) => {
                     <h3>{props.Email}</h3>
                 </td>
                 <td className="actions-column">
-                    <button type="button" id="edit" name="edit" className="botonAC" onClick={handleMostrarEdit}><i class="bi bi-pencil-square"></i></button>
-                    <button type="button" id="delete" name="delete" className="botonAC" onClick={() =>{confirmDelete(props) }}><i class="bi bi-toggles"></i></button>
+                    <button type="button" id="edit" name="edit" className="botonAC" onClick={handleMostrarEdit}><i className="biAct bi-pencil-square"></i></button>
+                    <button type="button" id="delete" name="delete" className="botonAC" onClick={() => confirmEstado(props)}>
+                        <i className="biAct bi-toggles"></i>
+                    </button>
                 </td>
 
             </tr>

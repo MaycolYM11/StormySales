@@ -7,6 +7,9 @@ import axios from 'axios';
 function Tabla_zonas() {
   const [zonas, setZonas] = useState([]);
   const [registerform, setRegisterform] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [searchResults, setSearchResults] = useState([]);
+  const [showNoResults, setShowNoResults] = useState(false);
 
   const consultarZonas = () => {
     axios.get("http://localhost:3001/zonas/rutas")
@@ -22,6 +25,17 @@ function Tabla_zonas() {
     consultarZonas();
   },[]);
 
+  useEffect(() => {
+    const results = zonas.filter(zona => {
+      return (
+        zona.Nombre_zona.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        zona.Id_zona.toString().toLowerCase().includes(searchTerm.toLowerCase())
+      );
+    });
+    setSearchResults(results);
+    setShowNoResults(results.length === 0 && searchTerm !== '');
+  }, [searchTerm, zonas]);
+
   const actualizarTabla = () => {
     consultarZonas();
   };
@@ -34,11 +48,19 @@ function Tabla_zonas() {
     <>
       <div className='BotonesSuperior'>
           <div className='Buscar'>
-            <input type="text" id="buscar" name="buscar" className='text_cuadro' placeholder="Buscar..."/>
-            <button type="button" id="botonBuscar" className='botonBuscar'>Buscar</button>
+            <input 
+              type="text" 
+              id="buscar" 
+              name="buscar" 
+              className='text_cuadro' 
+              placeholder="Buscar..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+            <button type="button" id="botonBuscar" className='botonBuscar'><i class="biBUSCAR bi-search"></i></button>
           </div>
           <div className='BotonNuru'>
-            <button type="button" className="botonAgre" id="lanzar-modal" name="agregar" onClick={abrirFormularioRegistro}><i class="biNuevaRuta bi-flag"></i> Nueva ruta</button>
+            <button type="button" className="botonAgre" id="lanzar-modal" name="agregar" onClick={abrirFormularioRegistro}><i className="biNuevaRuta bi-flag"></i> Nueva ruta</button>
           </div>
       </div>
       <div className='main-container'>
@@ -46,10 +68,6 @@ function Tabla_zonas() {
         <div className='table-container'>
           <div className="option-container">
             <form className="form">
-              <div className='buscar'>
-                <input type="search" id="search" name="search" placeholder="buscar" className='barra-buscar' />
-                <button className='boton b7'>Buscar</button>
-              </div>
             </form>
             <Register_zonas isOpen={registerform} closeModal={()=> setRegisterform(false)} reConsulta={actualizarTabla}/>
           </div>
@@ -68,18 +86,24 @@ function Tabla_zonas() {
                 </tr>
               </thead>
               <tbody>
-                {zonas.map(zona => (
-                  <Tabla_zonas_item 
-                    key={zona.Id_zona}
-                    Id_zona={zona.Id_zona}
-                    Nombre_zona={zona.Nombre_zona}
-                    Empleado_asignado={zona.Empleado_asignado}
-                    Email={zona.Email}
-                    Cantidad_rutas={zona.Cantidad_rutas}
-                    Estado_zona={zona.Estado_zona}
-                    consulta={actualizarTabla}
-                  />
-                ))}
+                {searchResults.length > 0 ? (
+                  searchResults.map(zona => (
+                    <Tabla_zonas_item 
+                      key={zona.Id_zona}
+                      Id_zona={zona.Id_zona}
+                      Nombre_zona={zona.Nombre_zona}
+                      Empleado_asignado={zona.Empleado_asignado}
+                      Email={zona.Email}
+                      Cantidad_rutas={zona.Cantidad_rutas}
+                      Estado_zona={zona.Estado_zona}
+                      consulta={actualizarTabla}
+                    />
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan="7" className={`no-results ${showNoResults ? 'show' : ''}`}>No se encontraron resultados.</td>
+                  </tr>
+                )}
               </tbody>
             </table>
           </section>

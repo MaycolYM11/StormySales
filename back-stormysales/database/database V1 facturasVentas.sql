@@ -19,6 +19,7 @@ create table Usuarios(
 	Identificacion_Usuario varchar(30) not null,
     nombre varchar(20) not null,
     Apellido varchar(20) not null,
+    email_usuario varchar(45) not  null, 
     Rol_Usuario int not null,
     Estado_Usuario int not null,
     Contraseña text not null,
@@ -114,11 +115,11 @@ insert into Estado (Nombre_estado)
             
 -- select * from Estado;
 
-INSERT INTO Usuarios (Identificacion_Usuario, nombre, Apellido, Rol_Usuario, Estado_Usuario, Contraseña)
+INSERT INTO Usuarios (Identificacion_Usuario, nombre, Apellido, email_usuario, Rol_Usuario, Estado_Usuario, Contraseña)
 VALUES
-('1234567890', 'John', 'Doe', 1, 2, 'password123'),
-('0987654321', 'Jane', 'Doe', 2, 2, 'password456'),
-('2345678901', 'Bob', 'Smith', 2, 2, 'password789');
+('1234567890', 'John', 'Doe',"Emailusuario@gmail.com", 1, 2, 'password123'),
+('0987654321', 'Jane', 'Doe',"Emailusuario@gmail.com", 2, 2, 'password456'),
+('2345678901', 'Bob', 'Smith',"Emailusuario@gmail.com", 2, 2, 'password789');
 
 -- select * from Usuarios;
 
