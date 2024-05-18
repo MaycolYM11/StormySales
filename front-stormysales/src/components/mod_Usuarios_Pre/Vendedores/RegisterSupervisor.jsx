@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import Swal from 'sweetalert2';
 
 
-export const RegisterSupervisor = ({isOpen, closeModal,reConsulta}) => {
+export const RegisterAdmin = ({isOpen, closeModal,reConsulta}) => {
     
 
     const agregarRegistro = async() =>{
@@ -267,51 +267,49 @@ export const RegisterSupervisor = ({isOpen, closeModal,reConsulta}) => {
         
 
   return (
-    <div className='register-container'>
-    <div className='fondo-register'>
-        <div>
-            <p className="close-button" onClick={closeModal}>X</p>
-        </div>
-        <div className="container__Main-register">
-            <div className="titulo"><h1 className='main-title'>Registrar Gerente</h1></div>
-            <form className="datos-contenido">
-                <div className="form-group">
-                    <label for="name">Primer Nombre</label>
-                    <input className='input-form' type="text" name="name" id="name" placeholder="Nombre" onBlur={Verificar_nombre} onChange={(e) => setName(e.target.value)} />
-                    <p id="wrongname" className="error-message"></p>
-                </div>
-                
-                <div className="form-group">
-                    <label for="apell">Apellidos</label>
-                    <input className='input-form' type="text" name="apell" id="apell" placeholder="Apellidos" onBlur={Verificar_apell} onChange={(e) => setApell(e.target.value)} />
-                    <p id="wrongapell" className="error-message"></p>
-                </div>
+    <div className='register-container' >
+        <div className='fondo-register'>
+            <div>
+                <p onClick={closeModal} >X</p>
+            </div>
+            <div class="container__Main-register">
+                <div class="titulo"><h1 className='main-title'>Registar Gerente</h1></div>
+                <form className="datos-contenido">
+                    <span>
+                        <label for="name">Primer Nombre</label>
+                        <input className='input-form' type="text" name="name" id="name" placeholder="Nombre" onBlur={Verificar_nombre} onChange={(e) => setName(e.target.value)} />
+                        <p id="wrongname"></p>
+                    </span>
+                    
+                    <span>
+                        <label for="apell">Apellidos</label>
+                        <input className='input-form' type="text" name="apell" id="apell" placeholder="Apellidos" onBlur={Verificar_apell} onChange={(e) => setApell(e.target.value)} />
+                        <p id="wrongapell"></p>
+                    </span>
 
-                <div className="form-group">
-                    <label for="numid">Número de Identificación</label>
-                    <input className='input-form' type="text" name="numid" id="numid" placeholder="Identificación" onBlur={Verificar_id} onChange={(e) => setNumid(e.target.value)} />
-                    <p id="wrongid" className="error-message"></p>
-                </div>
-                
-                <div className="form-group">
-                    <label for="password">Contraseña</label>
-                    <input className='input-form' type="password" name="password" id="password" placeholder="Contraseña" onKeyUp={Verificar_password} onBlur={Verificar_password} onChange={(e) => setPassword(e.target.value)} />
-                    <p id="wrongpass" className="error-message"></p>
-                </div>
-                
-                <div className="form-group">
-                    <label for="passwordcheck">Confirmar Contraseña</label>
-                    <input className='input-form' type="password" name="passwordcheck" id="passwordcheck" placeholder="Confirmar" onKeyUp={Verificar_passwordcheck} onBlur={Verificar_passwordcheck} />
-                    <p id="wrongcheck" className="error-message"></p>
-                </div>
-
-                <div className="form-group">
-                    <input type="button" value="Registrar" className="boton b4" name="submit" id="submit" onClick={Verificar_registro} />
-                </div>
-            </form>
+                    <span>
+                        <label for="numid">Número de Identificación</label>
+                        <input className='input-form' type="text" name="numid" id="numid" placeholder="Identificación" onBlur={Verificar_id} onChange={(e) => setNumid(e.target.value)} />
+                        <p id="wrongid"></p>
+                    </span>
+                    
+                    <span>
+                        <label for="password">Contraseña</label>
+                        <input className='input-form' type="password" name="password" id="password" placeholder="Contraseña" onKeyUp={Verificar_password} onBlur={Verificar_password} onChange={(e) => setPassword(e.target.value)}/>
+                        <p id="wrongpass"></p>
+                    </span>
+                    <span>
+                        <label for="passwordcheck">Confirmar Contraseña</label>
+                        <input className='input-form' type="password" name="passwordcheck" id="passwordcheck" placeholder="Confirmar" onKeyUp={Verificar_passwordcheck} onBlur={Verificar_passwordcheck} />
+                        <p id="wrongcheck"></p>
+                    </span>
+                    <span class="bloc">
+                        <br/>
+                        <input type="button" value="Registar" class="boton b4" name="submit" id="submit" onClick={Verificar_registro} />
+                    </span>
+                </form>
+            </div>
         </div>
     </div>
-</div>
-
   )
 }

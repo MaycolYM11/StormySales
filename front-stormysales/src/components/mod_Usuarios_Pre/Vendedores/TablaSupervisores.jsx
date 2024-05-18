@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { TablaSupervisoresItem } from './TablaSupervisoresItem';
+import { TablaAdminItem } from './TablaSupervisoresItem';
 import '../blata.css';
-import { RegisterSupervisor } from './RegisterSupervisor';
+import { RegisterAdmin } from './RegisterSupervisor';
 import axios from 'axios';
 
 function TablaSupervisores() {
@@ -49,7 +49,7 @@ function TablaSupervisores() {
                 <div className='teush'>
                   <button type="button" className="addbutton" id="lanzar-modal" name="agregar" onClick={() => setRegisterform(true)}><i class="bi bi-person-plus-fill"></i> Agregar </button>
                 </div>
-                <RegisterSupervisor isOpen={registerform} closeModal={handleRegisterFormClose} reConsulta={actualizarTabla} />
+                <RegisterAdmin isOpen={registerform} closeModal={handleRegisterFormClose} reConsulta={actualizarTabla} />
               </div>
             </form>
           </div>
@@ -70,7 +70,7 @@ function TablaSupervisores() {
                   !datos ? 'Loading.....' :
                     datos.map((usuario, index) => {
                       return (
-                        <TablaSupervisoresItem
+                        <TablaAdminItem
                           key={usuario.id}
                           id={usuario.id}
                           // tipoId={usuario.tipoId}

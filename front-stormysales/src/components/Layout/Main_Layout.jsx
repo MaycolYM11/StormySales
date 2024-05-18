@@ -21,7 +21,9 @@ const MainLayout = () => {
       <div className="Main_ContentPages">
         <Routes>
           <Route path="/inicio" element={<Inicio className="fullHeight" />} />
-          <Route path="/gestion-usuarios" element={<GestionUsuarios />} />
+          <Route path="/tabla-supervisores" element={<TablaSupervisores/>} />
+          <Route path="/tabla-vendedores" element={<TablaSupervisores/>} />
+          <Route path="/tabla-clientes" element={<TablaSupervisores/>} />
           <Route path="/supervisores" element={<TablaSupervisores />} />
           <Route path="/facturacion" element={<Facturacion />} />
           <Route path="/zonas" element={<Zonas />} />

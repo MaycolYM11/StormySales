@@ -4,7 +4,7 @@ import Swal from 'sweetalert2';
 import axios from 'axios';
 import EditSupervisor from './EditSupervisor';
 
-export const TablaSupervisoresItem = (props) => {
+export const TablaAdminItem = (props) => {
     const [textoActivar, setTextoActivar] = useState('');
     const [mostrarEditForm, setMostrarEditForm] = useState(false);
     const [estado, setEstado] = useState(parseInt(props.idEstado));
