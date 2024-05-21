@@ -2,6 +2,7 @@
 
     /*Cards*/
     --BG-01-Cards: #3d414c;
+    --BG-02-Cards: #2f323c;
     --TxT-Color-01: #9a98ff;
     --TxT-Color-02: #ffffff;
     --TxT-Color-03: #aeb5c8;
@@ -11,6 +12,7 @@
     --BtN-Color-BG-02: #e0826c;
     --BtN-Color-BG-03: #72b9c3;
     --BtN-Color-BG-04: #6663fe;
+    --BtN-Color-BG-05: #9a98ff;
 
     /*Table*/
     --Table-BG-Color: #3d414c;
