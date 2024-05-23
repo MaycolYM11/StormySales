@@ -1,20 +1,32 @@
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Swal from 'sweetalert2';
 
 const EditProveedor = ({ closeModal, datos, consulta }) => {
-  console.log('ID del Proveedor:', datos.id);
+  const [nombreZona, setNombreZona] = useState(datos.Nombre_zona); // Cambiado a nombreZona para coincidir con el controlador
+  const [idEmpleadoAsignado, setIdEmpleadoAsignado] = useState(datos.Id_empleado_asignado); // Cambiado a idEmpleadoAsignado para coincidir con el controlador
+  const [cantidadRutas, setCantidadRutas] = useState(datos.Cantidad_rutas);
+  const [empleados, setEmpleados] = useState([]);
 
-  const [nombreEmpresa, setNombreEmpresa] = useState(datos.name);
-  const [diaVisita, setDiaVisita] = useState(datos.frecuency);
-  const [telefonoContacto, setTelefonoContacto] = useState(datos.cel);
+  useEffect(() => {
+    obtenerEmpleados();
+  }, []);
 
-  const editarProveedor = async (idProveedor) => {
+  const obtenerEmpleados = async () => {
     try {
-      const response = await axios.put(`http://localhost:3001/usuario/proveedor/${idProveedor}`, {
-        Nombre_Empresa: nombreEmpresa,
-        Dia_Visita: diaVisita,
-        Telefono_Contacto: telefonoContacto,
+      const response = await axios.get('http://localhost:3001/zonas/usuariosrol2');
+      setEmpleados(response.data);
+    } catch (error) {
+      console.error('Error al obtener la lista de empleados:', error);
+    }
+  };
+
+  const editarZona = async (idZona) => {
+    try {
+      const response = await axios.put(`http://localhost:3001/zonas/${idZona}`, {
+        Nombre_zona: nombreZona, // Cambiado a Nombre_zona para coincidir con el controlador
+        Id_empleado_asignado: idEmpleadoAsignado, // Cambiado a Id_empleado_asignado para coincidir con el controlador
+        Cantidad_rutas: cantidadRutas,
       });
       console.log(response.data);
       consulta();
@@ -23,102 +35,31 @@ const EditProveedor = ({ closeModal, datos, consulta }) => {
     }
   };
 
-  const verificarNombreEmpresa = () => {
-    const inputNombreEmpresa = nombreEmpresa.trim();
-    if (!inputNombreEmpresa) {
-      mostrarErrorCampo('wrongNombreEmpresa', 'Este espacio no puede quedar en blanco');
-      return false;
-    }
-    ocultarErrorCampo('wrongNombreEmpresa');
-    return true;
-  };
-
-  const verificarDiaVisita = () => {
-    const inputDiaVisita = diaVisita.trim();
-    if (!inputDiaVisita) {
-      mostrarErrorCampo('wrongDiaVisita', 'Este espacio no puede quedar en blanco');
-      return false;
-    }
-    ocultarErrorCampo('wrongDiaVisita');
-    return true;
-  };
-
-  const verificarTelefonoContacto = () => {
-    const inputTelefonoContacto = telefonoContacto.trim();
-    if (!inputTelefonoContacto) {
-      mostrarErrorCampo('wrongTelefonoContacto', 'Este espacio no puede quedar en blanco');
-      return false;
-    }
-    ocultarErrorCampo('wrongTelefonoContacto');
-    return true;
-  };
-
-  const verificarTelefonoExistente = () => {
-    const telefono = telefonoContacto.trim();
-    axios.post('http://localhost:3001/usuario/verificar-telefono', { telefono })
-      .then(response => {
-        if (response.status === 200) {
-          if (response.data.exists) {
-            mostrarAlerta('warning', 'Número de teléfono duplicado', 'El número de teléfono ya existe en la base de datos.');
-          } else {
-            verificarRegistro();
-          }
-        } else {
-          mostrarError('Error al verificar el número de teléfono', 'Ha ocurrido un error inesperado.');
-        }
-      })
-      .catch(error => {
-        mostrarError('Error al verificar el número de teléfono', 'Ha ocurrido un error al intentar verificar el número de teléfono.');
-      });
-  };
-
-  const mostrarAlerta = (icon, title, text = '', toast = true) => {
-    Swal.fire({
-      icon,
-      title,
-      text,
-      toast,
-    });
-  };
-
-  const mostrarError = (title, text) => {
-    console.error(title + ': ' + text);
-    mostrarAlerta('error', title, text);
-  };
-
-  const mostrarErrorCampo = (campo, mensaje) => {
-    document.getElementById(campo).textContent = mensaje;
-  };
-
-  const ocultarErrorCampo = (campo) => {
-    document.getElementById(campo).textContent = '';
-  };
-
-  const verificarRegistro = () => {
-    if (verificarNombreEmpresa() && verificarDiaVisita() && verificarTelefonoContacto()) {
+  const handleGuardarCambios = () => {
+    if (verificarDatos()) {
       Swal.fire({
         icon: 'success',
-        text: `Datos actualizados para: ${nombreEmpresa}`,
+        text: `Datos actualizados para: ${nombreZona}`,
       }).then(function () {
-        editarProveedor(datos.id);
-        consulta(); 
+        editarZona(datos.ID_zona);
         closeModal();
-      });
-    } else {
-      Swal.fire({
-        icon: 'warning',
-        title: 'Rellene los campos del formulario para continuar',
-        toast: true,
       });
     }
   };
 
-  const handleGuardarCambios = () => {
-    if (telefonoContacto.trim() === datos.cel.trim()) {
-      verificarRegistro();
-    } else {
-      verificarTelefonoExistente();
+  const verificarDatos = () => {
+    if (!nombreZona.trim() || !idEmpleadoAsignado || !cantidadRutas) {
+      mostrarAlerta('warning', 'Rellene todos los campos del formulario para continuar.');
+      return false;
     }
+    return true;
+  };
+
+  const mostrarAlerta = (icon, text) => {
+    Swal.fire({
+      icon: icon,
+      text: text,
+    });
   };
 
   return (
@@ -128,56 +69,46 @@ const EditProveedor = ({ closeModal, datos, consulta }) => {
           <p onClick={closeModal}>X</p>
         </div>
         <div className="container__Main-register">
-          <h1 className="main-title">Editar Proveedor</h1>
+          <h1 className="main-title">Editar Zona</h1>
           <form action="" className="datos-contenido">
             <span>
-              <label htmlFor="idProveedor">Id Proveedor</label>
+              <label htmlFor="nombreZona">Nombre de la Zona</label>
               <input
                 className="input-form"
                 type="text"
-                name="idProveedor"
-                id="idProveedor"
-                value={datos.id}
-                readOnly  
+                name="nombreZona"
+                id="nombreZona"
+                value={nombreZona}
+                onChange={(e) => setNombreZona(e.target.value)}
               />
             </span>
             <span>
-              <label htmlFor="nombreEmpresa">Nombre de la Empresa</label>
-              <input
+              <label htmlFor="idEmpleadoAsignado">Empleado Asignado</label>
+              <select
                 className="input-form"
-                type="text"
-                name="nombreEmpresa"
-                id="nombreEmpresa"
-                value={nombreEmpresa}
-                onChange={(e) => setNombreEmpresa(e.target.value)}
-                onBlur={verificarNombreEmpresa}
-              />
-              <p id="wrongNombreEmpresa"></p>
+                name="idEmpleadoAsignado"
+                id="idEmpleadoAsignado"
+                value={idEmpleadoAsignado}
+                onChange={(e) => setIdEmpleadoAsignado(e.target.value)}
+              >
+                <option value="">Seleccione un empleado</option>
+                {empleados.map((empleado) => (
+                  <option key={empleado.Identificacion_Usuario} value={empleado.Identificacion_Usuario}>
+                    {empleado.nombre} {empleado.Apellido}
+                  </option>
+                ))}
+              </select>
             </span>
             <span>
-              <label htmlFor="diaVisita">Día de Visita</label>
-              <input
-                className="input-form"
-                type="text"
-                name="diaVisita"
-                id="diaVisita"
-                value={diaVisita}
-                onChange={(e) => setDiaVisita(e.target.value)}
-                onBlur={verificarDiaVisita}
-              />
-              <p id="wrongDiaVisita"></p>
-            </span>
-            <span>
-              <label htmlFor="telefonoContacto">Teléfono de Contacto</label>
+              <label htmlFor="cantidadRutas">Cantidad de Rutas</label>
               <input
                 className="input-form"
                 type="number"
-                name="telefonoContacto"
-                id="telefonoContacto"
-                value={telefonoContacto}
-                onChange={(e) => setTelefonoContacto(e.target.value)}
+                name="cantidadRutas"
+                id="cantidadRutas"
+                value={cantidadRutas}
+                onChange={(e) => setCantidadRutas(e.target.value)}
               />
-              <p id="wrongTelefonoContacto"></p>
             </span>
             <span>
               <br />

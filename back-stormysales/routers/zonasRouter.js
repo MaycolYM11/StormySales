@@ -10,10 +10,11 @@ rutaZona.post("/rutas", zonaController.crearZona);
 
 rutaZona.put("/rutas/:id", zonaController.actualizarZona);
 
-rutaZona.delete("/rutas/:id", zonaController.eliminarZona);
+// rutaZona.delete("/rutas/:id", zonaController.eliminarZona);
 
 rutaZona.put("/cambioestadorutas/:id", zonaController.cambioEstadoZona);
 
+rutaZona.get("/usuariosrol2", zonaController.obtenerUsuariosRol2);
 // rutaZona.post("/verificar-telefono", zonaController.verificarTelefonoExistente);
 
 module.exports = rutaZona;

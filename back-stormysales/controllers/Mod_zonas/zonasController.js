@@ -71,15 +71,35 @@ const crearZona = async (req, res) => {
 const actualizarZona = async (req, res) => {
     try {
         const { id } = req.params;
-        const { Nombre_zona, Estado_zona, Empleado_asignado, Cantidad_rutas, Email } = req.body;
+        const { Nombre_zona, Id_empleado_asignado, Cantidad_rutas } = req.body;
 
-        const updateQuery = "UPDATE datos SET Nombre_zona = ?, Estado_zona = ?, Empleado_asignado = ?, Cantidad_rutas = ?, Email = ? WHERE Id_zona = ?";
-        await db.query(updateQuery, [Nombre_zona, Estado_zona, Empleado_asignado, Cantidad_rutas, Email, id]);
+        // Obtener el email del empleado asignado
+        const empleado = await db.query('SELECT email_usuario FROM Usuarios WHERE Identificacion_Usuario = ?', [Id_empleado_asignado]);
+        const Email = empleado[0].email_usuario;
 
+        // Consulta de actualización con los campos necesarios
+        const updateQuery = "UPDATE Zona SET Nombre_zona = ?, Id_empleado_asignado = ?, Cantidad_rutas = ?, Email = ? WHERE ID_zona = ?";
+        
+        // Ejecutar la consulta de actualización
+        await db.query(updateQuery, [Nombre_zona, Id_empleado_asignado, Cantidad_rutas, Email, id]);
+        
+        // Devolver un mensaje de éxito
         res.json({ message: 'Zona actualizada correctamente' });
     } catch (error) {
         console.log(`Error: ${error}`);
         res.status(500).json({ error: 'Error al actualizar la zona.' });
+    }
+};
+
+const obtenerUsuariosRol2 = async (req, res) => {
+    try {
+        const query = 'SELECT * FROM Usuarios WHERE Rol_Usuario = 2';
+        const [usuarios] = await db.query(query); // Usar destructuring para obtener solo los resultados
+
+        res.json(usuarios); // Devolver directamente los resultados
+    } catch (error) {
+        console.error('Error al obtener usuarios con rol 2:', error);
+        res.status(500).json({ error: 'Error al obtener usuarios con rol 2' });
     }
 };
 
@@ -89,27 +109,31 @@ const cambioEstadoZona = async (req, res) => {
     const { state } = req.body;
 
     try {
+        console.log('ID de la zona:', id);
+        console.log('Nuevo estado:', state);
+
         await db.query('UPDATE Zona SET Estado_zona = ? WHERE ID_zona = ?', [state, id]);
         res.json({ message: "Estado cambiado" });
     } catch (error) {
-        console.error('Estado no cambiado', error);
-        res.status(500).json({ error: 'Estado no cambiado' });
+        console.error('Error al cambiar el estado:', error);
+        res.status(500).json({ error: 'Error al cambiar el estado' });
     }
 };
 
 
 
 
-const eliminarZona = async (req, res) => {
-    try {
-        const { id } = req.params;
-        await db.query('DELETE FROM Registro_Proveedor WHERE ID_Registro_Proveedor_PK = ?', [id]);
-        res.json({ message: 'Proveedor eliminado correctamente' });
-    } catch (error) {
-        console.log(`Error: ${error}`);
-        res.status(500).json({ error: 'Error al eliminar el proveedor.' });
-    }
-};
+
+// const eliminarZona = async (req, res) => {
+//     try {
+//         const { id } = req.params;
+//         await db.query('DELETE FROM Registro_Proveedor WHERE ID_Registro_Proveedor_PK = ?', [id]);
+//         res.json({ message: 'Proveedor eliminado correctamente' });
+//     } catch (error) {
+//         console.log(`Error: ${error}`);
+//         res.status(500).json({ error: 'Error al eliminar el proveedor.' });
+//     }
+// };
 
 // const verificarTelefonoExistente = async (req, res) => {
 //     try {
@@ -133,7 +157,8 @@ module.exports = {
     obtenerZonaPorId,
     crearZona,
     actualizarZona,
-    eliminarZona,
+    // eliminarZona,
     cambioEstadoZona,
+    obtenerUsuariosRol2,
     // verificarTelefonoExistente
 };

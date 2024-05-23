@@ -152,8 +152,9 @@ VALUES
 
 INSERT INTO Zona (Nombre_zona, Estado_zona, Id_empleado) VALUES 
 ('Zona Norte', 1, '1234567890'),
-('Zona Sur', 2, '0987654321'),
+('Zona Sur', 1, '0987654321'), 
 ('Zona Este', 1, '2345678901');
+
 
 INSERT INTO Detalle_zona (ID_zonaFK, Id_cliente, Direccion_clienteFK) VALUES 
 (1, '1234567890', 'Carrera 10 #20-30'),
@@ -161,5 +162,8 @@ INSERT INTO Detalle_zona (ID_zonaFK, Id_cliente, Direccion_clienteFK) VALUES
 (3, '2345678901', 'Avenida 80 #35-45');
 
 
+select * from Zona;
+select * from Estado;
 
+UPDATE Zona SET Estado_zona = 2 WHERE ID_zona = 1;
 
