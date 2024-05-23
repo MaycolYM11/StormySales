@@ -73,6 +73,7 @@ const crearSupervisor = async(req,res) => {
 
     } catch (error) {
         console.error('datos no ingresados :c',error);
+        res.json({message:`datos no ingresados :c ${error}`})
     }
 }
 
@@ -84,8 +85,10 @@ const editarSupervisor = async(req,res)=>{
         const query = `update usuarios set nombre= ?,Apellido= ?,Contrasena= ? where Identificacion_Usuario= ?;`;
         await db.query(query,[nombre,apellido,contrasena,id]);
         res.json({message: 'Actualizacion done'});
+        console.log('Actualizacion done');
     } catch (error) {
-        
+        res.json({message:`error en actualizacion ${error}`})
+        console.log(`error en actualizacion ${error}`);
     }
 }
 

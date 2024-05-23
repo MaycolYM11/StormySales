@@ -21,7 +21,7 @@ create table Usuarios(
     Apellido varchar(20) not null,
     Rol_Usuario int not null,
     Estado_Usuario int not null,
-    Contraseña text not null,
+    Contrasena text not null,
     primary key (Identificacion_Usuario),
     foreign key (Rol_Usuario) references rol(ID_rol),
     foreign key (Estado_Usuario) references Estado(ID_estado)
@@ -114,7 +114,7 @@ insert into Estado (Nombre_estado)
             
 -- select * from Estado;
 
-INSERT INTO Usuarios (Identificacion_Usuario, nombre, Apellido, Rol_Usuario, Estado_Usuario, Contraseña)
+INSERT INTO Usuarios (Identificacion_Usuario, nombre, Apellido, Rol_Usuario, Estado_Usuario, Contrasena)
 VALUES
 ('1234567890', 'John', 'Doe', 1, 2, 'password123'),
 ('0987654321', 'Jane', 'Doe', 2, 2, 'password456'),
