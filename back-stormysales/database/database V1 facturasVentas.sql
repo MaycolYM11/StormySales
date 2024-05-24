@@ -19,6 +19,7 @@ create table Usuarios(
 	Identificacion_Usuario varchar(30) not null,
     nombre varchar(20) not null,
     Apellido varchar(20) not null,
+    email_usuario varchar(45) not  null, 
     Rol_Usuario int not null,
     Estado_Usuario int not null,
     Contrasena text not null,
@@ -114,11 +115,15 @@ insert into Estado (Nombre_estado)
             
 -- select * from Estado;
 
+<<<<<<< HEAD
 INSERT INTO Usuarios (Identificacion_Usuario, nombre, Apellido, Rol_Usuario, Estado_Usuario, Contrasena)
+=======
+INSERT INTO Usuarios (Identificacion_Usuario, nombre, Apellido, email_usuario, Rol_Usuario, Estado_Usuario, Contraseña)
+>>>>>>> fe0975c86a06326fb6c3e555f3c37f19f42be551
 VALUES
-('1234567890', 'John', 'Doe', 1, 2, 'password123'),
-('0987654321', 'Jane', 'Doe', 2, 2, 'password456'),
-('2345678901', 'Bob', 'Smith', 2, 2, 'password789');
+('1234567890', 'John', 'Doe',"Emailusuario@gmail.com", 1, 2, 'password123'),
+('0987654321', 'Jane', 'Doe',"Emailusuario@gmail.com", 2, 2, 'password456'),
+('2345678901', 'Bob', 'Smith',"Emailusuario@gmail.com", 2, 2, 'password789');
 
 -- select * from Usuarios;
 
@@ -151,10 +156,22 @@ VALUES
 
 INSERT INTO Zona (Nombre_zona, Estado_zona, Id_empleado) VALUES 
 ('Zona Norte', 1, '1234567890'),
-('Zona Sur', 2, '0987654321'),
+('Zona Sur', 1, '0987654321'), 
 ('Zona Este', 1, '2345678901');
+
 
 INSERT INTO Detalle_zona (ID_zonaFK, Id_cliente, Direccion_clienteFK) VALUES 
 (1, '1234567890', 'Carrera 10 #20-30'),
 (2, '0987654321', 'Calle 50 #15-25'),
+<<<<<<< HEAD
 (3, '2345678901', 'Avenida 80 #35-45');
+=======
+(3, '2345678901', 'Avenida 80 #35-45');
+
+
+select * from Zona;
+select * from Estado;
+
+UPDATE Zona SET Estado_zona = 2 WHERE ID_zona = 1;
+
+>>>>>>> fe0975c86a06326fb6c3e555f3c37f19f42be551
