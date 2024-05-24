@@ -81,8 +81,8 @@ export const TablaSupervisoresItem = (props) => {
                 </td>
                 <td className="columna_acciones" id='columna_acciones'>
                     <div className='sing'>
-                        <button type="button" id="edit" name="edit" onClick={handleMostrarEdit}><i className=" tugle sbi bi-pencil-square"></i></button>
-                        <button type="button" id="delete" name="delete" onClick={() => confirmDelete(props)}><i className={`tugle bi bi-toggle-${textoActivar}`}></i></button>
+                        <div type="button" id="edit" name="edit" onClick={handleMostrarEdit}><i className=" tugle sbi bi-pencil-square"></i></div>
+                        <div type="button" id="delete" name="delete" onClick={() => confirmDelete(props)}><i className={`tugle bi bi-toggle-${textoActivar}`}></i></div>
                     </div>
                 </td>
             </tr>

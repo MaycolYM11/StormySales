@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import { TablaSupervisoresItem } from './TablaSupervisoresItem';
+ import React, { useEffect, useState } from 'react';
+import { TablaVendedoresItem } from './TablaVendedoresItem';
 import '../blata.css';
-import { RegisterSupervisor } from './RegisterSupervisor';
+import { RegisterVendedor } from './RegisterVendedor';
 import axios from 'axios';
 
-function TablaSupervisores() {
+function TablaVendedores() {
 
   const [datos, setDatos] = useState([]);
   const [registerform, setRegisterform] = useState(false);
@@ -23,7 +23,7 @@ function TablaSupervisores() {
   }, []);
 
   const consulta = () => {
-    axios.get("http://localhost:3001/usuario/getsupervisor")
+    axios.get("http://localhost:3001/usuario/getvendedores")
       .then((response) => {
         setDatos(response.data);
       })
@@ -69,7 +69,7 @@ function TablaSupervisores() {
     <>
       <div className='main-container'>
         <div>
-          <h1 className='titel'>SUPERVISORES</h1>
+          <h1 className='titel'>Vendedores</h1>
         </div>
         <hr />
           <div className="option-container">
@@ -82,7 +82,7 @@ function TablaSupervisores() {
                 <div className='teush'>
                   <button type="button" className="addbutton" id="lanzar-modal" name="agregar" onClick={() => setRegisterform(true)}><i class="bi bi-person-plus-fill"></i> Agregar </button>
                 </div>
-                <RegisterSupervisor isOpen={registerform} closeModal={handleRegisterFormClose} reConsulta={actualizarTabla} />
+                <RegisterVendedor isOpen={registerform} closeModal={handleRegisterFormClose} reConsulta={actualizarTabla} />
               </div>
             </form>
           </div>
@@ -102,7 +102,7 @@ function TablaSupervisores() {
               {
                 (!searchTerm ? datos : filteredData).map((usuario, index) => {
                   return (
-                    <TablaSupervisoresItem
+                    <TablaVendedoresItem
                       key={usuario.id}
                       id={usuario.id}
                       name={usuario.nombre}
@@ -124,4 +124,4 @@ function TablaSupervisores() {
   )
 }
 
-export default TablaSupervisores;
+export default TablaVendedores;

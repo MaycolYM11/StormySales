@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useState } from 'react';
 import Swal from 'sweetalert2';
 
-const EditSupervisor = ({ closeModal, datos, consulta }) => {
+const EditVendedor = ({ closeModal, datos, consulta }) => {
     const [name, setName] = useState(datos.name);
     const [password,setPassword] = useState(datos.contrasena);
     const [lastname, setLastname] = useState(datos.lastname);
@@ -238,4 +238,4 @@ const EditSupervisor = ({ closeModal, datos, consulta }) => {
   )
 }
 
-export default EditSupervisor
+export default EditVendedor

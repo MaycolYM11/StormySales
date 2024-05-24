@@ -80,6 +80,6 @@ module.exports = {
     mostrarVendedor,
     crearVendedor,
     verificarVendedorId,
-    editarSupervisor,
+    editarVendedor,
     camibioEstadoVendedor
 }

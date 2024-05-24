@@ -3,12 +3,12 @@ import React, { useState } from 'react';
 import Swal from 'sweetalert2';
 
 
-export const RegisterSupervisor = ({isOpen, closeModal,reConsulta}) => {
+export const RegisterVendedor = ({isOpen, closeModal,reConsulta}) => {
     
 
     const agregarRegistro = async() =>{
         try {
-            await axios.post("http://localhost:3001/usuario/postsupervisor",{
+            await axios.post("http://localhost:3001/usuario/postvendedor",{
                 "id" : numid,
                 "nombre": name,
                 "apellido":apell,
