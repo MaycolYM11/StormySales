@@ -21,7 +21,7 @@ create table Usuarios(
     Apellido varchar(20) not null,
     Rol_Usuario int not null,
     Estado_Usuario int not null,
-    Contrasena text not null,
+    Contraseña text not null,
     primary key (Identificacion_Usuario),
     foreign key (Rol_Usuario) references rol(ID_rol),
     foreign key (Estado_Usuario) references Estado(ID_estado)
@@ -75,29 +75,6 @@ create table Abonos(
     foreign key (ID_factura_fk) references Factura(ID_factura)
 );
 
-
--- Tablas de zonas 
-create table Zona(
-	ID_zona int auto_increment not null,
-    Nombre_zona varchar(35) not null,
-    Estado_zona int not null,
-    Id_empleado varchar(30) not null,
-    primary key (ID_zona),
-    foreign key (Estado_zona) references Estado(ID_estado),
-    foreign key (Id_empleado) references Usuarios(Identificacion_Usuario)
-);
-
-create table Detalle_zona(
-	ID_detallezona int auto_increment not null,
-    ID_zonaFK int not null,
-    Id_cliente varchar(30) not null,
-    Direccion_clienteFK varchar(45) not null,
-    primary key (ID_detallezona),
-    foreign key (ID_zonaFK) references Zona(ID_zona),
-    foreign key (Id_cliente) references Clientes(Identificacion_Clientes)
-);
-
-
 -- insert
 
 insert into rol (Nombre_rol)
@@ -114,7 +91,7 @@ insert into Estado (Nombre_estado)
             
 -- select * from Estado;
 
-INSERT INTO Usuarios (Identificacion_Usuario, nombre, Apellido, Rol_Usuario, Estado_Usuario, Contrasena)
+INSERT INTO Usuarios (Identificacion_Usuario, nombre, Apellido, Rol_Usuario, Estado_Usuario, Contraseña)
 VALUES
 ('1234567890', 'John', 'Doe', 1, 2, 'password123'),
 ('0987654321', 'Jane', 'Doe', 2, 2, 'password456'),
@@ -147,14 +124,15 @@ VALUES
 		(2,'Gorrita de ñero',2,35000,35000*2),
         (2,'Pan duro',4,4000,4000*4);
 
+-- select * from DetalleVenta;
 
 
-INSERT INTO Zona (Nombre_zona, Estado_zona, Id_empleado) VALUES 
-('Zona Norte', 1, '1234567890'),
-('Zona Sur', 2, '0987654321'),
-('Zona Este', 1, '2345678901');
+SELECT d.ID_detalle,f.ID_factura, c.nombre AS nombre_cliente, u.nombre AS nombre_vendedor, f.fecha_venta, f.subtotal, f.total, e.Nombre_estado AS nombre_estado,
+		d.descripcion, d.cantidad, d.precio_unitario, d.precio_total
+FROM Factura f
+JOIN DetalleVenta d ON f.ID_factura = d.ID_factura
+JOIN Clientes c ON f.ID_cliente = c.Identificacion_Clientes
+JOIN Usuarios u ON f.ID_vendedor = u.Identificacion_Usuario
+JOIN Estado e ON f.estado = e.ID_estado
+where f.ID_factura = 1;
 
-INSERT INTO Detalle_zona (ID_zonaFK, Id_cliente, Direccion_clienteFK) VALUES 
-(1, '1234567890', 'Carrera 10 #20-30'),
-(2, '0987654321', 'Calle 50 #15-25'),
-(3, '2345678901', 'Avenida 80 #35-45');

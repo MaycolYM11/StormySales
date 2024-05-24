@@ -3,14 +3,19 @@
     /*Cards*/
     --BG-01-Cards: #3d414c;
     --TxT-Color-01: #9a98ff;
+    --TxT-Color-01-2: #d4d2ff;
     --TxT-Color-02: #ffffff;
     --TxT-Color-03: #aeb5c8;
 
     /*BTNS*/
     --BtN-Color-BG-01: #e06c9f;
+    --BtN-Color-BG-01-5: #e06c9e8c;
     --BtN-Color-BG-02: #e0826c;
+    --BtN-Color-BG-02-5: #e0826c8c;
     --BtN-Color-BG-03: #72b9c3;
+    --BtN-Color-BG-03-5: #72b9c38c;
     --BtN-Color-BG-04: #6663fe;
+    --BtN-Color-BG-04-5: #6663fe8c;
 
     /*Table*/
     --Table-BG-Color: #3d414c;
@@ -18,7 +23,10 @@
     --Table-Actions-Icons-Color: #aebbda;
     --Table-Actions-BG-Icons-Color: #3d414c;
     --Separador-Actions: #282b32;
+    --Separador-Actions--Hover: #282b3250;
+    --Separador-Actions--Hover-2: #282b3270;
 
     /* RIGHT Content */
     --Right-BG-Color: #282b32;
+    --Right-BG-Color-20: #282b3240;
 }
