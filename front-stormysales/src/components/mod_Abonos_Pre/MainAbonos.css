@@ -1,0 +1,114 @@
+@import url(../../styles/ColorsFacturaAll.css);
+@import url(../../styles/ColorsAll.css);
+
+
+.MainContainer_Abonos{
+    display: flex;
+    flex-direction: row;
+}
+.AbonoRight{
+    width: 75%;
+}
+.AbonoLeft{
+    width: 25%;
+    height: 100vh;
+    background: var(--Right-BG-Color);
+    display: flex;
+    flex-direction: column;
+}
+/*Buscar*/
+
+.BuscarFactura{
+    display: flex;
+    align-items: center;
+    padding-left: 40px;
+    height: 100px;
+    background: #3d414c;
+}
+.InputBuscar{
+    height: 50px;
+    width: 480px;
+    background: #4b505d;
+    border: 2px solid transparent;
+    transition: border-color 0.3s;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    box-shadow: 0px 0px 15px 0px rgba(15, 16, 23, 0.2);
+}
+.InputBuscar:hover{
+    border-color: white;
+}
+
+.InputBuscar::placeholder {
+    padding-left: 20px;
+    color: var(--TxT-Color-03);
+}
+.ButtonBuscar{
+    height: 55px;
+    width: 90px;
+    background: var(--BtN-Color-BG-05);
+    color: white;
+    border: 2px solid transparent;
+    transition: border-color 0.3s;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    box-shadow: 0px 0px 15px 0px rgba(15, 16, 23, 0.2);
+    font-weight: bold;
+}
+.ButtonBuscar:hover{
+    border-color: white;
+}
+
+/*Formulario Derecha*/
+
+.formAbonotittle{
+    margin-top: 10px;
+    padding-left: 20px;
+    margin-bottom: 20px;
+}
+
+.formAbonotittle h2{
+    color: var(--TxT-Color-01);
+}
+.formInputAbono{
+    position: static;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    width: 95%;
+    padding-left: 20px;
+}
+
+.formAbono{
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    width: 30vw;
+}
+.formAbono label{
+    position: absolute;
+    top: 50%;
+    left: 8px;
+    transform: translateY(-50%);
+    color: var(--TxT-Color-03);
+    background-color: #3d414c;
+    padding: 0 5px;
+    transition: all 0.2s ease-in-out;
+}
+.formAbono:focus-within label{
+    top: 0;
+    font-size: 12px;
+} 
+.formAbono input{
+    border: 2px solid transparent;
+    background: #3d414c;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    width: 300px;
+    height: 50px;
+}
+
+.formAbono input:hover{
+    border-color: white;
+}
