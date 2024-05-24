@@ -1,0 +1,204 @@
+/* Código CSS para estilizar la sección de encabezado */
+.table-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.table-header h2 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #9a98ff;
+}
+
+.table-header p {
+  font-size: 14px;
+  line-height: 1.5;
+  color: #666;
+}
+
+/* Código CSS para estilizar la barra de búsqueda, el selector de rango de fechas y la tabla */
+.search-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  margin-right: 45%;
+}
+
+.search-bar input[type="text"] {
+  padding: 15px;
+  border: 1px solid #383737;
+  border-radius: 6px;
+  flex-grow: 1;
+  width: 6cm;
+  height: 25px;
+}
+
+.search-bar button {
+  padding: 20px 40px;
+  background-color: #6663fe; /* Color de fondo azul */
+  color: #fff; /* Color de texto blanco */
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease; /* Agregar un efecto de transición */
+  margin-right: 10px; /* Espaciado entre botones */
+}
+.buttonD{
+  text-align: center;
+  padding: 10px 2cm;
+  background-color: #6663fe; /* Color de fondo azul */
+  color: #fff; /* Color de texto blanco */
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease; /* Agregar un efecto de transición */
+  margin-right: 50px; /* Espaciado entre botones */
+  margin-left: 10%;
+}
+
+.search-bar button:hover {
+
+  background-color: #6542a3; /* Color azul más oscuro al pasar el mouse */
+}
+
+.date-range-picker {
+  display: flex;
+  align-items: center;
+  border-radius: 8px;
+  background-color: #3f4350;
+  margin-right: 10px;
+  margin-left: 30%;
+  height: 50px;
+}
+.date-range-picker2 {
+  display: flex;
+  align-items: center;
+  border-radius: 8px;
+  background-color: #3f4350;
+  margin-right: 10px;
+  margin-left: 5%;
+  height: 50px;
+}
+
+.date-range-picker label {
+  margin-right: 8px;
+  color: #fff;
+  margin-left: 10px;
+}
+.date-range-picker2 label {
+  margin-right: 8px;
+  color: #fff;
+  margin-left: 10px;
+}
+
+.date-range-picker input[type="date"] {
+  padding: 16px;
+  border: 0px solid #ddd;
+  border-radius: 4px;
+  background-color: #494e5d;
+  color: #fff;
+}
+.date-range-picker2 input[type="date"] {
+  padding: 16px;
+  border: 0px solid #ddd;
+  border-radius: 4px;
+  background-color: #494e5d;
+  color: #fff;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0 auto;
+  background-color: #494e5d;
+}
+
+th, td {
+  padding: 8px;
+  text-align: left;
+  border: 1px solid #494e5d;
+}
+
+th {
+  background-color: #494e5d;
+  color: #fff;
+}
+
+tr:nth-child(even) {
+  background-color: #3f424d;
+}
+
+th, td:first-child {
+  text-align: center;
+}
+
+/* Estilos para la columna de estado */
+.status {
+  padding: 5px 10px;
+  border-radius: 15px;
+  color: white;
+  text-align: center;
+  display: inline-block;
+  margin-left: 80px;
+  margin-right: -80px;
+}
+
+.status.mayor {
+  background-color: #9fffcf;
+  color: #0ce03a;
+  
+}
+
+.status.peor {
+  background-color: #90495b;
+  color: #ff0101;
+}
+
+.status.masbajo {
+  background-color: rgb(180, 139, 64);
+  color: rgb(255, 145, 0);
+}
+
+.currency{
+  color: #7e2ed9;
+}
+
+.purple{
+  color: #7e2ed9;
+}
+
+/* Estilos CSS */
+.empleado-seleccionado {
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+  text-align: center;
+}
+
+.empleado-seleccionado.mostrar {
+  opacity: 1;
+  text-align: center;
+}
+
+.detalles {
+  text-align: center;
+  margin-left: 40%;
+  background-color: #564e4e;
+  border: 1px solid #6038a1;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  max-width: 300px;
+  margin-top: 10px;
+}
+
+.detalles p {
+  text-align: center;
+  margin: 5px 0;
+}
+
+.detalles strong {
+  text-align: center;
+  margin-right: 5px;
+}
