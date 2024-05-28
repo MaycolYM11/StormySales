@@ -125,9 +125,9 @@ VALUES
 
 INSERT INTO Clientes (Identificacion_Clientes, nombre, Apellido, Estado_Clientes, email, direccion, telefono)
 VALUES
-('1234567890', 'Maria', 'Gomez', 1, 'maria@gmail.com', 'Carrera 10 #20-30', 123456789),
-('0987654321', 'Juan', 'Perez', 1, 'juan@hotmail.com', 'Calle 50 #15-25', 987654321),
-('2345678901', 'Luisa', 'Martinez', 1, 'luisa@yahoo.com', 'Avenida 80 #35-45', 234567890);
+('1234567890', 'Maria', 'Gomez', 2, 'maria@gmail.com', 'Carrera 10 #20-30', 123456789),
+('0987654321', 'Juan', 'Perez', 2, 'juan@hotmail.com', 'Calle 50 #15-25', 987654321),
+('2345678901', 'Luisa', 'Martinez', 2, 'luisa@yahoo.com', 'Avenida 80 #35-45', 234567890);
 
 -- select * from Clientes;
 
@@ -161,9 +161,4 @@ INSERT INTO Detalle_zona (ID_zonaFK, Id_cliente, Direccion_clienteFK) VALUES
 (2, '0987654321', 'Calle 50 #15-25'),
 (3, '2345678901', 'Avenida 80 #35-45');
 
-
-select * from Zona;
-select * from Estado;
-
-UPDATE Zona SET Estado_zona = 2 WHERE ID_zona = 1;
-
+select * from zona;

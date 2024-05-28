@@ -6,10 +6,13 @@ rutaZona.get("/rutas", zonaController.obtenerZonas);
 
 rutaZona.get("/rutas/:id", zonaController.obtenerZonaPorId);
 
-rutaZona.post("/rutas", zonaController.crearZona);
+rutaZona.post("/createzona", zonaController.CreateZona);
+
+rutaZona.post('/createzonadetail',zonaController.CreateDetalleZona);
 
 rutaZona.put("/rutas/:id", zonaController.actualizarZona);
 
+rutaZona.get("/obclientes", zonaController.obtenerClientes);
 // rutaZona.delete("/rutas/:id", zonaController.eliminarZona);
 
 rutaZona.put("/cambioestadorutas/:id", zonaController.cambioEstadoZona);

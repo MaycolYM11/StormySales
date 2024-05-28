@@ -79,7 +79,7 @@ export const Tabla_zonas_item = ({ consulta, ...props }) => {
                 <td className="actions-column">
                     <button type="button" id="edit" name="edit" className="botonAC" onClick={handleMostrarEdit}><i className="biAct bi-pencil-square"></i></button>
                     <button type="button" id="delete" name="delete" className="botonAC" onClick={() => confirmEstado(props, estado)}>
-                        <i className="biAct bi-toggles"></i>
+                        {estado === 1 ? <i className="biAct bi-toggle-on"></i> : <i className="biAct bi-toggle-off"></i>}
                     </button>
                 </td>
 
