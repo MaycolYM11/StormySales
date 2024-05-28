@@ -160,5 +160,8 @@ INSERT INTO Detalle_zona (ID_zonaFK, Id_cliente, Direccion_clienteFK) VALUES
 (3, '2345678901', 'Avenida 80 #35-45');
 
 
-
+select c.Identificacion_Clientes, c.nombre, c.Apellido,e.Nombre_estado , c.Estado_Clientes as idEstado, c.email, c.direccion, c.telefono 
+from  Clientes c
+inner join Estado e
+on e.ID_estdo = c.Estado_Clientes;
 
