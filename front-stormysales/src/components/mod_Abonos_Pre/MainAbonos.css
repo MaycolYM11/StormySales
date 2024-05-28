@@ -80,22 +80,23 @@
 }
 
 .formAbono{
-    position: absolute;
     display: flex;
     flex-direction: column;
     gap: 5px;
     width: 30vw;
+    position: relative; 
 }
+
 .formAbono label{
     position: absolute;
-    top: 50%;
+    top: 25px; 
     left: 8px;
-    transform: translateY(-50%);
     color: var(--TxT-Color-03);
     background-color: #3d414c;
     padding: 0 5px;
     transition: all 0.2s ease-in-out;
 }
+
 .formAbono:focus-within label{
     top: 0;
     font-size: 12px;
@@ -105,10 +106,10 @@
     background: #3d414c;
     border-top-left-radius: 10px;
     border-bottom-left-radius: 10px;
-    width: 300px;
-    height: 50px;
+    width: 320px;
+    height: 60px;
+    margin-top: 5px; 
 }
-
 .formAbono input:hover{
     border-color: white;
 }

@@ -26,12 +26,6 @@ const Main_Abonos_Pre = () => {
         </div>
         <div className="formInputAbono">
           <div className="formAbono">
-            <label htmlFor="">Escriba al valor para abonar</label>
-            <input type="text" />
-          </div>
-        </div>
-        <div className="formInputAbono">
-          <div className="formAbono">
             <label htmlFor="">Seleccione la proxima fecha de pago</label>
             <input type="text" />
           </div>
