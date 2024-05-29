@@ -28,4 +28,13 @@
     /* RIGHT Content */
     --Right-BG-Color: #282b32;
     --Right-BG-Color-20: #282b3240;
+
+    /* MODAL COLORS */
+    --Modal-BG-01: #30333c;
+    --Modal-BG-02: #474c58;
+    --Modal-Tabla-BG-01: #3d414c;
+    --Modal-BTN-BG-01: #9a98ff;
+    --Modal-Estado-BG-01: #43695c;
+    --Modal-Estado-Txt-01: #9fffcf;
+    --Modal-Txt-01: #a2aac0;
 }

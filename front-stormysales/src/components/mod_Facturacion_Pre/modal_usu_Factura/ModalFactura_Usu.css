@@ -1,0 +1,194 @@
+.modal-overlay__Factura {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+}
+
+.modal-content {
+    background: #2c2c2e;
+    border-radius: 10px;
+    width: 80%;
+    max-width: 900px;
+    color: #fff;
+    overflow: hidden;
+}
+
+/* HEADER -----------------------*/
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    top: 0;
+    height: 40px;
+    background-color: var(--Modal-BG-02);
+    padding: 20px;
+}
+
+.tittle_Modal_Factura {
+    color: var(--Modal-BTN-BG-01);
+    font-size: 35px;
+}
+
+/* -----------------------------*/
+
+.modal-body {
+    padding: 30px;
+}
+
+.close-button_ModalF {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 40px;
+    height: 40px;
+    border: none;
+    cursor: pointer;
+    background-color: var(--Modal-Tabla-BG-01);
+    border-radius: 10px;
+    transition: opacity 0.27s ease;
+}
+
+.close-button_ModalF i {
+    display: inline-block;
+    color: var(--Modal-BTN-BG-01);
+    font-size: 1.5rem;
+    line-height: 0px;
+}
+
+.close-button_ModalF:hover {
+    opacity: 70%;
+}
+
+.close-button_ModalF:active {
+    opacity: 100%;
+}
+
+
+/* Buscador -----------*/
+.search-container {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.search-container .searchInput_Modal {
+    flex: 1;
+    padding: 15px 25px;
+    border: none;
+    outline: none;
+    color: var(--TxT-Color-02);
+    background-color: var(--Modal-BG-02);
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+}
+
+.searchInput_Modal::placeholder {
+    color: var(--Modal-Txt-01);
+}
+
+.search-container .buscarBTN_ModalF {
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+    background-color: var(--Modal-BTN-BG-01);
+    color: var(--TxT-Color-02);
+    width: 120px;
+    transition: opacity 0.27s ease;
+}
+
+.buscarBTN_ModalF:hover {
+    opacity: 85%;
+}
+
+.buscarBTN_ModalF:active {
+    opacity: 100%;
+}
+
+/* --------------------*/
+
+.usuario-seleccionado {
+    background-color: #5c5cd6;
+    color: white;
+}
+
+.table-container_ModalF {
+    overflow-x: auto;
+    font-size: 13px;
+    background-color: var(--Modal-Tabla-BG-01);
+    padding: 0;
+    border-radius: 15px;
+}
+
+.client-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.client-table th,
+.client-table td {
+    padding: 10px;
+}
+
+.client-table tr th {
+    color: var(--TxT-Color-03);
+    padding: 15px;
+    text-align: left;
+}
+
+.estado {
+    border-radius: 15px;
+    font-size: 13px;
+}
+
+.estado.activo {
+    padding: 3px 15px;
+    color: var(--Modal-Estado-Txt-01);
+    background-color: var(--Modal-Estado-BG-01);
+}
+
+.footerStyle_ModalF {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    height: 10px;
+    background-color: var(--Modal-Tabla-BG-01);
+    border-bottom-right-radius: 15px;
+    border-bottom-left-radius: 15px;
+    overflow: hidden;
+}
+
+.rightAcctions_Footer_MF{
+    width: 150px;
+    border-left: 2px solid var(--Separador-Actions--Hover-2);
+    background-color: var(--Table-Actions-BG-Color);
+}
+
+/*------------------------------*/
+
+.select-button_UserM {
+    background-color: var(--Modal-BTN-BG-01);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: opacity 0.27s ease;
+}
+
+.select-button_UserM:hover {
+    opacity: 85%;
+}
+
+.select-button_UserM:active {
+    opacity: 100%;
+}
