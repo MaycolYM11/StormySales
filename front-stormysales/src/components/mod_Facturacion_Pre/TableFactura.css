@@ -1,0 +1,200 @@
+
+/* --- TABLE ----------------------> */
+
+.tb__Facturacion {
+    border: none;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    /* border-collapse: collapse; */
+    border-spacing: 0;
+    background-color: var(--Table-BG-Color);
+    overflow-x: auto;
+    width: 1119px;
+    font-size: 15px;
+    overflow: hidden;
+}
+
+.tr__Facturacion--Tittles {
+    color: var(--TxT-Color-03);
+}
+
+
+.th--Item,
+.td--Item {
+    padding-left: 20px;
+    width: 100px;
+    text-align: left;
+}
+
+.td--Item {
+    color: var(--TxT-Color-01);
+}
+
+.th--Descripcion,
+.td--Descripcion {
+    width: 300px;
+    text-align: left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.td--Descripcion {
+    color: var(--TxT-Color-02);
+}
+
+.th--Cantidad,
+.td--Cantidad {
+    width: 120px;
+    text-align: left;
+}
+
+.td--Cantidad {
+    color: var(--TxT-Color-02);
+}
+
+
+
+.th--Precio,
+.td--Precio {
+    width: 180px;
+    text-align: left;
+}
+
+.th--Importe,
+.td--Importe {
+    width: 150px;
+    text-align: left;
+}
+
+.th__Facturacion .td--Importe {
+    color: var(--TxT-Color-02);
+}
+
+.th--Acciones,
+.td--Acciones {
+    width: auto;
+    text-align: center;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--Table-Actions-BG-Color);
+    overflow: hidden;
+}
+
+.th--Acciones {
+    padding: 20px 0;
+    border-top-right-radius: 10px;
+    border-left: 2px solid var(--Separador-Actions--Hover-2);
+}
+
+.td--Acciones {
+    padding: 5px 0;
+    border-left: 2px solid var(--Separador-Actions--Hover-2);
+}
+
+.th--Item,
+.th--Descripcion,
+.th--Cantidad,
+.th--Precio,
+.th--Importe {
+    color: var(--TxT-Color-03);
+}
+
+.th--Item,
+.th--Descripcion,
+.th--Cantidad,
+.th--Precio,
+.th--Importe,
+.td--Item,
+.td--Descripcion,
+.td--Cantidad,
+.td--Precio,
+.td--Importe {
+    border-bottom: 2px solid var(--Separador-Actions--Hover-2);
+}
+
+/* Acciones ------------------> */
+
+.Acciones-Container-Row {
+    padding: 5px;
+}
+
+.containerIcons-Acciones {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 120px;
+    background-color: var(--Table-Actions-BG-Icons-Color);
+    color: var(--Table-Actions-Icons-Color);
+    border-radius: 15px;
+    border: 2px solid var(--Separador-Actions--Hover-2);
+}
+
+.separadorVertical-Acciones {
+    width: 2px;
+    height: 43px;
+    margin: 0 4px;
+    background-color: var(--Separador-Actions--Hover-2);
+}
+
+.BTN_iconClick-Factura {
+    padding: 10px;
+    margin: 0 5px;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    border-radius: 15px;
+    transition: background-color 0.5s ease;
+}
+
+.BTN_iconClick-Factura:hover {
+    background-color: var(--Separador-Actions--Hover);
+}
+
+.BTN_iconClick-Factura:active {
+    opacity: 50%;
+    background-color: var(--Separador-Actions--Hover-2);
+}
+
+.containerIcons-Acciones .BTN_iconClick-Factura i {
+    font-size: 20px;
+    color: var(--Table-Actions-Icons-Color);
+}
+
+.precioColor {
+    color: var(--TxT-Color-01);
+}
+
+
+.td--Cantidad {
+    color: var(--TxT-Color-01);
+}
+
+.dollar-resaltado-F {
+    color: var(--TxT-Color-01);
+}
+
+/*--------------- BOTTOM -----------*/
+
+
+.bootomTable_Show {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 1119px;
+    background-color: var(--Table-BG-Color);
+    height: 10px;
+    border-bottom-right-radius: 15px;
+    border-bottom-left-radius: 15px;
+    overflow: hidden;
+}
+
+.bootomTable_Show_Right {
+    width: 238px;
+    height: 100%;
+    background-color: var(--Table-Actions-BG-Color);
+    border-left: 2px solid var(--Separador-Actions--Hover-2);
+}

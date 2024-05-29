@@ -131,7 +131,7 @@
     margin: 10px 0;
     width: 100%;
     height: 2px;
-    background-color: var(--Right-BG-Color);
+    background-color: #282b3270;
 }
 
 .EmpleadoFactura--TopRight,
