@@ -1,64 +1,24 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import './tabla.css';
 import * as XLSX from 'xlsx';
-//Se actualiza 
 
 const Tabla = () => {
-  const datos = [
-    {
-      id: 1001339605,
-      name: 'Miguel Angel Ayala Pinilla',
-      lastSaleDate: '2024-04-31T13:25:00',
-      totalSales: 5000000,
-      acEVOSInvoices: 10,
-      status: 'Mayor que la vez pasada',
-    },
-    {
-      id: 1001339606,
-      name: 'Jean Carlo Beltran',
-      lastSaleDate: '2024-04-30T12:45:00',
-      totalSales: 4500000,
-      acEVOSInvoices: 8,
-      status: 'Mayor que la vez pasada',
-    },
-    {
-      id: 1001339607,
-      name: 'Maria Fernanda Rodriguez Martinez',
-      lastSaleDate: '2024-05-01T11:30:00',
-      totalSales: 3000000,
-      acEVOSInvoices: 5,
-      status: 'Mayor que la vez pasada',
-    },
-    {
-      id: 1001339608,
-      name: 'Juan Diego Gonzales Chinchilla',
-      lastSaleDate: '2024-05-02T11:30:00',
-      totalSales: 3000000,
-      acEVOSInvoices: 5,
-      status: 'Peor que la vez pasada',
-    },
-    {
-      id: 1001339609,
-      name: 'Maycol Alonso Cardona Sanchez',
-      lastSaleDate: '2024-05-05T11:30:00',
-      totalSales: 3000000,
-      acEVOSInvoices: 5,
-      status: 'Más bajo que la vez pasada',
-    },
-    {
-      id: 1001339610,
-      name: 'Andres Santiago Moreno Pineda',
-      lastSaleDate: '2024-05-17T11:30:00',
-      totalSales: 3000000,
-      acEVOSInvoices: 5,
-      status: 'Más bajo que la vez pasada',
-    },
-  ];
-
+  const [datos, setDatos] = useState([]);
   const [terminoBusqueda, setTerminoBusqueda] = useState('');
   const [fechaInicio, setFechaInicio] = useState('');
   const [fechaFin, setFechaFin] = useState('');
   const [empleadoSeleccionadoData, setEmpleadoSeleccionadoData] = useState(null);
+
+  useEffect(() => {
+    axios.get('http://localhost:3000/api/ventas')
+      .then(response => {
+        setDatos(response.data);
+      })
+      .catch(error => {
+        console.error('Error fetching data:', error);
+      });
+  }, []);
 
   const manejarCambioBusqueda = (evento) => {
     setTerminoBusqueda(evento.target.value);
@@ -75,10 +35,6 @@ const Tabla = () => {
   const manejarSeleccionEmpleado = (id) => {
     const empleado = datos.find((e) => e.id === id);
     setEmpleadoSeleccionadoData(empleado);
-  };
-
-  const manejarBuscar = () => {
-    // Lógica de búsqueda
   };
 
   const obtenerClaseEstado = (estado) => {
@@ -115,7 +71,7 @@ const Tabla = () => {
   });
 
   return (
-    <div>
+    <div className="tabla-container">
       <div className="table-header">
         <h2>Informes de Ventas por Vendedor</h2>
         <p>
@@ -127,55 +83,68 @@ const Tabla = () => {
       <div className="search-bar">
         <input
           type="text"
-          placeholder="Buscar por nombre o ID "
+          placeholder="Buscar por nombre o ID"
           value={terminoBusqueda}
           onChange={manejarCambioBusqueda}
         />
-        <button onClick={manejarBuscar}>Buscar</button>
+        {/* <button onClick={manejarBuscar}>Buscar</button> */}
         <div className="date-range-picker">
           <label>Desde:</label>
           <input type="date" value={fechaInicio} onChange={manejarCambioFechaInicio} />
         </div>
         <div className="date-range-picker2">
-        <label>Hasta:</label>
+          <label>Hasta:</label>
           <input type="date" value={fechaFin} onChange={manejarCambioFechaFin} />
-          </div>
-        <div className='buttonD' onClick={manejarDescargarInformes}>Descargar informes</div>
+        </div>
+        <button className="buttonD" onClick={manejarDescargarInformes}>Descargar Informe</button>
       </div>
       <table>
         <thead>
           <tr>
-            <th>ID de Empleado</th>
-            <th>Nombre del Empleado</th>
-            <th>Fecha de última venta</th>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Fecha de Última Venta</th>
             <th>Total de Ventas</th>
-            <th>Facturas Activas</th>
+            <th>Facturas EVOS</th>
             <th>Estado</th>
           </tr>
         </thead>
         <tbody>
           {datosFiltrados.map((fila) => (
             <tr key={fila.id} onClick={() => manejarSeleccionEmpleado(fila.id)}>
-              <td><span className="purple">{fila.id}</span></td>
+              <td>{fila.id}</td>
               <td>{fila.name}</td>
               <td>{new Date(fila.lastSaleDate).toLocaleDateString()}</td>
-              <td><span className="currency">$ </span>{fila.totalSales.toLocaleString()}</td>
-              <td><span className="purple"> {fila.acEVOSInvoices } </span>
-              <span className="white">Facturas</span></td>
-              <td className={obtenerClaseEstado(fila.status)}>{fila.status}</td>
+              <td className="currency">{fila.totalSales.toLocaleString('es-CO', { style: 'currency', currency: 'COP' })}</td>
+              <td>{fila.acEVOSInvoices}</td>
+              <td>
+                <span className={obtenerClaseEstado(fila.status)}>{fila.status}</span>
+              </td>
             </tr>
           ))}
         </tbody>
       </table>
-      {
-empleadoSeleccionadoData && (
-        <div className={`empleado-seleccionado ${empleadoSeleccionadoData ? 'mostrar' : ''}`}>
-          <h3>Detalles del Empleado:</h3>
+      {empleadoSeleccionadoData && (
+        <div className="empleado-seleccionado mostrar">
           <div className="detalles">
-            <p><strong>ID:</strong> {empleadoSeleccionadoData.id}</p>
-            <p><strong>Nombre:</strong> {empleadoSeleccionadoData.name}</p>
-
-            {/* Agregar más detalles si es necesario */}
+            <p>
+              <strong>ID:</strong> {empleadoSeleccionadoData.id}
+            </p>
+            <p>
+              <strong>Nombre:</strong> {empleadoSeleccionadoData.name}
+            </p>
+            <p>
+              <strong>Fecha de Última Venta:</strong> {new Date(empleadoSeleccionadoData.lastSaleDate).toLocaleDateString()}
+            </p>
+            <p>
+              <strong>Total de Ventas:</strong> {empleadoSeleccionadoData.totalSales.toLocaleString('es-CO', { style: 'currency', currency: 'COP' })}
+            </p>
+            <p>
+              <strong>Facturas EVOS:</strong> {empleadoSeleccionadoData.acEVOSInvoices}
+            </p>
+            <p>
+              <strong>Estado:</strong> <span className={obtenerClaseEstado(empleadoSeleccionadoData.status)}>{empleadoSeleccionadoData.status}</span>
+            </p>
           </div>
         </div>
       )}

@@ -1,0 +1,2 @@
+GET http://localhost:3001/api/ventas HTTP/1.1
+

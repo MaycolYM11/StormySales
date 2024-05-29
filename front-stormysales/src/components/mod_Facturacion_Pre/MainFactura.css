@@ -1,0 +1,508 @@
+@import url(../../styles/ColorsFacturaAll.css);
+
+.FacturacionMain {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.containerFactura-Top {
+    padding: 20px;
+    flex-grow: 0;
+    display: flex;
+    flex-direction: column;
+    margin-right: 480px;
+    transition: margin-right 0.5s ease;
+}
+
+.ContainerFactura_Center {
+    padding: 5px 20px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+    transition: margin-right 0.5s ease;
+    /* margin-right: 480px; */
+}
+
+.containerFactura-Right {
+    background-color: var(--Right-BG-Color);
+    width: 440px;
+    height: 100vh;
+    position: fixed;
+    right: 0;
+    top: 0;
+    transition: width 0.5s ease;
+}
+
+/* --- TABLE ----------------------> */
+
+.tb__Facturacion {
+    border: none;
+    border-radius: 15px;
+    /* border-collapse: collapse; */
+    border-spacing: 0;
+    background-color: var(--Table-BG-Color);
+    overflow-x: auto;
+    width: 1119px;
+    font-size: 15px;
+}
+
+.tr__Facturacion--Tittles {
+    color: var(--TxT-Color-03);
+}
+
+
+.th--Item,
+.td--Item {
+    padding-left: 20px;
+    width: 100px;
+    text-align: left;
+}
+
+.td--Item {
+    color: var(--TxT-Color-01);
+}
+
+.th--Descripcion,
+.td--Descripcion {
+    width: 300px;
+    text-align: left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.td--Descripcion {
+    color: var(--TxT-Color-02);
+}
+
+.th--Cantidad,
+.td--Cantidad {
+    width: 120px;
+    text-align: left;
+}
+
+.td--Cantidad {
+    color: var(--TxT-Color-02);
+}
+
+
+
+.th--Precio,
+.td--Precio {
+    width: 180px;
+    text-align: left;
+}
+
+.th--Importe,
+.td--Importe {
+    width: 150px;
+    text-align: left;
+}
+
+.th__Facturacion .td--Importe {
+    color: var(--TxT-Color-02);
+}
+
+.th--Acciones,
+.td--Acciones {
+    width: auto;
+    text-align: center;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--Table-Actions-BG-Color);
+    overflow: hidden;
+}
+
+.th--Acciones {
+    padding: 20px 0;
+    border-top-right-radius: 15px;
+    border-left: 2px solid var(--Separador-Actions--Hover-2);
+}
+
+.td--Acciones {
+    padding: 5px 0;
+    border-bottom-right-radius: 15px;
+    border-left: 2px solid var(--Separador-Actions--Hover-2);
+}
+
+.th--Item,
+.th--Descripcion,
+.th--Cantidad,
+.th--Precio,
+.th--Importe {
+    color: var(--TxT-Color-03);
+}
+
+.th--Item,
+.th--Descripcion,
+.th--Cantidad,
+.th--Precio,
+.th--Importe,
+.td--Item,
+.td--Descripcion,
+.td--Cantidad,
+.td--Precio,
+.td--Importe {
+    border-bottom: 2px solid var(--Separador-Actions--Hover-2);
+}
+
+/* Acciones ------------------> */
+
+.Acciones-Container-Row {
+    padding: 5px;
+}
+
+.containerIcons-Acciones {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 120px;
+    background-color: var(--Table-Actions-BG-Icons-Color);
+    color: var(--Table-Actions-Icons-Color);
+    border-radius: 15px;
+    border: 2px solid var(--Separador-Actions--Hover-2);
+}
+
+.separadorVertical-Acciones {
+    width: 2px;
+    height: 43px;
+    margin: 0 4px;
+    background-color: var(--Separador-Actions--Hover-2);
+}
+
+.BTN_iconClick-Factura {
+    padding: 10px;
+    margin: 0 5px;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    border-radius: 15px;
+    transition: background-color 0.5s ease;
+}
+
+.BTN_iconClick-Factura:hover {
+    background-color: var(--Separador-Actions--Hover);
+}
+
+.BTN_iconClick-Factura:active {
+    opacity: 50%;
+    background-color: var(--Separador-Actions--Hover-2);
+}
+
+.containerIcons-Acciones .BTN_iconClick-Factura i {
+    font-size: 20px;
+    color: var(--Table-Actions-Icons-Color);
+}
+
+.precioColor {
+    color: var(--TxT-Color-01);
+}
+
+
+.td--Cantidad {
+    color: var(--TxT-Color-01);
+}
+
+.dollar-resaltado-F {
+    color: var(--TxT-Color-01);
+}
+
+
+/* Table calculos --------------->>> */
+.table_calculos-F {
+    width: 405px;
+    height: 175px;
+    border: none;
+    border-radius: 15px;
+    border-spacing: 0;
+    background-color: var(--Table-BG-Color);
+    overflow-x: auto;
+    margin: 15px 0 15px 15px;
+}
+
+.td_calculos-F-Tittle {
+    color: var(--TxT-Color-01);
+}
+
+.tr_calculos-F {
+    color: var(--TxT-Color-02);
+}
+
+.td_calculos-F-Tittle,
+.td_calculos-F {
+    padding: 10px 30px;
+}
+
+.Total-Factura {
+    font-size: 25px;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.border_Row-Fact {
+    border-bottom: 2px solid var(--Separador-Actions--Hover-2);
+}
+
+
+/* BOTONES LEFT --------->>*/
+.Cliente-MPago-Totales_Container {
+    display: flex;
+    margin-top: 20px;
+    /* background-color: rgba(255, 0, 0, 0.432); */
+}
+
+.btnsRight--Factura {
+    width: 700px;
+    display: flex;
+    flex-direction: column;
+}
+
+.RegistrarFactura-Bottom {
+    width: 1100px;
+}
+
+.btn_factura_BG,
+.RegistrarFactura-Bottom {
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 15px;
+    color: white;
+}
+
+.__agregarCliente {
+    background-color: var(--BtN-Color-BG-01-5);
+    margin-bottom: 20px;
+}
+
+.__EscogerMP {
+    background-color: var(--BtN-Color-BG-02-5);
+}
+
+.__registrar-Factura {
+    background-color: var(--BtN-Color-BG-03-5);
+}
+
+.btn__agregar-Factura,
+.btn__registrar-Factura,
+.btn__escMP-Factura {
+    align-items: center;
+    justify-content: center;
+    border: none;
+    border-radius: 15px;
+    font-size: 15px;
+    color: var(--TxT-Color-02);
+    width: 100%;
+    padding: 18px;
+    cursor: pointer;
+    font-weight: 550;
+}
+
+.btn__agregar-Factura {
+    background-color: var(--BtN-Color-BG-01);
+}
+
+.btn__escMP-Factura {
+    background-color: var(--BtN-Color-BG-02);
+}
+
+.btn__registrar-Factura {
+    background-color: var(--BtN-Color-BG-03);
+}
+
+.btn__agregar-Factura i,
+.btn__registrar-Factura i,
+.btn__escMP-Factura i {
+    color: var(--TxT-Color-02);
+    font-size: 18px;
+    margin-left: 10px;
+}
+
+.btn__agregar-Factura:hover,
+.btn__registrar-Factura:hover,
+.btn__escMP-Factura:hover {
+    opacity: 80%;
+}
+
+.btn__agregar-Factura:active,
+.btn__registrar-Factura:active,
+.btn__escMP-Factura:active {
+    opacity: 50%;
+}
+
+/* Registrar Boton Bottom */
+/* .RegistrarFactura-Bottom {
+    margin-top: 20px;
+} */
+
+
+/*-------------- containerFactura-Right ----------------- */
+.containerFactura-Right {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.centerInputs_Right-Factura {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/*T[itulo */
+.Tittle_Right-Factura {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 40px;
+}
+
+.tittleDatos_prod-F {
+    color: var(--TxT-Color-01);
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.itemNumber_factura {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    border-radius: 15px;
+    color: var(--TxT-Color-01);
+    background-color: var(--Table-BG-Color);
+}
+
+/* INputs ++++++ */
+.inputsDiv_Right-F {
+    width: 100%;
+}
+
+.grupInput_Right-F {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.tittle-Input_Right-F {
+    font-size: 15px;
+    color: var(--TxT-Color-03);
+}
+
+.inputContent_Right-F {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    background-color: var(--Table-BG-Color);
+    border-radius: 15px;
+    margin-top: 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.textAreaInput-Right_Right-F {
+    width: 100%;
+    padding: 0 20px;
+}
+
+.styleInput-F {
+    width: 100%;
+    height: 40px;
+    outline: none;
+    border: none;
+    background-color: transparent;
+    font-size: 15px;
+    color: var(--TxT-Color-01);    
+    -webkit-appearance: textfield;
+    -moz-appearance: textfield;
+}
+
+.styleInput-F::-webkit-outer-spin-button,
+.styleInput-F::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.styleInput-F[type="number"] {
+    -moz-appearance: textfield; /* Para Firefox */
+}
+
+/* Aplicar el mismo estilo a los input dentro de .styleInput-F si están presentes */
+.styleInput-F input[type="number"] {
+    -webkit-appearance: none;
+    -moz-appearance: textfield;
+    margin: 0;
+}
+.iconInput-Left_Right-F {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100px;
+    height: 60px;
+    background-color: var(--Table-Actions-BG-Color);
+}
+
+.iconInput-Left_Right-F i {
+    font-size: 30px;
+    color: var(--TxT-Color-01);
+}
+
+/* Button Final ------>> */
+.BtnAgregarProducto-Factura {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    border-radius: 15px;
+    border: none;
+    padding: 20px;
+    font-size: 17px;
+    color: var(--TxT-Color-02);
+    background-color: var(--BtN-Color-BG-04);
+    margin-top: 30px;
+    cursor: pointer;
+    transition: background-color 0.5s ease, opacity 0.28s ease;
+}
+
+.BtnAgregarProducto-Factura i {
+    font-size: 20px;
+    margin-left: 10px;
+    color: var(--TxT-Color-02);
+}
+
+.BtnAgregarProducto-Factura:hover {
+    background-color: var(--BtN-Color-BG-04-5);
+}
+
+.BtnAgregarProducto-Factura:active {
+    opacity: 50%;
+}
+
+/* 
+@media screen and (max-width: 1680px) {
+    .containerFactura-Top {
+        margin-right: 380px;
+    }
+
+    .ContainerFactura_Center {
+        margin-right: 380px;
+    }
+
+    .containerFactura-Right {
+        width: 380px;
+    }
+}
+ */

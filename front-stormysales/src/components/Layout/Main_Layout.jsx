@@ -10,15 +10,22 @@ import Facturacion from '../../components/mod_Facturacion_Pre/Main_Facturacion_P
 import Abonos from '../../components/mod_Abonos_Pre/Main_Abonos_Pre';
 import Zonas from '../../components/mod_Zonas_Pre/Main_Zonas_Pre';
 import Informes from '../../components/mod_Informes_pre/Main_Informes_Pre';
+import TablaSupervisores from '../mod_Usuarios_Pre/Supervisores/TablaSupervisores';
+import TablaVendedores from '../mod_Usuarios_Pre/Vendedores/TablaVendedores';
 
 const MainLayout = () => {
   return (
     <div className='fullContainerSistem'>
-      <SideMenu />
+      <div className='SideMenuLayout'>
+        <SideMenu />
+      </div>
       <div className="Main_ContentPages">
-         <Routes>
-          <Route path="/inicio" element={<Inicio />} />
-          <Route path="/gestion-usuarios" element={<GestionUsuarios />} />
+        <Routes>
+          <Route path="/inicio" element={<Inicio className="fullHeight" />} />
+          <Route path="/tabla-supervisores" element={<TablaSupervisores/>} />
+          <Route path="/tabla-vendedores" element={<TablaVendedores/>} />
+          <Route path="/tabla-clientes" element={<TablaSupervisores/>} />
+          <Route path="/supervisores" element={<TablaSupervisores />} />
           <Route path="/facturacion" element={<Facturacion />} />
           <Route path="/zonas" element={<Zonas />} />
           <Route path="/informes" element={<Informes />} />
