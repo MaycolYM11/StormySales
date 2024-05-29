@@ -2,7 +2,7 @@ const db = require('../../models/modelStormySales').promise();
 
 const busquedaCliente = async(req,res)=>{
     try {
-        const query = `select c.Identificacion_Clientes, c.nombre, c.Apellido,e.Nombre_estado , c.Estado_Clientes as idEstado, c.email, c.direccion, c.telefono 
+        const query = `select c.Identificacion_Clientes as id, c.nombre, c.Apellido,e.Nombre_estado , c.Estado_Clientes as idEstado, c.email, c.direccion, c.telefono 
         from  Clientes c
         inner join Estado e
         on e.ID_estado = c.Estado_Clientes;`
@@ -31,8 +31,10 @@ const crearCliente = async (req,res)=>{
         const query = 'INSERT into Clientes VALUES(?,?,?,2,?,?,?)';
         await db.query(query,[id,nombre,Apellido,email,direccion,telefono]);
         res.json({message: `datos registrados correctamente`})
+        console.log(`datos registrados correctamente`);
     } catch (error) {
-        
+        console.error('datos no ingresados :c',error);
+        res.json({message:`datos no ingresados :c ${error}`})
     }
 }
 

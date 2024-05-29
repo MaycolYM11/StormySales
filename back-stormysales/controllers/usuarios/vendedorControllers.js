@@ -52,7 +52,7 @@ const editarVendedor = async(req,res)=>{
     
     try {
         const query = `update usuarios set nombre= ?,Apellido= ?,email_usuario=?,Contrasena= ? where Identificacion_Usuario= ?;`;
-        await db.query(query,[nombre,apellido,contrasena,id]);
+        await db.query(query,[nombre,apellido,email,contrasena,id]);
         res.json({message: 'Actualizacion done'});
     } catch (error) {
         res.json({message:`error en actualizacion ${error}`})

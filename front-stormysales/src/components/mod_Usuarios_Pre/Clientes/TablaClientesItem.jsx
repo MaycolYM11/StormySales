@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react';
 import '../blata.css';
 import Swal from 'sweetalert2';
 import axios from 'axios';
-import EditSupervisor from './EditSupervisor';
+import EditCliente from './EditCliente';
 
-export const TablaSupervisoresItem = (props) => {
+export const TablaClientesItem = (props) => {
     const [textoActivar, setTextoActivar] = useState('');
     const [mostrarEditForm, setMostrarEditForm] = useState(false);
     const [estado, setEstado] = useState(parseInt(props.idEstado));
@@ -15,9 +15,9 @@ export const TablaSupervisoresItem = (props) => {
 
     const ponerTexto = () => {
         if (estado === 2) {
-            setTextoActivar('off');
-        } else if (estado === 1) {
             setTextoActivar('on');
+        } else if (estado === 1) {
+            setTextoActivar('off');
         }
     }
 
@@ -31,7 +31,6 @@ export const TablaSupervisoresItem = (props) => {
             title: '<h2 style="color:yellow">¿Desea Cambiar de estado este registro?</h2>',
             background: '#252327',
             confirmButtonColor: '#f2bb15',
-            confirmButtonText: textoActivar,
             showCancelButton: true,
             cancelButtonText: 'Cancelar',
             toast: true
@@ -39,7 +38,7 @@ export const TablaSupervisoresItem = (props) => {
             if (response.isConfirmed) {
                 let newEstado = estado === 2 ? 1 : 2;
                 try {
-                    const apiUrl = `http://localhost:3001/usuario/${newEstado === 2 ? 'activarsupervisor' : 'desactivarsupervisor'}/${val.id}`;
+                    const apiUrl = `http://localhost:3001/usuario/cambiarestadocliente/${val.id}`;
                     await axios.put(apiUrl, { "state": newEstado })
                     .then(result => {
                         if (result.data.continue) {
@@ -76,17 +75,26 @@ export const TablaSupervisoresItem = (props) => {
                 <td className="columna__names">
                     <h3 id='names'>{props.name + " " + props.lastname}</h3>
                 </td>
+                <td className='columna__names'>
+                    <h3>{props.email}</h3>
+                </td>
+                <td className='columna__names'>
+                    <h3>{props.direccion}</h3>
+                </td>
+                <td className='columna__names'>
+                    <h3>{props.tel}</h3>
+                </td>
                 <td className="columna__state">
                     <h3 className={props.idEstado === 2 ? 'active' : 'inactive' } >{props.estado}</h3>
                 </td>
                 <td className="columna_acciones" id='columna_acciones'>
                     <div className='sing'>
-                        <button type="button" id="edit" name="edit" onClick={handleMostrarEdit}><i className=" tugle sbi bi-pencil-square"></i></button>
-                        <button type="button" id="delete" name="delete" onClick={() => confirmDelete(props)}><i className={`tugle bi bi-toggle-${textoActivar}`}></i></button>
+                        <div type="button" id="edit" name="edit" onClick={handleMostrarEdit}><i className=" tugle sbi bi-pencil-square"></i></div>
+                        <div type="button" id="delete" name="delete" onClick={() => confirmDelete(props)}><i className={`tugle bi bi-toggle-${textoActivar}`}></i></div>
                     </div>
                 </td>
             </tr>
-            {mostrarEditForm && <EditSupervisor closeModal={handleMostrarEdit} datos={props} consulta={props.consulta} />}
+            {mostrarEditForm && <EditCliente closeModal={handleMostrarEdit} datos={props} consulta={props.consulta} />}
         </>
     );
 }

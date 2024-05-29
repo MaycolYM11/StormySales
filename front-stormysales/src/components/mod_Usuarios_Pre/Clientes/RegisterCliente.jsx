@@ -3,16 +3,19 @@ import React, { useState } from 'react';
 import Swal from 'sweetalert2';
 
 
-export const RegisterSupervisor = ({isOpen, closeModal,reConsulta}) => {
+export const RegisterCliente = ({isOpen, closeModal,reConsulta}) => {
     
 
     const agregarRegistro = async() =>{
         try {
-            await axios.post("http://localhost:3001/usuario/postsupervisor",{
+            await axios.post("http://localhost:3001/usuario/crearcliente",{
                 "id" : numid,
                 "nombre": name,
-                "apellido":apell,
-                "contrasena" :password,
+                "Apellido":apell,
+                "email":email,
+                "direccion":direccion,
+                "telefono":cel
+
             }).then(() => {
                 reConsulta(); 
                 closeModal(); 
@@ -30,10 +33,9 @@ export const RegisterSupervisor = ({isOpen, closeModal,reConsulta}) => {
     const [name,setName] = useState('');
     
     const [apell,setApell] = useState('');
-    
-    // const [cel,setCel] = useState('');
-    // const [email,setEmail] = useState('');
-    const [password,setPassword] = useState('');
+    const [direccion,setDireccion]=useState('');
+    const [cel,setCel] = useState('');
+    const [email,setEmail] = useState('');
 
     if(!isOpen) return null ;
     
@@ -123,70 +125,55 @@ export const RegisterSupervisor = ({isOpen, closeModal,reConsulta}) => {
         return con;
     }
     
-    // function Verificar_tel(){
-    //     const Intel = document.getElementById('cel').value;
+    function Verificar_tel(){
+        const Intel = document.getElementById('cel').value;
     
-    //     let con=true;
-    //     let validacionlt=/^[A-Za-z]+$/;
+        let con=true;
+        let validacionlt=/^[A-Za-z]+$/;
     
-    //     if(Intel === ""){
-    //         document.getElementById('wrongtel').innerHTML='Este espacio no puede quedar en blanco';
-    //         con=false;
-    //     }else if(validacionlt.test(Intel)){
-    //         document.getElementById('wrongtel').innerHTML='Digitar solo numeros';
-    //         con=false;
-    //     }else{
-    //         document.getElementById('wrongtel').innerHTML='';
-    //     }
+        if(Intel === ""){
+            document.getElementById('wrongtel').innerHTML='Este espacio no puede quedar en blanco';
+            con=false;
+        }else if(validacionlt.test(Intel)){
+            document.getElementById('wrongtel').innerHTML='Digitar solo numeros';
+            con=false;
+        }else{
+            document.getElementById('wrongtel').innerHTML='';
+        }
     
-    //     return con;
-    // }
+        return con;
+    }
     
-    // function Verificar_email(){
-    //     const Inemail = document.getElementById('email').value;
+    function Verificar_email(){
+        const Inemail = document.getElementById('email').value;
     
-    //     let con=true;
+        let con=true;
     
-    //     if(Inemail===""){
-    //         document.getElementById('wrongemail').innerHTML='Este espacio no puede quedar en blanco';
-    //         con=false;
-    //     }else{
-    //         document.getElementById('wrongemail').innerHTML='';
-    //     }
+        if(Inemail===""){
+            document.getElementById('wrongemail').innerHTML='Este espacio no puede quedar en blanco';
+            con=false;
+        }else{
+            document.getElementById('wrongemail').innerHTML='';
+        }
     
-    //     return con;
-    // }
+        return con;
+    }
 
-    function Verificar_password(){
-        const Inpassword = document.getElementById('password').value;
+    function Verificar_direccion(){
+        const Indireccion = document.getElementById('direccion').value;
     
         let con=true;
     
-        if(Inpassword.length < 8){
-            /*document.write('La contraseña debe ser mayor a 8 caracteres para preservar la seguridad');*/
-            document.getElementById('wrongpass').innerHTML='La contraseña debe ser mayor a 8 caracteres para preservar la seguridad';
+        if(Indireccion===""){
+            document.getElementById('wrongdireccion').innerHTML='Este espacio no puede quedar en blanco';
             con=false;
         }else{
-            document.getElementById('wrongpass').innerHTML='';
+            document.getElementById('wrongdireccion').innerHTML='';
         }
+    
         return con;
     }
-    
-    function Verificar_passwordcheck(){
-        const Inpassword = document.getElementById('password').value;
-        const Inpasswordchek = document.getElementById('passwordcheck').value;
-    
-        let con=true;
-    
-        if(Inpassword !== Inpasswordchek){
-            /*document.write('Las contraseñas no son identicas');*/
-            document.getElementById('wrongcheck').innerHTML='Las contraseñas no son identicas';
-            con=false;
-        }else{
-            document.getElementById('wrongcheck').innerHTML='';
-        }
-        return con;
-    }
+
     
     function Verificar_registro(){
     
@@ -216,28 +203,23 @@ export const RegisterSupervisor = ({isOpen, closeModal,reConsulta}) => {
             con=false;
             /*console.log(con);*/
         }
-        // if(!Verificar_tel()){
-        //     /*document.write('Las contraseñas no son identicas');*/
-        //     con=false;
-        //     /*console.log(con);*/
-        // }
-        // if(!Verificar_email()){
-        //     /*document.write('Las contraseñas no son identicas');*/
-        //     con=false;
-        //     /*console.log(con);*/
-        // }
-        if(!Verificar_password()){
+        if(!Verificar_tel()){
             /*document.write('Las contraseñas no son identicas');*/
             con=false;
             /*console.log(con);*/
         }
-        if(!Verificar_passwordcheck()){
+        if(!Verificar_email()){
+            /*document.write('Las contraseñas no son identicas');*/
+            con=false;
+            /*console.log(con);*/
+        }
+        if(!Verificar_direccion()){
             /*document.write('Las contraseñas no son identicas');*/
             con=false;
             /*console.log(con);*/
         }
     
-        axios.get(`http://localhost:3001/usuario/verifyidsupervisor/${numid}`)
+        axios.get(`http://localhost:3001/usuario/verifyidcliente/${numid}`)
         .then(response => {
             console.log("Respuesta del servidor:", response.data);
             if (response.data.Identificacion_Usuario === numid) {
@@ -292,19 +274,21 @@ export const RegisterSupervisor = ({isOpen, closeModal,reConsulta}) => {
                     <input className='input-form' type="text" name="numid" id="numid" placeholder="Identificación" onBlur={Verificar_id} onChange={(e) => setNumid(e.target.value)} />
                     <p id="wrongid" className="error-message"></p>
                 </div>
-                
                 <div className="form-group">
-                    <label for="password">Contraseña</label>
-                    <input className='input-form' type="password" name="password" id="password" placeholder="Contraseña" onKeyUp={Verificar_password} onBlur={Verificar_password} onChange={(e) => setPassword(e.target.value)} />
-                    <p id="wrongpass" className="error-message"></p>
+                    <label for="numid">e-mail</label>
+                    <input className='input-form' type="text" name="email" id="email" placeholder="correo" onBlur={Verificar_email} onChange={(e) => setEmail(e.target.value)} />
+                    <p id="wrongemail" className="error-message"></p>
                 </div>
-                
                 <div className="form-group">
-                    <label for="passwordcheck">Confirmar Contraseña</label>
-                    <input className='input-form' type="password" name="passwordcheck" id="passwordcheck" placeholder="Confirmar" onKeyUp={Verificar_passwordcheck} onBlur={Verificar_passwordcheck} />
-                    <p id="wrongcheck" className="error-message"></p>
+                    <label for="direccion">Direccion</label>
+                    <input className='input-form' type="text" name="direccion" id="direccion" placeholder="direccion" onBlur={Verificar_direccion} onChange={(e) => setDireccion(e.target.value)} />
+                    <p id="wrongdireccion" className="error-message"></p>
                 </div>
-
+                <div className="form-group">
+                    <label for="cel">telefono</label>
+                    <input className='input-form' type="number" name="cel" id="cel" placeholder="telefono" onBlur={Verificar_tel} onChange={(e) => setCel(e.target.value)} />
+                    <p id="wrongtel" className="error-message"></p>
+                </div>
                 <div className="form-group">
                     <input type="button" value="Registrar" className="boton b4" name="submit" id="submit" onClick={Verificar_registro} />
                 </div>

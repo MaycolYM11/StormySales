@@ -19,6 +19,7 @@ create table Usuarios(
 	Identificacion_Usuario varchar(30) not null,
     nombre varchar(20) not null,
     Apellido varchar(20) not null,
+    email_usuario varchar(45) not  null, 
     Rol_Usuario int not null,
     Estado_Usuario int not null,
     Contrasena text not null,
@@ -34,7 +35,7 @@ create table Clientes(
     Estado_Clientes int not null,
     email varchar(45) not  null, 
     direccion varchar(45) not null,
-    telefono int not null,
+    telefono bigint not null,
     primary key(Identificacion_Clientes),
 	foreign key (Estado_Clientes) references Estado(ID_estado)
 );
@@ -114,19 +115,19 @@ insert into Estado (Nombre_estado)
             
 -- select * from Estado;
 
-INSERT INTO Usuarios (Identificacion_Usuario, nombre, Apellido, Rol_Usuario, Estado_Usuario, Contrasena)
+INSERT INTO Usuarios (Identificacion_Usuario, nombre, Apellido, email_usuario, Rol_Usuario, Estado_Usuario, Contrasena)
 VALUES
-('1234567890', 'John', 'Doe', 1, 2, 'password123'),
-('0987654321', 'Jane', 'Doe', 2, 2, 'password456'),
-('2345678901', 'Bob', 'Smith', 2, 2, 'password789');
+('1234567890', 'John', 'Doe',"Emailusuario@gmail.com", 1, 2, 'password123'),
+('0987654321', 'Jane', 'Doe',"Emailusuario@gmail.com", 2, 2, 'password456'),
+('2345678901', 'Bob', 'Smith',"Emailusuario@gmail.com", 2, 2, 'password789');
 
 -- select * from Usuarios;
 
 INSERT INTO Clientes (Identificacion_Clientes, nombre, Apellido, Estado_Clientes, email, direccion, telefono)
 VALUES
-('1234567890', 'Maria', 'Gomez', 1, 'maria@gmail.com', 'Carrera 10 #20-30', 123456789),
-('0987654321', 'Juan', 'Perez', 1, 'juan@hotmail.com', 'Calle 50 #15-25', 987654321),
-('2345678901', 'Luisa', 'Martinez', 1, 'luisa@yahoo.com', 'Avenida 80 #35-45', 234567890);
+('1234567890', 'Maria', 'Gomez', 2, 'maria@gmail.com', 'Carrera 10 #20-30', 123456789),
+('0987654321', 'Juan', 'Perez', 2, 'juan@hotmail.com', 'Calle 50 #15-25', 987654321),
+('2345678901', 'Luisa', 'Martinez', 2, 'luisa@yahoo.com', 'Avenida 80 #35-45', 234567890);
 
 -- select * from Clientes;
 
@@ -151,17 +152,13 @@ VALUES
 
 INSERT INTO Zona (Nombre_zona, Estado_zona, Id_empleado) VALUES 
 ('Zona Norte', 1, '1234567890'),
-('Zona Sur', 2, '0987654321'),
+('Zona Sur', 1, '0987654321'), 
 ('Zona Este', 1, '2345678901');
+
 
 INSERT INTO Detalle_zona (ID_zonaFK, Id_cliente, Direccion_clienteFK) VALUES 
 (1, '1234567890', 'Carrera 10 #20-30'),
 (2, '0987654321', 'Calle 50 #15-25'),
 (3, '2345678901', 'Avenida 80 #35-45');
 
-
-select c.Identificacion_Clientes, c.nombre, c.Apellido,e.Nombre_estado , c.Estado_Clientes as idEstado, c.email, c.direccion, c.telefono 
-from  Clientes c
-inner join Estado e
-on e.ID_estdo = c.Estado_Clientes;
-
+select * from zona;

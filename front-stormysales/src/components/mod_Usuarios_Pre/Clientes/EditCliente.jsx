@@ -2,22 +2,21 @@ import axios from 'axios';
 import React, { useState } from 'react';
 import Swal from 'sweetalert2';
 
-const EditSupervisor = ({ closeModal, datos, consulta }) => {
+const EditCliente = ({ closeModal, datos, consulta }) => {
     const [name, setName] = useState(datos.name);
-    const [password,setPassword] = useState(datos.contrasena);
     const [lastname, setLastname] = useState(datos.lastname);
-    
-    // const [cel, setCel] = useState(datos.tel);
-    // const [email, setEmail] = useState(datos.email);
+    const [direccion,setDireccion] = useState(datos.direccion);
+    const [cel, setCel] = useState(datos.tel);
+    const [email, setEmail] = useState(datos.email);
 
     const editarRegistro = async (x) => {
         try {
-            const response = await axios.put(`http://localhost:3001/usuario/putsupervisor/${x}`, {
-                nombre: name,
-                apellido: lastname,
-                // cel: cel,
-                // email: email,
-                contrasena: password
+            const response = await axios.put(`http://localhost:3001/usuario/actualizarcliente/${x}`, {
+                "nombre": name,
+                "Apellido": lastname,
+                "email": email,
+                "direccion": direccion,
+                "telefono": cel
             });
             console.log(response.data);
             consulta(); 
@@ -101,42 +100,61 @@ const EditSupervisor = ({ closeModal, datos, consulta }) => {
         return con;
     }
 
-    function Verificar_password(){
-        const Inpassword = document.getElementById('password').value;
+    function Verificar_tel(){
+        const Intel = document.getElementById('cel').value;
     
         let con=true;
+        let validacionlt=/^[A-Za-z]+$/;
     
-        if(Inpassword.length < 8){
-            /*document.write('La contraseña debe ser mayor a 8 caracteres para preservar la seguridad');*/
-            document.getElementById('wrongpass').innerHTML='La contraseña debe ser mayor a 8 caracteres para preservar la seguridad';
+        if(Intel === ""){
+            document.getElementById('wrongtel').innerHTML='Este espacio no puede quedar en blanco';
+            con=false;
+        }else if(validacionlt.test(Intel)){
+            document.getElementById('wrongtel').innerHTML='Digitar solo numeros';
             con=false;
         }else{
-            document.getElementById('wrongpass').innerHTML='';
+            document.getElementById('wrongtel').innerHTML='';
         }
+    
         return con;
     }
     
-    function Verificar_passwordcheck(){
-        const Inpassword = document.getElementById('password').value;
-        const Inpasswordchek = document.getElementById('passwordcheck').value;
+    function Verificar_email(){
+        const Inemail = document.getElementById('email').value;
     
         let con=true;
     
-        if(Inpassword !== Inpasswordchek){
-            /*document.write('Las contraseñas no son identicas');*/
-            document.getElementById('wrongcheck').innerHTML='Las contraseñas no son identicas';
+        if(Inemail===""){
+            document.getElementById('wrongemail').innerHTML='Este espacio no puede quedar en blanco';
             con=false;
         }else{
-            document.getElementById('wrongcheck').innerHTML='';
+            document.getElementById('wrongemail').innerHTML='';
         }
+    
         return con;
     }
 
+    function Verificar_direccion(){
+        const Indireccion = document.getElementById('direccion').value;
+    
+        let con=true;
+    
+        if(Indireccion===""){
+            document.getElementById('wrongdireccion').innerHTML='Este espacio no puede quedar en blanco';
+            con=false;
+        }else{
+            document.getElementById('wrongdireccion').innerHTML='';
+        }
+    
+        return con;
+    }
+
+    
     function Verificar_registro(){
-
+    
         let con=true;
         console.log(con);
-
+    
         if(!Verificar_nombre()){
             con=false;
             console.log(con);
@@ -148,26 +166,34 @@ const EditSupervisor = ({ closeModal, datos, consulta }) => {
             /*console.log(con);
             /*Innacimiento.focus();*/
         }
-        
+       
+        // if(!Verificar_tipoid()){
+        //     con=false;
+        //     /*console.log(con);
+        //     /*Inusername.focus();*/
+        // }
         //validacion de cantidad de caracteres
         if(!Verificar_id()){
             /*document.write('La contraseña debe ser mayor a 8 caracteres para preservar la seguridad');*/
             con=false;
             /*console.log(con);*/
         }
-
-        if(!Verificar_password()){
+        if(!Verificar_tel()){
             /*document.write('Las contraseñas no son identicas');*/
             con=false;
             /*console.log(con);*/
         }
-        if(!Verificar_passwordcheck()){
+        if(!Verificar_email()){
             /*document.write('Las contraseñas no son identicas');*/
             con=false;
             /*console.log(con);*/
         }
-
-        console.log(con);
+        if(!Verificar_direccion()){
+            /*document.write('Las contraseñas no son identicas');*/
+            con=false;
+            /*console.log(con);*/
+        }
+    
         if(con){
             Swal.fire({
                 icon:'success',
@@ -187,8 +213,6 @@ const EditSupervisor = ({ closeModal, datos, consulta }) => {
             })
             return false;
         }
-
-
     }
 
   return (
@@ -217,15 +241,22 @@ const EditSupervisor = ({ closeModal, datos, consulta }) => {
                     <input readOnly className='input-form' type="text" name="numid" id="numid" value={datos.id} onBlur={Verificar_id} />
                     <p id="wrongid"></p>
                 </span>
-                <span>
-                    <label for="password">Contraseña</label>
-                    <input className='input-form' type="password" name="password" id="password" placeholder="Contraseña" value={password} onKeyUp={Verificar_password} onBlur={Verificar_password} onChange={(e) => setPassword(e.target.value)}/>
-                    <p id="wrongpass"></p>
+
+
+                <span className="form-group">
+                    <label for="numid">e-mail</label>
+                    <input className='input-form' type="text" name="email" id="email" placeholder="correo" value={email} onBlur={Verificar_email} onChange={(e) => setEmail(e.target.value)} />
+                    <p id="wrongemail" className="error-message"></p>
                 </span>
-                <span>
-                    <label for="passwordcheck">Confirmar Contraseña</label>
-                    <input className='input-form' type="password" name="passwordcheck" id="passwordcheck" placeholder="Confirmar" onKeyUp={Verificar_passwordcheck} onBlur={Verificar_passwordcheck} />
-                    <p id="wrongcheck"></p>
+                <span className="form-group">
+                    <label for="direccion">Direccion</label>
+                    <input className='input-form' type="text" name="direccion" id="direccion" placeholder="direccion" value={direccion} onBlur={Verificar_direccion} onChange={(e) => setDireccion(e.target.value)} />
+                    <p id="wrongdireccion" className="error-message"></p>
+                </span>
+                <span className="form-group">
+                    <label for="cel">telefono</label>
+                    <input className='input-form' type="number" name="cel" id="cel" placeholder="telefono" value={cel} onBlur={Verificar_tel} onChange={(e) => setCel(e.target.value)} />
+                    <p id="wrongtel" className="error-message"></p>
                 </span>
                 <span>
                     <br/>
@@ -238,4 +269,4 @@ const EditSupervisor = ({ closeModal, datos, consulta }) => {
   )
 }
 
-export default EditSupervisor
+export default EditCliente

@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import { TablaSupervisoresItem } from './TablaSupervisoresItem';
+ import React, { useEffect, useState } from 'react';
 import '../blata.css';
-import { RegisterSupervisor } from './RegisterSupervisor';
 import axios from 'axios';
+import { RegisterCliente } from './RegisterCliente';
+import { TablaClientesItem } from './TablaClientesItem';
 
-function TablaSupervisores() {
+function TablaClientes() {
 
   const [datos, setDatos] = useState([]);
   const [registerform, setRegisterform] = useState(false);
@@ -23,7 +23,7 @@ function TablaSupervisores() {
   }, []);
 
   const consulta = () => {
-    axios.get("http://localhost:3001/usuario/getsupervisor")
+    axios.get("http://localhost:3001/usuario/mostrarclientes")
       .then((response) => {
         setDatos(response.data);
       })
@@ -69,7 +69,7 @@ function TablaSupervisores() {
     <>
       <div className='main-container'>
         <div>
-          <h1 className='titel'>SUPERVISORES</h1>
+          <h1 className='titel'>Clientes</h1>
         </div>
         <hr />
           <div className="option-container">
@@ -82,7 +82,7 @@ function TablaSupervisores() {
                 <div className='teush'>
                   <button type="button" className="addbutton" id="lanzar-modal" name="agregar" onClick={() => setRegisterform(true)}><i class="bi bi-person-plus-fill"></i> Agregar </button>
                 </div>
-                <RegisterSupervisor isOpen={registerform} closeModal={handleRegisterFormClose} reConsulta={actualizarTabla} />
+                <RegisterCliente isOpen={registerform} closeModal={handleRegisterFormClose} reConsulta={actualizarTabla} />
               </div>
             </form>
           </div>
@@ -94,23 +94,27 @@ function TablaSupervisores() {
                 <tr className='cabeza'>
                   <td>Id</td>
                   <td>Nombre</td>
+                  <td>e-mail</td>
+                  <td>Direccion</td>
+                  <td>Telefono</td>
                   <td>Estado</td>
                   <td className='columna_acciones' id='columna_acciones'>Acciones</td>
                 </tr>
               </thead>
               <tbody>
               {
-                (!searchTerm ? datos : filteredData).map((usuario, index) => {
+                (!searchTerm ? datos : filteredData).map((cliente, index) => {
                   return (
-                    <TablaSupervisoresItem
-                      key={usuario.id}
-                      id={usuario.id}
-                      name={usuario.nombre}
-                      lastname={usuario.Apellido}
-                      contrasena={usuario.Contrasena}
-                      cargo={usuario.Rol_Usuario}
-                      estado={usuario.Nombre_estado}
-                      idEstado={usuario.id_estado}
+                    <TablaClientesItem
+                      key={cliente.id}
+                      id={cliente.id}
+                      name={cliente.nombre}
+                      lastname={cliente.Apellido}
+                      email={cliente.email}
+                      direccion={cliente.direccion}
+                      tel={cliente.telefono}
+                      estado={cliente.Nombre_estado}
+                      idEstado={cliente.idEstado}
                       consulta={actualizarTabla}
                     />
                   );
@@ -124,4 +128,4 @@ function TablaSupervisores() {
   )
 }
 
-export default TablaSupervisores;
+export default TablaClientes;
