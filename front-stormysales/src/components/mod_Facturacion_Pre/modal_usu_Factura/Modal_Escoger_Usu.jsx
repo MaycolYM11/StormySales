@@ -11,6 +11,8 @@ const ModalEscogerUsu = ({ isOpen, onClose }) => {
         { id: '1001339605', nombres: 'Miguel Angel', apellidos: 'Ayala Pinilla', telefono: '3142548221', email: 'email@gmail.com', estado: 'Activo' },
         { id: '1001339605', nombres: 'Miguel Angel', apellidos: 'Ayala Pinilla', telefono: '3142548221', email: 'email@gmail.com', estado: 'Activo' },
         { id: '1001339605', nombres: 'Miguel Angel', apellidos: 'Ayala Pinilla', telefono: '3142548221', email: 'email@gmail.com', estado: 'Activo' },
+        { id: '1001339605', nombres: 'Miguel Angel', apellidos: 'Ayala Pinilla', telefono: '3142548221', email: 'email@gmail.com', estado: 'Activo' },
+        { id: '1001339605', nombres: 'Miguel Angel', apellidos: 'Ayala Pinilla', telefono: '3142548221', email: 'email@gmail.com', estado: 'Activo' },
     ];
 
     return (
@@ -30,14 +32,14 @@ const ModalEscogerUsu = ({ isOpen, onClose }) => {
                     <div className="table-container_ModalF">
                         <table className="client-table">
                             <thead>
-                                <tr>
-                                    <th>ID de Cliente</th>
-                                    <th>Nombres del Cliente</th>
-                                    <th>Apellidos del Cliente</th>
-                                    <th>Telefono</th>
-                                    <th>E-mail</th>
-                                    <th>Estado</th>
-                                    <th>Acciones</th>
+                                <tr className='th__PadreModal'>
+                                    <th className='thModal'>ID de Cliente</th>
+                                    <th className='thModal'>Nombres del Cliente</th>
+                                    <th className='thModal'>Apellidos del Cliente</th>
+                                    <th className='thModal'>Telefono</th>
+                                    <th className='thModal'>E-mail</th>
+                                    <th className='thModal'>Estado</th>
+                                    <th className='th__AccionesModal'>Acciones</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -49,7 +51,7 @@ const ModalEscogerUsu = ({ isOpen, onClose }) => {
                                         <td>{client.telefono}</td>
                                         <td>{client.email}</td>
                                         <td><span className={`estado ${client.estado.toLowerCase()}`}>{client.estado}</span></td>
-                                        <td><button className="select-button_UserM">Seleccionar</button></td>
+                                        <td className='td__AccionesModal'><button className="select-button_UserM">Seleccionar</button></td>
                                     </tr>
                                 ))}
                             </tbody>
@@ -57,6 +59,20 @@ const ModalEscogerUsu = ({ isOpen, onClose }) => {
                         <div className="footerStyle_ModalF">
                             <div className="nada"></div>
                             <div className="rightAcctions_Footer_MF"></div>
+                        </div>
+                    </div>
+                    <div className="ColeccionPages_Modal">
+                        <div className="ColeccionPages_ContentM">
+                            <span className="listColeccion">Resultados: 7/10</span>
+                            <div className="NavegacionColeccion_M">
+                                <button className="NaveColecc__BTN"><i className="bi bi-caret-left-fill"></i></button>
+                                <div className="sepp_Vertical_Modal"></div>
+                                <div className="NaveColecc_Div__BTN">
+                                    <span>1</span>
+                                </div>
+                                <div className="sepp_Vertical_Modal"></div>
+                                <button className="NaveColecc__BTN"><i className="bi bi-caret-right-fill"></i></button>
+                            </div>
                         </div>
                     </div>
                 </div>
