@@ -79,21 +79,32 @@ const CreateDetalleZona = async (req, res) => {
   
 
 
-const actualizarZona = async (req, res) => {
+  const UpdateZona = async (req, res) => {
+    const { idZona, Nombre_zona, Id_empleado } = req.body;
     try {
-        const { id } = req.params;
-        const { Nombre_zona, Id_empleado_asignado, Cantidad_rutas } = req.body;
-        console.log('tesuhs');
-        const empleado = await db.query('SELECT email_usuario FROM Usuarios WHERE Identificacion_Usuario = ?', [Id_empleado_asignado]);
-        const Email = empleado[0].email_usuario;
-        const updateQuery = "UPDATE Zona SET Nombre_zona = ?, Id_empleado = ?, Cantidad_rutas = ?, Email = ? WHERE ID_zona = ?";
-        await db.query(updateQuery, [Nombre_zona, Id_empleado_asignado, Cantidad_rutas, Email, id]);
-        res.json({ message: 'Zona actualizada correctamente' });
+      const query = 'UPDATE Zona SET Nombre_zona = ?, Id_empleado = ? WHERE ID_zona = ?;';
+      await db.query(query, [Nombre_zona, Id_empleado, idZona]);
+      res.json({ message: 'Zona actualizada' });
+      console.log('Zona actualizada');
     } catch (error) {
-        console.log('Error: ${error}');
-        res.status(500).json({ error: 'Error al actualizar la zona.' });
+      console.error(`Error al actualizar la zona: ${error.message}`);
+      res.status(500).json({ message: `Error al actualizar la zona: ${error.message}` });
     }
-};
+  };
+  
+  const UpdateDetalleZona = async (req, res) => {
+    const { idDetalleZona, idCliente, direccion } = req.body;
+    try {
+      const query = 'UPDATE Detalle_zona SET Id_cliente = ?, Direccion_clienteFK = ? WHERE ID_Detalle_zona = ?;';
+      await db.query(query, [idCliente, direccion, idDetalleZona]);
+      res.json({ message: 'Detalle zona actualizado' });
+      console.log('Detalle zona actualizado');
+    } catch (error) {
+      console.error(`Error al actualizar el Detalle zona: ${error.message}`);
+      res.status(500).json({ message: `Error al actualizar el Detalle zona: ${error.message}` });
+    }
+  };
+  
 
 const obtenerUsuariosRol2 = async (req, res) => {
     try {
@@ -172,11 +183,12 @@ module.exports = {
     obtenerZonaPorId,
     CreateZona,
     CreateDetalleZona,
-    actualizarZona,
     // eliminarZona,
     cambioEstadoZona,
     obtenerUsuariosRol2,
     // verificarTelefonoExistente
-    obtenerClientes
+    obtenerClientes,
+    UpdateZona,
+    UpdateDetalleZona
     
 };

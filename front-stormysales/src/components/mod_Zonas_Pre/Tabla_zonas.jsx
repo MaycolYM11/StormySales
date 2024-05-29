@@ -10,6 +10,8 @@ function Tabla_zonas() {
   const [searchTerm, setSearchTerm] = useState('');
   const [searchResults, setSearchResults] = useState([]);
   const [showNoResults, setShowNoResults] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 5;
 
   const consultarZonas = () => {
     axios.get("http://localhost:3001/zonas/rutas")
@@ -44,9 +46,29 @@ function Tabla_zonas() {
     setRegisterform(true);
   };
 
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = searchResults.slice(indexOfFirstItem, indexOfLastItem);
+
+  const handleNextPage = () => {
+    if (currentPage < Math.ceil(searchResults.length / itemsPerPage)) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
+  const handlePreviousPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
   return (
     <>
-      <div className='BotonesSuperior'>
+    <div className='ContainerMayor'>
+    <div className='TituConte'>
+        <h1 className='tituloR' >Rutas</h1><hr/>
+    </div>
+    <div className='BotonesSuperior'>
           <div className='Buscar'>
             <input 
               type="text" 
@@ -57,14 +79,13 @@ function Tabla_zonas() {
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
-            <button type="button" id="botonBuscar" className='botonBuscar'><i class="biBUSCAR bi-search"></i></button>
+            <button type="button" id="botonBuscar" className='botonBuscar'><i className="biBUSCAR bi-search"></i></button>
           </div>
           <div className='BotonNuru'>
             <button type="button" className="botonAgre" id="lanzar-modal" name="agregar" onClick={abrirFormularioRegistro}><i className="biNuevaRuta bi-flag"></i> Nueva ruta</button>
           </div>
       </div>
       <div className='main-container'>
-        <hr/>
         <div className='table-container'>
           <div className="option-container">
             <form className="form">
@@ -86,8 +107,8 @@ function Tabla_zonas() {
                 </tr>
               </thead>
               <tbody>
-                {searchResults.length > 0 ? (
-                  searchResults.map(zona => (
+                {currentItems.length > 0 ? (
+                  currentItems.map(zona => (
                     <Tabla_zonas_item 
                       key={zona.Id_zona}
                       Id_zona={zona.Id_zona}
@@ -106,9 +127,20 @@ function Tabla_zonas() {
                 )}
               </tbody>
             </table>
+            <div className="pagination">
+              <button onClick={handlePreviousPage} disabled={currentPage === 1}>
+                Anterior
+              </button>
+              <button onClick={handleNextPage} disabled={currentPage === Math.ceil(searchResults.length / itemsPerPage)}>
+                Siguiente
+              </button>
+            </div>
           </section>
         </div>
       </div>
+
+    </div>
+
     </>
   )
 }

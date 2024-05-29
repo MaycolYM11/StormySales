@@ -63,9 +63,11 @@ const RegisterProveedor = ({ isOpen, closeModal, reConsulta }) => {
   };
 
   const seleccionarCliente = (clienteId) => {
-    setClientes(clientes.map(cliente => 
-      cliente.Identificacion_Clientes === clienteId ? { ...cliente, seleccionado: !cliente.seleccionado } : cliente
-    ));
+    setClientes(
+      clientes.map(cliente => 
+        cliente.Identificacion_Clientes === clienteId ? { ...cliente, seleccionado: !cliente.seleccionado } : cliente
+      )
+    );
   };
 
   const validarCampos = () => {
@@ -86,16 +88,16 @@ const RegisterProveedor = ({ isOpen, closeModal, reConsulta }) => {
         Nombre_zona: nombreRuta,
         Id_empleado: empleadoSeleccionado
       });
-      const zonaId = response.data.insertId; 
-
+      const zonaId = response.data.insertId;
+  
       if (!zonaId) {
         mostrarError('Error al obtener ID de zona', 'El ID de la zona creada no es válido.');
         return;
       }
-
+  
       await Promise.all(clientes.filter(cliente => cliente.seleccionado).map(async (cliente) => {
         await axios.post('http://localhost:3001/zonas/createzonadetail', {
-          idZona: zonaId, 
+          idZona: zonaId,
           idCliente: cliente.Identificacion_Clientes,
           direccion: cliente.direccion
         });
@@ -110,14 +112,12 @@ const RegisterProveedor = ({ isOpen, closeModal, reConsulta }) => {
         text: 'Se han guardado las rutas correctamente.'
       }).then(() => {
         closeModal();
+        reConsulta();
       });
     } catch (error) {
       mostrarError('Error al guardar rutas', 'Ha ocurrido un error al intentar guardar las rutas.');
     }
   };
-  
-  
-  
   return (
     <div className={`registrar-contenedor-unique ${isOpen ? 'visible' : 'hidden'}`}>
       <div className="fondo-register-unique">
@@ -143,8 +143,7 @@ const RegisterProveedor = ({ isOpen, closeModal, reConsulta }) => {
                 value={buscarCliente} 
                 onChange={(e) => setBuscarCliente(e.target.value)} 
                 placeholder="Buscar un Cliente......"    
-                className="text_cuadroRe-unique"
-              />
+                className="text_cuadroRe-unique"/>
               <button type="button" className="Boton_cuadroRe-unique"><i class="biModal bi-search"></i></button>
             </div>
             <div className='BuscarRegis-unique'>
@@ -214,3 +213,4 @@ const RegisterProveedor = ({ isOpen, closeModal, reConsulta }) => {
 };
 
 export default RegisterProveedor;
+

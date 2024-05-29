@@ -10,7 +10,8 @@ rutaZona.post("/createzona", zonaController.CreateZona);
 
 rutaZona.post('/createzonadetail',zonaController.CreateDetalleZona);
 
-rutaZona.put("/rutas/:id", zonaController.actualizarZona);
+rutaZona.put("/updatezona/:id", zonaController.UpdateZona);
+rutaZona.put("/createzona/:id", zonaController.UpdateDetalleZona);
 
 rutaZona.get("/obclientes", zonaController.obtenerClientes);
 // rutaZona.delete("/rutas/:id", zonaController.eliminarZona);

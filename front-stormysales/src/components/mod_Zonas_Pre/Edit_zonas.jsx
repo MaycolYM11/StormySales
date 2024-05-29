@@ -1,126 +1,149 @@
-import axios from 'axios';
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Swal from 'sweetalert2';
+import axios from 'axios';
 
-const EditProveedor = ({ closeModal, datos, consulta }) => {
-  const [nombreZona, setNombreZona] = useState(datos.Nombre_zona); // Cambiado a nombreZona para coincidir con el controlador
-  const [idEmpleadoAsignado, setIdEmpleadoAsignado] = useState(datos.Id_empleado_asignado); // Cambiado a idEmpleadoAsignado para coincidir con el controlador
-  const [cantidadRutas, setCantidadRutas] = useState(datos.Cantidad_rutas);
-  const [empleados, setEmpleados] = useState([]);
+const Edit_zonas = ({ closeModal, datos, consulta }) => {
+  const [nombreRuta, setNombreRuta] = useState('');
+  const [empleadoSeleccionado, setEmpleadoSeleccionado] = useState('');
+  const [clientesSeleccionados, setClientesSeleccionados] = useState([]);
+  const [clientes, setClientes] = useState([]); // Estado para almacenar la lista de clientes
 
   useEffect(() => {
-    obtenerEmpleados();
-  }, []);
+    // Aquí puedes inicializar los campos con los datos recibidos
+    setNombreRuta(datos.Nombre_zona);
+    setEmpleadoSeleccionado(datos.Id_empleado);
+    // Si tienes los clientes seleccionados disponibles en datos, también puedes inicializarlos
+    // setClientesSeleccionados(datos.clientes);
 
-  const obtenerEmpleados = async () => {
+    obtenerClientes(); // Llama a la función para obtener la lista de clientes
+  }, [datos]);
+
+  // Función para obtener la lista de clientes
+  const obtenerClientes = async () => {
     try {
-      const response = await axios.get('http://localhost:3001/zonas/usuariosrol2');
-      setEmpleados(response.data);
+      const response = await axios.get('http://localhost:3001/zonas/obclientes');
+      setClientes(response.data);
     } catch (error) {
-      console.error('Error al obtener la lista de empleados:', error);
+      console.error('Error al obtener la lista de clientes:', error);
     }
   };
 
-  const editarZona = async (idZona) => {
+  const handleEmpleadoChange = (e) => {
+    setEmpleadoSeleccionado(e.target.value);
+  };
+
+  const handleSeleccionCliente = (cliente) => {
+    // Verificar si el cliente ya está seleccionado
+    const clienteIndex = clientesSeleccionados.findIndex(item => item.Identificacion_Clientes === cliente.Identificacion_Clientes);
+    if (clienteIndex === -1) {
+      // Agregar el cliente a la lista de seleccionados
+      setClientesSeleccionados([...clientesSeleccionados, cliente]);
+    } else {
+      // Eliminar el cliente de la lista de seleccionados
+      const nuevosClientesSeleccionados = [...clientesSeleccionados];
+      nuevosClientesSeleccionados.splice(clienteIndex, 1);
+      setClientesSeleccionados(nuevosClientesSeleccionados);
+    }
+  };
+
+  const editarZona = async () => {
     try {
-      const response = await axios.put(`http://localhost:3001/zonas/${idZona}`, {
-        Nombre_zona: nombreZona, // Cambiado a Nombre_zona para coincidir con el controlador
-        Id_empleado_asignado: idEmpleadoAsignado, // Cambiado a Id_empleado_asignado para coincidir con el controlador
-        Cantidad_rutas: cantidadRutas,
+      // Aquí va la lógica para editar la zona
+      const response = await axios.put(`http://localhost:3001/zonas/updatezona/${datos.Id_zona}`, {
+        Nombre_zona: nombreRuta,
+        Id_empleado: empleadoSeleccionado, // Ajusta según tus necesidades
+        clientes: clientesSeleccionados // Ajusta según tus necesidades
       });
-      console.log(response.data);
       consulta();
-    } catch (error) {
-      console.error('No se pudo realizar la petición PUT:', error);
-    }
-  };
-
-  const handleGuardarCambios = () => {
-    if (verificarDatos()) {
+      closeModal();
       Swal.fire({
         icon: 'success',
-        text: `Datos actualizados para: ${nombreZona}`,
-      }).then(function () {
-        editarZona(datos.ID_zona);
-        closeModal();
+        text: `Datos actualizados para la zona`,
+      });
+    } catch (error) {
+      console.error('No se pudo realizar la petición PUT:', error);
+      Swal.fire({
+        icon: 'error',
+        text: 'Error al actualizar los datos de la zona',
       });
     }
-  };
-
-  const verificarDatos = () => {
-    if (!nombreZona.trim() || !idEmpleadoAsignado || !cantidadRutas) {
-      mostrarAlerta('warning', 'Rellene todos los campos del formulario para continuar.');
-      return false;
-    }
-    return true;
-  };
-
-  const mostrarAlerta = (icon, text) => {
-    Swal.fire({
-      icon: icon,
-      text: text,
-    });
   };
 
   return (
-    <div className="register-container">
-      <div className="fondo-register">
-        <div>
+    <div className="registrar-contenedor-unique">
+      <div className="fondo-register-unique">
+        <div className="cerrar-btn-unique">
           <p onClick={closeModal}>X</p>
         </div>
-        <div className="container__Main-register">
-          <h1 className="main-title">Editar Zona</h1>
-          <form action="" className="datos-contenido">
-            <span>
-              <label htmlFor="nombreZona">Nombre de la Zona</label>
+        <div className="container__Main-register-unique">
+          <h1 className="tituloRegis-unique">Editar Ruta</h1>
+          <div className='BotonesSuperiorRegis-unique'>
+            <div className='BuscarRegis-unique'>
               <input
-                className="input-form"
                 type="text"
-                name="nombreZona"
-                id="nombreZona"
-                value={nombreZona}
-                onChange={(e) => setNombreZona(e.target.value)}
+                value={nombreRuta}
+                onChange={(e) => setNombreRuta(e.target.value)}
+                placeholder="Nombre de la Ruta......"
+                className="text_cuadroRe-unique"
               />
-            </span>
-            <span>
-              <label htmlFor="idEmpleadoAsignado">Empleado Asignado</label>
+            </div>
+            <div className='BuscarRegis-unique'>
               <select
-                className="input-form"
-                name="idEmpleadoAsignado"
-                id="idEmpleadoAsignado"
-                value={idEmpleadoAsignado}
-                onChange={(e) => setIdEmpleadoAsignado(e.target.value)}
+                value={empleadoSeleccionado}
+                onChange={handleEmpleadoChange}
+                className="text_cuadroRe-unique"
               >
-                <option value="">Seleccione un empleado</option>
-                {empleados.map((empleado) => (
-                  <option key={empleado.Identificacion_Usuario} value={empleado.Identificacion_Usuario}>
-                    {empleado.nombre} {empleado.Apellido}
-                  </option>
-                ))}
+                <option value="">Selecciona un Empleado</option>
+                {/* Aquí puedes mapear tus empleados */}
               </select>
-            </span>
-            <span>
-              <label htmlFor="cantidadRutas">Cantidad de Rutas</label>
-              <input
-                className="input-form"
-                type="number"
-                name="cantidadRutas"
-                id="cantidadRutas"
-                value={cantidadRutas}
-                onChange={(e) => setCantidadRutas(e.target.value)}
-              />
-            </span>
-            <span>
-              <br />
-              <button type="button" name="submit" id="submit" className="boton b4" onClick={handleGuardarCambios}>
-                Guardar Cambios
-              </button>
-            </span>
-          </form>
+            </div>
+          </div>
+          <h2 className="subtitulo-unique">Clientes y Direcciones</h2>
+          {/* Muestra la lista de clientes si está definida */}
+          {clientes && (
+            <div className='tabla-container-unique'>
+              <table className='tabla-unique'>
+                <thead>
+                  <tr>
+                    <th>ID de Cliente</th>
+                    <th>Nombre del Cliente</th>
+                    <th>Dirección</th>
+                    <th>Email</th>
+                    <th>Estado</th>
+                    <th>Seleccionar</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {clientes.map(cliente => (
+                    <tr key={cliente.Identificacion_Clientes}>
+                      <td>{cliente.Identificacion_Clientes}</td>
+                      <td>{cliente.nombre}</td>
+                      <td>{cliente.direccion}</td>
+                      <td>{cliente.email}</td>
+                      <td>
+                        <span className={cliente.Estado_Clientes === 2 ? "estado-unique activo-unique" : "estado-unique inactivo-unique"}>
+                          {cliente.Estado_Clientes === 2 ? "Activo" : "Inactivo"}
+                        </span>
+                      </td>
+                      <td>
+                        <button
+                          className={`botonAgregar-unique ${clientesSeleccionados.findIndex(item => item.Identificacion_Clientes === cliente.Identificacion_Clientes) !== -1 ? 'seleccionado' : ''}`}
+                          onClick={() => handleSeleccionCliente(cliente)}
+                        >
+                          <i className="biSelect bi-check2"></i>
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+          <button className='guardar-btn-unique' onClick={editarZona}><i className="biGuar bi-floppy"></i>Guardar Ruta editada</button>
         </div>
       </div>
     </div>
   );
 };
 
-export default EditProveedor;
+export default Edit_zonas;
