@@ -33,6 +33,8 @@
 
     /* Main Container Layout */
     --Main-Container-BG: #30333c;
+    --Main-Container-BG-2: #393F4B;
+    --Main-Container-BG-3: #474c58;
     --Main-Text-01: #fff;
 
     /* HOME USES */
@@ -44,4 +46,5 @@
     --Home-BG-02: #00a0b6;
     --Home-BG-03: #266fd5;
     --Home-BG-04: #e06c9f;
+    --Home-BG-05: #52393C;
 }
