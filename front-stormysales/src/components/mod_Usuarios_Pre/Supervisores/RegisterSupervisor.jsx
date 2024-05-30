@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import Swal from 'sweetalert2';
 
 
-export const RegisterAdmin = ({isOpen, closeModal,reConsulta}) => {
+export const RegisterSupervisor = ({isOpen, closeModal,reConsulta}) => {
     
 
     const agregarRegistro = async() =>{
@@ -12,6 +12,7 @@ export const RegisterAdmin = ({isOpen, closeModal,reConsulta}) => {
                 "id" : numid,
                 "nombre": name,
                 "apellido":apell,
+                "email":email,
                 "contrasena" :password,
             }).then(() => {
                 reConsulta(); 
@@ -32,7 +33,7 @@ export const RegisterAdmin = ({isOpen, closeModal,reConsulta}) => {
     const [apell,setApell] = useState('');
     
     // const [cel,setCel] = useState('');
-    // const [email,setEmail] = useState('');
+    const [email,setEmail] = useState('');
     const [password,setPassword] = useState('');
 
     if(!isOpen) return null ;
@@ -142,20 +143,25 @@ export const RegisterAdmin = ({isOpen, closeModal,reConsulta}) => {
     //     return con;
     // }
     
-    // function Verificar_email(){
-    //     const Inemail = document.getElementById('email').value;
+    function Verificar_email() {
+        const Inemail = document.getElementById('email').value;
     
-    //     let con=true;
+        let con = true;
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     
-    //     if(Inemail===""){
-    //         document.getElementById('wrongemail').innerHTML='Este espacio no puede quedar en blanco';
-    //         con=false;
-    //     }else{
-    //         document.getElementById('wrongemail').innerHTML='';
-    //     }
+        if (Inemail.trim() === "") {
+            document.getElementById('wrongemail').innerHTML = 'Este espacio no puede quedar en blanco';
+            con = false;
+        } else if (!emailPattern.test(Inemail)) {
+            document.getElementById('wrongemail').innerHTML = 'Formato de correo electrónico no válido';
+            con = false;
+        } else {
+            document.getElementById('wrongemail').innerHTML = '';
+        }
     
-    //     return con;
-    // }
+        return con;
+    }
+    
 
     function Verificar_password(){
         const Inpassword = document.getElementById('password').value;
@@ -221,11 +227,11 @@ export const RegisterAdmin = ({isOpen, closeModal,reConsulta}) => {
         //     con=false;
         //     /*console.log(con);*/
         // }
-        // if(!Verificar_email()){
-        //     /*document.write('Las contraseñas no son identicas');*/
-        //     con=false;
-        //     /*console.log(con);*/
-        // }
+        if(!Verificar_email()){
+            /*document.write('Las contraseñas no son identicas');*/
+            con=false;
+            /*console.log(con);*/
+        }
         if(!Verificar_password()){
             /*document.write('Las contraseñas no son identicas');*/
             con=false;
@@ -267,49 +273,57 @@ export const RegisterAdmin = ({isOpen, closeModal,reConsulta}) => {
         
 
   return (
-    <div className='register-container' >
-        <div className='fondo-register'>
-            <div>
-                <p onClick={closeModal} >X</p>
-            </div>
-            <div class="container__Main-register">
-                <div class="titulo"><h1 className='main-title'>Registar Gerente</h1></div>
-                <form className="datos-contenido">
-                    <span>
-                        <label for="name">Primer Nombre</label>
-                        <input className='input-form' type="text" name="name" id="name" placeholder="Nombre" onBlur={Verificar_nombre} onChange={(e) => setName(e.target.value)} />
-                        <p id="wrongname"></p>
-                    </span>
-                    
-                    <span>
-                        <label for="apell">Apellidos</label>
-                        <input className='input-form' type="text" name="apell" id="apell" placeholder="Apellidos" onBlur={Verificar_apell} onChange={(e) => setApell(e.target.value)} />
-                        <p id="wrongapell"></p>
-                    </span>
+    <div className='register-container'>
+    <div className='fondo-register'>
+        <div>
+            <p className="close-button" onClick={closeModal}>X</p>
+        </div>
+        <div className="container__Main-register">
+            <div className="titulo"><h1 className='main-title'>Registrar Gerente</h1></div>
+            <form className="datos-contenido">
+                <div className="form-group">
+                    <label for="name">Primer Nombre</label>
+                    <input className='input-form' type="text" name="name" id="name" placeholder="Nombre" onBlur={Verificar_nombre} onChange={(e) => setName(e.target.value)} />
+                    <p id="wrongname" className="error-message"></p>
+                </div>
+                
+                <div className="form-group">
+                    <label for="apell">Apellidos</label>
+                    <input className='input-form' type="text" name="apell" id="apell" placeholder="Apellidos" onBlur={Verificar_apell} onChange={(e) => setApell(e.target.value)} />
+                    <p id="wrongapell" className="error-message"></p>
+                </div>
 
-                    <span>
-                        <label for="numid">Número de Identificación</label>
-                        <input className='input-form' type="text" name="numid" id="numid" placeholder="Identificación" onBlur={Verificar_id} onChange={(e) => setNumid(e.target.value)} />
-                        <p id="wrongid"></p>
-                    </span>
-                    
-                    <span>
-                        <label for="password">Contraseña</label>
-                        <input className='input-form' type="password" name="password" id="password" placeholder="Contraseña" onKeyUp={Verificar_password} onBlur={Verificar_password} onChange={(e) => setPassword(e.target.value)}/>
-                        <p id="wrongpass"></p>
-                    </span>
-                    <span>
-                        <label for="passwordcheck">Confirmar Contraseña</label>
-                        <input className='input-form' type="password" name="passwordcheck" id="passwordcheck" placeholder="Confirmar" onKeyUp={Verificar_passwordcheck} onBlur={Verificar_passwordcheck} />
-                        <p id="wrongcheck"></p>
-                    </span>
-                    <span class="bloc">
-                        <br/>
-                        <input type="button" value="Registar" class="boton b4" name="submit" id="submit" onClick={Verificar_registro} />
-                    </span>
-                </form>
-            </div>
+                <div className="form-group">
+                    <label for="numid">Número de Identificación</label>
+                    <input className='input-form' type="text" name="numid" id="numid" placeholder="Identificación" onBlur={Verificar_id} onChange={(e) => setNumid(e.target.value)} />
+                    <p id="wrongid" className="error-message"></p>
+                </div>
+                
+                <div className="form-group">
+                    <label for="numid">e-mail</label>
+                    <input className='input-form' type="text" name="email" id="email" placeholder="correo" onBlur={Verificar_email} onChange={(e) => setEmail(e.target.value)} />
+                    <p id="wrongemail" className="error-message"></p>
+                </div>
+
+                <div className="form-group">
+                    <label for="password">Contraseña</label>
+                    <input className='input-form' type="password" name="password" id="password" placeholder="Contraseña" onKeyUp={Verificar_password} onBlur={Verificar_password} onChange={(e) => setPassword(e.target.value)} />
+                    <p id="wrongpass" className="error-message"></p>
+                </div>
+                
+                <div className="form-group">
+                    <label for="passwordcheck">Confirmar Contraseña</label>
+                    <input className='input-form' type="password" name="passwordcheck" id="passwordcheck" placeholder="Confirmar" onKeyUp={Verificar_passwordcheck} onBlur={Verificar_passwordcheck} />
+                    <p id="wrongcheck" className="error-message"></p>
+                </div>
+
+                <div className="form-group">
+                    <input type="button" value="Registrar" className="boton b4" name="submit" id="submit" onClick={Verificar_registro} />
+                </div>
+            </form>
         </div>
     </div>
+</div>
+
   )
 }

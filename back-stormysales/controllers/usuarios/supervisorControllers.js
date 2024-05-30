@@ -4,7 +4,7 @@ const db = require('../../models/modelStormySales').promise();
 const busquedaSupervisor = async(req,res) => {
     try {
 
-        const query = `select Identificacion_Usuario as id,nombre,Apellido,Rol_Usuario,Estado_Usuario as id_estado,e.Nombre_estado,Contrasena 
+        const query = `select Identificacion_Usuario as id,nombre,Apellido,email_usuario,Rol_Usuario,Estado_Usuario as id_estado,e.Nombre_estado,Contrasena 
         from usuarios u
         inner join Estado e
         on u.Estado_Usuario = e.ID_estado
@@ -61,31 +61,42 @@ const verificarSupervisorID = async(req,res)=>{
 }
 
 const crearSupervisor = async(req,res) => {
-    const {id,nombre,apellido,contrasena} = req.body;
+    const {id,nombre,apellido,email,contrasena} = req.body;
+
+    const salt = await bcrypt.genSalt(8)
+    const hashContra = await bcrypt.hash(contrasena,salt);
+
 
     try {
         
-        const query = `insert into usuarios values(?,?,?,1,2,?);`;
+        const query = `insert into usuarios values(?,?,?,?,1,2,?);`;
 
-        await db.query(query,[id,nombre,apellido,contrasena]);
+        await db.query(query,[id,nombre,apellido,email,hashContra]);
 
         res.json({message:'Datos registrados exitosamente'});
 
     } catch (error) {
         console.error('datos no ingresados :c',error);
+        res.json({message:`datos no ingresados :c ${error}`})
     }
 }
 
 const editarSupervisor = async(req,res)=>{
     const {id} = req.params;
-    const {nombre,apellido,contrasena}=req.body;
+    const {nombre,apellido,email,contrasena}=req.body;
+
+    const salt = await bcrypt.genSalt(8)
+    const hashContra = await bcrypt.hash(contrasena,salt);
+
     
     try {
-        const query = `update usuarios set nombre= ?,Apellido= ?,Contrasena= ? where Identificacion_Usuario= ?;`;
-        await db.query(query,[nombre,apellido,contrasena,id]);
+        const query = `update usuarios set nombre= ?,Apellido= ?,email_usuario=?,Contrasena= ? where Identificacion_Usuario= ?;`;
+        await db.query(query,[nombre,apellido,email,hashContra,id]);
         res.json({message: 'Actualizacion done'});
+        console.log('Actualizacion done');
     } catch (error) {
-        
+        res.json({message:`error en actualizacion ${error}`})
+        console.log(`error en actualizacion ${error}`);
     }
 }
 

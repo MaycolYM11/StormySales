@@ -1,13 +1,22 @@
 import React, { useEffect, useState } from 'react';
-import { TablaAdminItem } from './TablaSupervisoresItem';
-import '../Tabla.css';
-import { RegisterAdmin } from './RegisterSupervisor';
+import { TablaSupervisoresItem } from './TablaSupervisoresItem';
+import '../blata.css';
+import { RegisterSupervisor } from './RegisterSupervisor';
 import axios from 'axios';
 
 function TablaSupervisores() {
 
   const [datos, setDatos] = useState([]);
   const [registerform, setRegisterform] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [filteredData, setFilteredData] = useState([]);
+  const [searchFields, setSearchFields] = useState({
+    nombre: true,
+    Apellido: true,
+    Rol_Usuario: false,
+    Nombre_estado: false,
+    id: true
+  });
 
   useEffect(() => {
     consulta();
@@ -32,23 +41,49 @@ function TablaSupervisores() {
     actualizarTabla(); 
   }
 
+  const handleSearch = (event) => {
+    const term = event.target.value;
+    setSearchTerm(term);
+  
+    const filteredResults = datos.filter((usuario) => {
+      let match = false;
+  
+      if (searchFields.nombre) {
+        match = match || usuario.nombre.toLowerCase().includes(term.toLowerCase());
+      }
+      if (searchFields.Apellido) {
+        match = match || usuario.Apellido.toLowerCase().includes(term.toLowerCase());
+      }
+      if (searchFields.id) {
+        match = match || usuario.id.toString().includes(term); // Convertimos `id` a string
+      }
+  
+      return match;
+    });
+  
+    setFilteredData(filteredResults);
+  };
+  
+
   return (
     <>
-      <div>
-        <h1>SUPERVISORES</h1>
-      </div>
       <div className='main-container'>
+        <div>
+          <h1 className='titel'>SUPERVISORES</h1>
+        </div>
         <hr />
           <div className="option-container">
             <form className="form">
-              <div className='buscar'>
-                <input type="search" id="search" name="search" placeholder="buscar" className='barra-buscar' />
-                <button className='boton b7'>Buscar</button>
+              <div className='content-upper'>
+                <div className='buscar'>
+                <input type="search" id="search" name="search" placeholder="buscar" className='barra-buscar' value={searchTerm} onChange={handleSearch} />
+                  <button className='boton-busq'onClick={handleSearch}>Buscar</button>
+                </div>
+                <div className='teush'>
+                  <button type="button" className="addbutton" id="lanzar-modal" name="agregar" onClick={() => setRegisterform(true)}><i class="bi bi-person-plus-fill"></i> Agregar </button>
+                </div>
+                <RegisterSupervisor isOpen={registerform} closeModal={handleRegisterFormClose} reConsulta={actualizarTabla} />
               </div>
-              <div className='teush'>
-                <button type="button" className="boton b4" id="lanzar-modal" name="agregar" onClick={() => setRegisterform(true)}>Agregar</button>
-              </div>
-              <RegisterAdmin isOpen={registerform} closeModal={handleRegisterFormClose} reConsulta={actualizarTabla} />
             </form>
           </div>
         <div className='table-container'>
@@ -57,32 +92,31 @@ function TablaSupervisores() {
             <table className='tabla'>
               <thead>
                 <tr className='cabeza'>
-                  <td>Nombre</td>
                   <td>Id</td>
+                  <td>Nombre</td>
+                  <td>e-mail</td>
                   <td>Estado</td>
-                  <td>Acciones</td>
+                  <td className='columna_acciones' id='columna_acciones'>Acciones</td>
                 </tr>
               </thead>
               <tbody>
-                {
-                  !datos ? 'Loading.....' :
-                    datos.map((usuario, index) => {
-                      return (
-                        <TablaAdminItem
-                          key={usuario.id}
-                          id={usuario.id}
-                          // tipoId={usuario.tipoId}
-                          name={usuario.nombre}
-                          lastname={usuario.Apellido}
-                          contrasena={usuario.Contrasena}
-                          cargo={usuario.Rol_Usuario}
-                          estado={usuario.Nombre_estado}
-                          idEstado={usuario.id_estado}
-                          consulta={actualizarTabla}
-                        />
-                      )
-                    })
-                }
+              {
+                (!searchTerm ? datos : filteredData).map((usuario, index) => {
+                  return (
+                    <TablaSupervisoresItem
+                      key={usuario.id}
+                      id={usuario.id}
+                      name={usuario.nombre}
+                      lastname={usuario.Apellido}
+                      email={usuario.email_usuario}
+                      contrasena={usuario.Contrasena}
+                      cargo={usuario.Rol_Usuario}
+                      estado={usuario.Nombre_estado}
+                      idEstado={usuario.id_estado}
+                      consulta={actualizarTabla}
+                    />
+                  );
+                })}
               </tbody>
             </table>
           </section>

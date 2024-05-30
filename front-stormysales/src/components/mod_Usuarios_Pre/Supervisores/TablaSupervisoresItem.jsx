@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import '../Tabla.css';
+import '../blata.css';
 import Swal from 'sweetalert2';
 import axios from 'axios';
 import EditSupervisor from './EditSupervisor';
 
-export const TablaAdminItem = (props) => {
+export const TablaSupervisoresItem = (props) => {
     const [textoActivar, setTextoActivar] = useState('');
     const [mostrarEditForm, setMostrarEditForm] = useState(false);
     const [estado, setEstado] = useState(parseInt(props.idEstado));
@@ -15,9 +15,9 @@ export const TablaAdminItem = (props) => {
 
     const ponerTexto = () => {
         if (estado === 2) {
-            setTextoActivar('Desactivar');
+            setTextoActivar('on');
         } else if (estado === 1) {
-            setTextoActivar('Activar');
+            setTextoActivar('off');
         }
     }
 
@@ -42,28 +42,21 @@ export const TablaAdminItem = (props) => {
                     const apiUrl = `http://localhost:3001/usuario/${newEstado === 2 ? 'activarsupervisor' : 'desactivarsupervisor'}/${val.id}`;
                     await axios.put(apiUrl, { "state": newEstado })
                     .then(result => {
-                        if (result.data.continue && newEstado === 2) {
+                        if (result.data.continue) {
                             Swal.fire({
                                 title: "Actualizado!",
                                 text: `Se cambio el estado del Gerente ${val.name}`,
                                 icon: "success"
                             });
-                        }else if (result.data.continue && newEstado === 1) {
-                                Swal.fire({
-                                    title: "Actualizado!",
-                                    text: `Se cambio el estado del Gerente ${val.name}`,
-                                    icon: "success"
-                                });
-                        }else {
+                        } else {
                             Swal.fire({
                                 title: "No Actualizado!",
-                                text: `No se cambio el estado del Gerente ${val.name1}`,
+                                text: `No se cambio el estado del Gerente ${val.name}`,
                                 icon: "error"
                             });
+                            newEstado = 2;
                         }
                     })
-                    
-                    
                     
                     setEstado(newEstado);
                     props.consulta();
@@ -77,18 +70,23 @@ export const TablaAdminItem = (props) => {
     return (
         <>
             <tr>
-                <td classname="columna__id">
+                <td className="columna__id">
                     <h3 id='id'>{props.id}</h3>
                 </td>
-                <td classname="columna__names">
+                <td className="columna__names">
                     <h3 id='names'>{props.name + " " + props.lastname}</h3>
                 </td>
-                <td classname="columna__state">
-                    <h3 className=''>{props.estado}</h3>
+                <td className="columna__email">
+                    <h3 id='email'>{props.email}</h3>
                 </td>
-                <td classname="columna__acciones">
-                    <button type="button" id="edit" name="edit" className="boton b1" onClick={handleMostrarEdit}>Editar</button>
-                    <button type="button" id="delete" name="delete" className="boton b2" onClick={() => confirmDelete(props)}>{textoActivar}</button>
+                <td className="columna__state">
+                    <h3 className={props.idEstado === 2 ? 'active' : 'inactive' } >{props.estado}</h3>
+                </td>
+                <td className="columna_acciones" id='columna_acciones'>
+                    <div className='sing'>
+                        <div type="button" id="edit" name="edit" onClick={handleMostrarEdit}><i className=" tugle sbi bi-pencil-square"></i></div>
+                        <div type="button" id="delete" name="delete" onClick={() => confirmDelete(props)}><i className={`tugle bi bi-toggle-${textoActivar}`}></i></div>
+                    </div>
                 </td>
             </tr>
             {mostrarEditForm && <EditSupervisor closeModal={handleMostrarEdit} datos={props} consulta={props.consulta} />}

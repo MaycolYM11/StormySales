@@ -11,6 +11,8 @@ import Abonos from '../../components/mod_Abonos_Pre/Main_Abonos_Pre';
 import Zonas from '../../components/mod_Zonas_Pre/Main_Zonas_Pre';
 import Informes from '../../components/mod_Informes_pre/Main_Informes_Pre';
 import TablaSupervisores from '../mod_Usuarios_Pre/Supervisores/TablaSupervisores';
+import TablaVendedores from '../mod_Usuarios_Pre/Vendedores/TablaVendedores';
+import TablaClientes from '../mod_Usuarios_Pre/Clientes/TablaClientes';
 
 const MainLayout = () => {
   return (
@@ -21,8 +23,9 @@ const MainLayout = () => {
       <div className="Main_ContentPages">
         <Routes>
           <Route path="/inicio" element={<Inicio className="fullHeight" />} />
-          <Route path="/gestion-usuarios" element={<GestionUsuarios />} />
-          <Route path="/supervisores" element={<TablaSupervisores />} />
+          <Route path="/tabla-supervisores" element={<TablaSupervisores/>} />
+          <Route path="/tabla-vendedores" element={<TablaVendedores/>} />
+          <Route path="/tabla-clientes" element={<TablaClientes/>} />
           <Route path="/facturacion" element={<Facturacion />} />
           <Route path="/zonas" element={<Zonas />} />
           <Route path="/informes" element={<Informes />} />
