@@ -39,4 +39,23 @@
     --Modal-Estado-BG-01: #43695c;
     --Modal-Estado-Txt-01: #9fffcf;
     --Modal-Txt-01: #a2aac0;
+
+    /*Metodo Pago */
+    --MP--BG-00: rgba(28, 30, 36, .75);
+    --MP--BG-01: #282b32;
+    --MP--Txt-Color-01: #ff957c;
+    --MP--Txt-Color-02: #ffffff;
+    --MP--Txt-Color-03: #ffeeeb;
+    --MP--Txt-Color-04: #868ea3;
+    --MP--Input-BG-01: #3d414c;
+    --MP--Input-BG-02: #474c58;
+    --MP--BTN-BG-01: #ff957c;
+    --MP--Selects-BG-01: #3d414c;
+    --MP--Selects-BG-02: #363a44;
+    --MP--Selects-Border-01: #373a44;
+    --MP--Selects-Border-02: #282b32;
+    --MP--Selects-Border-03: #1a1c22;
+    --MP--Radio-BG-01: #333741;
+    --MP--Radio-border-BG-01: #282b32;
+    --MP--Radio-in-BG-01: #e0826c;
 }

@@ -1,0 +1,226 @@
+.window_metodoPago {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--MP--BG-00);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+    transition: opacity 0.3s ease;
+  }
+  
+  .metodoPago_Container {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    right: 0;
+    background-color: var(--MP--BG-01);
+    height: 100%;
+    width: 440px;
+    transition: transform 0.4s ease-out;
+    transform: translateX(100%);
+  }
+  
+  .metodoPago_Container.visible {
+    transform: translateX(0);
+  }
+  
+  .inputsContainer_MP {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .header_MetodoPago {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  
+  .tittle_MetodoPago {
+    color: var(--MP--Txt-Color-01);
+    font-size: 20px;
+    font-weight: bold;
+  }
+  
+  .listMetodosPago {
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    height: auto;
+    padding: 20px;
+    border-radius: 15px;
+    background-color: var(--MP--Selects-BG-01);
+    gap: 10px;
+    margin-bottom: 30px;
+  }
+  
+  .opGrup_MetoPago {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 5px 15px;
+    text-align: left;
+    background-color: var(--MP--Selects-BG-01);
+    border: 2px solid var(--MP--Selects-Border-01);
+    border-radius: 15px;
+    gap: 20px;
+    cursor: pointer;
+    transition: opacity 0.37s ease, border 0.37s ease, background-color 0.37s ease;
+  }
+  
+  .opGrup_MetoPago:hover {
+    opacity: 75%;
+    background-color: var(--MP--Selects-BG-02);
+    border: 2px solid var(--MP--Selects-Border-02);
+  }
+  
+  .opGrup_MetoPago:active {
+    opacity: 100%;
+  }
+  
+  .select__MP {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    max-width: 32px;
+    max-height: 32px;
+    background-color: var(--MP--Radio-BG-01);
+    border: 4px solid var(--MP--Radio-border-BG-01);
+    border-radius: 50%;
+  }
+  
+  .selected__MP {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    max-width: 20px;
+    max-height: 20px;
+    background-color: var(--MP--Radio-in-BG-01);
+    border-radius: 50%;
+  }
+  
+  .slected_MP {
+    background-color: var(--MP--Selects-BG-02);
+    border: 2px solid var(--MP--Selects-Border-02);
+  }
+  
+  .disabled_Input_MP {
+    opacity: 30%;
+  }
+  
+  .grup_MetodoPago_Referencia {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 10px;
+    margin-bottom: 30px;
+    transition: opacity 0.37s ease;
+  }
+  
+  .tittleGrup__InputMP {
+    color: var(--MP--Txt-Color-03);
+  }
+  
+  .inputContainerMP {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 60px;
+    background-color: var(--MP--Input-BG-01);
+    border-radius: 15px;
+    overflow: hidden;
+  }
+  
+  .inputText__MP {
+    background-color: transparent;
+    border: none;
+    outline: none;
+    color: var(--MP--Txt-Color-02);
+    padding: 0px 20px;
+    width: 100%;
+    height: 40px;
+  }
+  
+  .inputText__MP::placeholder {
+    color: var(--MP--Txt-Color-04);
+  }
+  
+  .righIconInput_MP {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100px;
+    background-color: var(--MP--Input-BG-02);
+    height: 60px;
+  }
+  
+  .righIconInput_MP i {
+    color: var(--MP--BTN-BG-01);
+  }
+  
+  .SlectMetodoPago {
+    width: 100%;
+    font-size: 15px;
+    padding: 20px;
+    border-radius: 15px;
+    border: none;
+    outline: none;
+    color: var(--MP--Txt-Color-02);
+    background-color: var(--MP--BTN-BG-01);
+    cursor: pointer;  
+    transition: opacity 0.37s ease, box-shadow 0.5s ease;
+}
+.SlectMetodoPago:hover {
+    opacity: 75%;
+    box-shadow: 0px 0px 27px -8px var(--MP--Radio-in-BG-01);
+  }
+  .SlectMetodoPago:active {
+    opacity: 100%;
+    box-shadow: 0px 0px 40px -8px var(--MP--Radio-in-BG-01);
+  }
+  
+  .speMP {
+    width: 100%;
+    height: 2px;
+    background-color: var(--MP--BG-00);
+    margin-bottom: 20px;
+    opacity: .4;
+  }
+  
+  /*----------------------------------------------------*/
+  
+.metodoPago_Container.visible {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  
+  .inputsContainer_MP {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  /* Resto de tu CSS aquí */
+  
+  .hidden {
+    pointer-events: none;
+  }
+  
+  .visible {
+    pointer-events: auto;
+  }

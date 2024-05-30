@@ -1,11 +1,12 @@
-import React, { useState } from 'react'
-import FacturaTop from './FacturaTop'
-import Swal from 'sweetalert2'
-import './MainFactura.css'
-import './TableFactura.css'
-import './Right_PartFactura.css'
+import React, { useState, useEffect } from 'react';
+import FacturaTop from './FacturaTop';
+import Swal from 'sweetalert2';
+import './MainFactura.css';
+import './TableFactura.css';
+import './Right_PartFactura.css';
 
-import ModalFactura from './modal_usu_Factura/Modal_Escoger_Usu'
+import MetodoPago from './metodo_pago/MetodosPago_Left';
+import ModalSelectCliente from './modal_usu_Factura/Modal_Escoger_Usu';
 
 const Main_Facturacion_Pre = () => {
   const [productos, setProductos] = useState([]);
@@ -13,6 +14,22 @@ const Main_Facturacion_Pre = () => {
   const [cantidad, setCantidad] = useState('');
   const [precioUnitario, setPrecioUnitario] = useState('');
   const [indiceSeleccionado, setIndiceSeleccionado] = useState(null);
+  const [metodoPago, setMetodoPago] = useState('');
+  const [referencia, setReferencia] = useState('');
+  const [modalMetodoPagoVisible, setModalMetodoPagoVisible] = useState(false);
+  const [modalSelectClienteVisible, setModalSelectClienteVisible] = useState(false);
+
+  const [/*modalOpen*/, setModalOpen] = useState(false);
+
+
+  const toggleModalMetodoPago = () => {
+    setModalMetodoPagoVisible(!modalMetodoPagoVisible);
+  };
+
+  const toggleModalSelectCliente = () => {
+    setModalSelectClienteVisible(!modalSelectClienteVisible);
+  };
+
 
   const agregarProducto = () => {
     if (!nombreProducto || !cantidad || !precioUnitario) {
@@ -83,9 +100,34 @@ const Main_Facturacion_Pre = () => {
   const iva = subtotal * 0.12;
   const total = subtotal + iva;
 
+  /* Modal de usuario ------*/
+  const handleSelectUser = (user) => {
+    console.log('--> Padre: Usuario seleccionado:', user);
+    setModalOpen(false);
+  };
+
+
+  const handleMetodoPagoSubmit = (metodo, ref) => {
+    setMetodoPago(metodo);
+    setReferencia(ref);
+    toggleModalMetodoPago();
+  };
+
+
+
+  useEffect(() => {
+    console.log(`Método de pago seleccionado: ${metodoPago}, y su referencia: ${referencia}`);
+    console.log(metodoPago, referencia);
+  }, [metodoPago, referencia]);
+
   return (
     <>
-    <ModalFactura />
+      {modalMetodoPagoVisible && (
+        <MetodoPago handleMetodoPagoSubmit={handleMetodoPagoSubmit} />
+      )}
+      {modalSelectClienteVisible && (
+        <ModalSelectCliente isOpen={modalSelectClienteVisible} onClose={() => setModalSelectClienteVisible(false)} onSelectUser={handleSelectUser} />
+      )}
       <div className="FacturacionMain">
         <div className='containerFactura-Top'>
           <FacturaTop />
@@ -109,11 +151,11 @@ const Main_Facturacion_Pre = () => {
                     <td className="td__Facturacion td--Item">{index + 1}</td>
                     <td className="td__Facturacion td--Descripcion">{producto.nombreProducto}</td>
                     <td className="td__Facturacion td--Cantidad">{producto.cantidad}</td>
-                    <td className="td__Facturacion td--Precio"><span className='precioColor'>$</span>{producto.precioUnitario.toFixed(2)}</td>
-                    <td className="td__Facturacion td--Importe"><span className='precioColor'>$</span>{producto.importe.toFixed(2)}</td>
+                    <td className="td__Facturacion td--Precio">{producto.precioUnitario.toFixed(2)}</td>
+                    <td className="td__Facturacion td--Importe">{producto.importe.toFixed(2)}</td>
                     <td className="td__Facturacion td--Acciones">
-                      <div className="Acciones-Container-Row">
-                        <div className="containerIcons-Acciones">
+                      <div className="accionesContainer--Factura">
+                        <div className="acciones-Btns-Factura">
                           <button className='BTN_iconClick-Factura' onClick={() => editarProducto(index)}>
                             <i className="bi bi-pencil-square"></i>
                           </button>
@@ -136,14 +178,14 @@ const Main_Facturacion_Pre = () => {
           <div className="Cliente-MPago-Totales_Container">
             <div className="btnsRight--Factura">
               <div className="btn_factura_BG __agregarCliente">
-                <button className='btn__agregar-Factura'>
+                <button className='btn__agregar-Factura' onClick={toggleModalSelectCliente}>
                   <span className='btnText-Facturacion'>Agregar Cliente</span>
                   <i className="bi bi-person-plus-fill"></i>
                 </button>
               </div>
               <div className="btn_factura_BG __EscogerMP">
-                <button className='btn__escMP-Factura'>
-                  <span className='btnText-Facturacion'>Escoger metodo de pago</span>
+                <button className='btn__escMP-Factura' onClick={toggleModalMetodoPago}>
+                  <span className='btnText-Facturacion'>Escoger método de pago</span>
                   <i className="bi bi-chevron-down"></i>
                 </button>
               </div>
@@ -169,7 +211,7 @@ const Main_Facturacion_Pre = () => {
           </div>
           <div className="RegistrarFactura-Bottom __registrar-Factura">
             <button className='btn__registrar-Factura'>
-              <span className='btnText-Facturacion'>Registra Factura</span>
+              <span className='btnText-Facturacion'>Registrar Factura</span>
               <i className="bi bi-save2"></i>
             </button>
           </div>
@@ -225,7 +267,7 @@ const Main_Facturacion_Pre = () => {
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default Main_Facturacion_Pre
+export default Main_Facturacion_Pre;
