@@ -63,11 +63,15 @@ const verificarSupervisorID = async(req,res)=>{
 const crearSupervisor = async(req,res) => {
     const {id,nombre,apellido,email,contrasena} = req.body;
 
+    const salt = await bcrypt.genSalt(8)
+    const hashContra = await bcrypt.hash(contrasena,salt);
+
+
     try {
         
         const query = `insert into usuarios values(?,?,?,?,1,2,?);`;
 
-        await db.query(query,[id,nombre,apellido,email,contrasena]);
+        await db.query(query,[id,nombre,apellido,email,hashContra]);
 
         res.json({message:'Datos registrados exitosamente'});
 
@@ -80,10 +84,14 @@ const crearSupervisor = async(req,res) => {
 const editarSupervisor = async(req,res)=>{
     const {id} = req.params;
     const {nombre,apellido,email,contrasena}=req.body;
+
+    const salt = await bcrypt.genSalt(8)
+    const hashContra = await bcrypt.hash(contrasena,salt);
+
     
     try {
         const query = `update usuarios set nombre= ?,Apellido= ?,email_usuario=?,Contrasena= ? where Identificacion_Usuario= ?;`;
-        await db.query(query,[nombre,apellido,email,contrasena,id]);
+        await db.query(query,[nombre,apellido,email,hashContra,id]);
         res.json({message: 'Actualizacion done'});
         console.log('Actualizacion done');
     } catch (error) {

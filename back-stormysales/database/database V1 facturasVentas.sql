@@ -162,3 +162,6 @@ INSERT INTO Detalle_zona (ID_zonaFK, Id_cliente, Direccion_clienteFK) VALUES
 (3, '2345678901', 'Avenida 80 #35-45');
 
 select * from zona;
+
+SELECT Identificacion_Usuario as id,Contrasena,Rol_Usuario as rol,nombre,Apellido,Estado_Usuario as estado
+                                        FROM Usuario WHERE ID_Numero_Identificacion_PK = ?;
