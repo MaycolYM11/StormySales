@@ -2,31 +2,38 @@
 @import url(../../styles/ColorsAll.css);
 
 .MainContainer_Abonos {
-  display: flex;
-  flex-direction: row;
+  display: grid;
+  grid-template-columns: 1fr 440px;
+  grid-template-rows: 1fr;
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
 }
-.AbonoRight {
-  width: 80vw;
-}
+
 .AbonoLeft {
-  width: 20vw;
   height: 100vh;
   background: var(--Right-BG-Color);
+  grid-area: 1 / 2 / 6 / 3;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
-.containerFactura-Top {
-  width: 20vw;
+.AbonoRight{
+ 
+  grid-area: 1 / 1 / 2 / 2;
+}
+.containerAbono-Top {
+  width: 400px;
+  margin: 20px 0 0 20px;
 }
 .ContainerAbono_Center{
   padding: 20px;
-  width: 100%;
+  width: 62vw;
+  height: auto;
   flex-grow: 1;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   overflow: auto;
-  margin-right: 480px;
 }
 /*Buscar*/
 
@@ -58,11 +65,11 @@
 .ButtonBuscar {
   height: 55px;
   width: 90px;
-  background: var(--BtN-Color-BG-05);
+  background: var(--BtN-Color-BG-04);
   color: white;
   border: 2px solid transparent;
   transition: border-color 0.3s;
-
+  border-top-right-radius: 10px;
   border-bottom-right-radius: 10px;
   box-shadow: 0px 0px 15px 0px rgba(15, 16, 23, 0.2);
   font-weight: bold;
@@ -72,7 +79,12 @@
 }
 
 /*Formulario Derecha*/
-
+.AbonoForm{
+  display: flex;
+  flex-direction: column;
+  justify-self: center;
+  width: 440px;
+}
 .formAbonotittle {
   margin-top: 10px;
   padding-left: 20px;
@@ -87,7 +99,7 @@
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
-  width: 95%;
+  justify-content: center;
   padding-left: 20px;
   margin: 15px 0 15px 0;
 }
@@ -130,7 +142,7 @@
 .formBotones {
   width: 95vw;
   padding-left: 20px;
-  margin: 15px 0 15px 0;
+  margin: 30px 0 15px 0;
 }
 .formMpago {
   display: flex;
@@ -222,36 +234,67 @@
   font-weight: bold;
 }
 .perro:hover {
-  background-color: #f2f2f2;
+  background-color: #8f2e1a;
   color: #333;
 }
 
-/*Table*/
+.contenedorRegistrar{
+  background: #3D4E57;
+  height: 80px;
+  border-radius: 20px;
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.btn-Registrar{
+  background: #72b9c3;
+  height: 55px;
+  width: 95%;
+  border-radius: 10px;
+  color: white;
+  font-weight: 700;
+  border: 2px solid transparent;
+}
 
-.table__Abono {
-  width: auto;
+.btn-Registrar:hover {
+  border: 2px solid white;
+  background: #436c72;
+  transition: 0.5s;
+}
+
+/* --- TABLE ----------------------> */
+
+.tb__Abono {
+  border: none;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  /* border-collapse: collapse; */
+  border-spacing: 0;
   background-color: var(--Table-BG-Color);
-  padding: 20px;
-  border-radius: 15px;
   overflow-x: auto;
+  width: 1119px;
+  font-size: 15px;
+  overflow: hidden;
 }
 
 .tr__Abono--Tittles {
   color: var(--TxT-Color-03);
 }
 
-.th__Abono--Item,
-.td__Abono--Item {
+.th--Item,
+.td--Item {
+  padding-left: 20px;
   width: 100px;
   text-align: left;
 }
 
-.td__Abono--Item {
+.td--Item {
   color: var(--TxT-Color-01);
 }
 
-.th__Abono--Descripcion,
-.td__Abono--Descripcion {
+.th--Descripcion,
+.td--Descripcion {
   width: 300px;
   text-align: left;
   white-space: nowrap;
@@ -259,74 +302,158 @@
   text-overflow: ellipsis;
 }
 
-.td__Abono--Descripcion {
+.td--Descripcion {
   color: var(--TxT-Color-02);
 }
 
-.th__Abono--Cantidad,
-.td__Abono--Cantidad {
+.th--Cantidad,
+.td--Cantidad {
   width: 120px;
   text-align: left;
 }
 
-.td__Abono--Cantidad {
-  color: var(--TxT-Color-01);
+.td--Cantidad {
+  color: var(--TxT-Color-02);
 }
 
-.th__Abono--Precio,
-.td__Abono--Precio {
+.th--Precio,
+.td--Precio {
   width: 180px;
   text-align: left;
 }
 
-.th__Abono--Importe,
-.td__Abono--Importe {
+.th--Importe,
+.td--Importe {
   width: 150px;
   text-align: left;
 }
 
-.td__Abono--Importe {
+.th__Abono .td--Importe {
   color: var(--TxT-Color-02);
 }
 
-.th__Abono--Acciones,
-.td__Abono--Acciones {
-  background: var(--Main-Container-BG-3);
-  width: 180px;
-  text-align: left;
-}
-
-.td__Abono--Acciones {
-  color: var(--TxT-Color-02);
-}
-
-.tr__Abono:nth-child(even) {
-  background-color: #f2f2f220;
-}
-
-.tr__Abono:hover {
-  background-color: #e9e9e920;
-}
-
-/* Acciones */
-
-.Acciones-Container-Row-Abono {
- 
-}
-
-.containerIconas-Acciones {
+.th--Acciones,
+.td--Acciones {
+  width: auto;
+  text-align: center;
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 80px;
   background-color: var(--Table-Actions-BG-Color);
-  color: var(--Table-Actions-Icons-Color);
-  border-radius: 15px;
+  overflow: hidden;
 }
 
-.separadorVertical-Acciones {
+.th--Acciones {
+  padding: 20px 0;
+  border-top-right-radius: 10px;
+  border-left: 2px solid var(--Separador-Actions--Hover-2);
+}
+
+.td--Acciones {
+  padding: 5px 0;
+  border-left: 2px solid var(--Separador-Actions--Hover-2);
+}
+
+.th--Item,
+.th--Descripcion,
+.th--Cantidad,
+.th--Precio,
+.th--Importe {
+  color: var(--TxT-Color-03);
+}
+
+.th--Item,
+.th--Descripcion,
+.th--Cantidad,
+.th--Precio,
+.th--Importe,
+.td--Item,
+.td--Descripcion,
+.td--Cantidad,
+.td--Precio,
+.td--Importe {
+  border-bottom: 2px solid var(--Separador-Actions--Hover-2);
+}
+
+/* Acciones ------------------> */
+
+.AccionesAbono-Container-Row {
+  padding: 5px;
+}
+
+.containerIconsAbono-Acciones {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 120px;
+  background-color: var(--Table-Actions-BG-Icons-Color);
+  color: var(--Table-Actions-Icons-Color);
+  border-radius: 15px;
+  border: 2px solid var(--Separador-Actions--Hover-2);
+}
+
+.separadorVerticalAbono-Acciones {
   width: 2px;
-  height: 40px;
+  height: 43px;
+  margin: 0 4px;
+  background-color: var(--Separador-Actions--Hover-2);
+}
+
+.BTN_iconClick-Abono {
+  padding: 10px;
   margin: 0 5px;
-  background-color: #ff0000;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  border-radius: 15px;
+  transition: background-color 0.5s ease;
+}
+
+.BTN_iconClick-Abono:hover {
+  background-color: var(--Separador-Actions--Hover);
+}
+
+.BTN_iconClick-Abono:active {
+  opacity: 50%;
+  background-color: var(--Separador-Actions--Hover-2);
+}
+
+.separadorVerticalAbono-Acciones .BTN_iconClick-Abono i {
+  font-size: 20px;
+  color: var(--Table-Actions-Icons-Color);
+}
+
+.precioColor {
+  color: var(--TxT-Color-01);
+}
+
+.td--Cantidad {
+  color: var(--TxT-Color-01);
+}
+
+.dollar-resaltado-A {
+  color: var(--TxT-Color-01);
+}
+
+/*--------------- BOTTOM -----------*/
+
+.Abono-bootomTable_Show {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 1119px;
+  background-color: var(--Table-BG-Color);
+  height: 10px;
+  border-bottom-right-radius: 15px;
+  border-bottom-left-radius: 15px;
+  overflow: hidden;
+}
+
+.Abono-bootomTable_Show_Right {
+  width: 238px;
+  height: 100%;
+  background-color: var(--Table-Actions-BG-Color);
+  border-left: 2px solid var(--Separador-Actions--Hover-2);
 }

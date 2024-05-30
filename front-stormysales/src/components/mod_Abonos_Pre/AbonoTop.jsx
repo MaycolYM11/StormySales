@@ -8,13 +8,11 @@ const AbonoTop = () => {
       <div className="abonoTop_Top-Lef--Container">
         <div className="Abono_top-left">
           <div className="grupDiv_Abono-Right">
-            <span className='tittleGrup_Abono'>ID Abono:</span>
-            <span className='tittleGrup_Abono'>Fecha del Abono:</span>
-            <span className='tittleGrup_Abono'>Hora del Abono:</span>
-            <span className='tittleGrup_Abono'>ID Abono:</span>
+            <span className='tittleGrup_Abono'>ID Factura:</span>
+            <span className='tittleGrup_Abono'>Fecha de la factura:</span>
+            <span className='tittleGrup_Abono'>Hora de la factura:</span>
           </div>
           <div className="grupDiv_Abono-Left">
-            <span className='resultGrup_Abono'>#0001</span>
             <span className='resultGrup_Abono'>#0001</span>
             <span className='resultGrup_Abono'>#0001</span>
             <span className='resultGrup_Abono'>#0001</span>
@@ -22,10 +20,10 @@ const AbonoTop = () => {
         </div>
         <div className="Abono-Cliente_top-left">
           <div className="grupDiv_Abono-Right">
-            <span className='tittleGrup_Abono'>ID Abono:</span>
-            <span className='tittleGrup_Abono'>Fecha del Abono:</span>
-            <span className='tittleGrup_Abono'>Hora del Abono:</span>
-            <span className='tittleGrup_Abono'>ID Abono:</span>
+            <span className='tittleGrup_Abono'>ID Cliente:</span>
+            <span className='tittleGrup_Abono'>Nombre del Cliente:</span>
+            <span className='tittleGrup_Abono'>NIT:</span>
+            <span className='tittleGrup_Abono'>Teléfono:</span>
           </div>
           <div className="grupDiv_Abono-Left">
             <span className='resultGrup_Abono'>#0001</span>
@@ -44,7 +42,7 @@ const AbonoTop = () => {
           </div>
           <div className="AbonoTittle--TopRight">
             <img className='logoMini--Tittle-abono' src={LogoMini} alt="LogoMini" />
-            <span className='Abono--Tittle'>Abono</span>
+            <span className='Abono--Tittle'>Factura</span>
           </div>
         </div>
         <div className="Abono_Empleado--top-right">

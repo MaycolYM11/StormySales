@@ -14,39 +14,41 @@ const Main_Abonos_Pre = () => {
           />
           <button className="ButtonBuscar">Buscar</button>
         </div>
-        <div className="containerFactura-Top">
+        <div className="containerAbono-Top">
           <AbonoTop />
         </div>
         <div className="ContainerAbono_Center">
           <div className="tableCenter_Abono">
-            <table className="table__Abono">
-              <thead className="thead__Abono">
-                <tr className="tr__Abono--Tittles">
-                  <th className="th__Abono--Item">N° Item</th>
-                  <th className="th__Abono--Descripcion">Descripción</th>
-                  <th className="th__Abono--Cantidad">Cantidad</th>
-                  <th className="th__Abono--Precio">Precio Unitario</th>
-                  <th className="th__Abono--Importe">Importe</th>
-                  <th className="th__Abono--Acciones">Acciones</th>
+            <table className="tb__Abono">
+              <thead>
+                <tr className="th__Abono">
+                  <th className="th__Abono th--Item">N° Item</th>
+                  <th className="th__Abono th--Descripcion">Descripción</th>
+                  <th className="th__Abono th--Cantidad">Cantidad</th>
+                  <th className="th__Abono th--Precio">Precio Unitario</th>
+                  <th className="th__Abono th--Importe">Importe</th>
+                  <th className="th__Abono th--Acciones">Acciones</th>
                 </tr>
               </thead>
-              <tbody className="tbody__Abono">
+              <tbody>
                 <tr className="tr__Abono">
-                  <td className="td__Abono--Item">1</td>
-                  <td className="td__Abono--Descripcion">
-                    Nombre de producto 1
+                  <td className="td__Abono td--Item"></td>
+                  <td className="td__Abono td--Descripcion"></td>
+                  <td className="td__Abono td--Cantidad"></td>
+                  <td className="td__Abono td--Precio">
+                    <span className="precioColor">$</span>
                   </td>
-                  <td className="td__Abono--Cantidad">5</td>
-                  <td className="td__Abono--Precio">$ 10.000</td>
-                  <td className="td__Abono--Importe">$50.000</td>
-                  <td className="td__Abono--Acciones">
-                    <div className="Acciones-Container-Row-Abono">
-                      <div className="containerIconas-Acciones">
-                        <button className="iconClick-Abono">
+                  <td className="td__Abono td--Importe">
+                    <span className="precioColor">$</span>
+                  </td>
+                  <td className="td__Abono td--Acciones">
+                    <div className="AccionesAbono-Container-Row"> {/*Cambio de clase */}
+                      <div className="containerIconsAbono-Acciones">{/*Cambio de clase */}
+                        <button className="BTN_iconClick-Abono">
                           <i className="bi bi-pencil-square"></i>
                         </button>
-                        <div className="separadorVertical-Acciones"></div>
-                        <button className="iconClick-Abono">
+                        <div className="separadorVerticalAbono-Acciones"></div>{/*Cambio de clase */}
+                        <button className="BTN_iconClick-Abono">
                           <i className="bi bi-trash3"></i>
                         </button>
                       </div>
@@ -55,6 +57,13 @@ const Main_Abonos_Pre = () => {
                 </tr>
               </tbody>
             </table>
+            <div className="Abono-bootomTable_Show">
+              <div className="nada"></div>
+              <div className="Abono-bootomTable_Show_Right"></div>
+            </div>
+          </div>
+          <div className="contenedorRegistrar">
+            <button className="btn-Registrar">Registrar Abono</button>
           </div>
         </div>
       </div>

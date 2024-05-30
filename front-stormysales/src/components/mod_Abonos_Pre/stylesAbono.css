@@ -104,7 +104,7 @@
     justify-content: center;
     flex-direction: column;
     width: auto;
-    height: 188px;
+    height: 160px;
     background-color: var(--BG-01-Cards);
     border-radius: 15px;
     box-shadow: 0px 0px 15px 0px rgba(15, 16, 23, 0.2);
@@ -119,7 +119,7 @@
 
 .Abono--Tittle {
     color: var(--TxT-Color-01);
-    font-size: 50px;
+    font-size: 45px;
     text-transform: uppercase;
     font-weight: bold;
 }
