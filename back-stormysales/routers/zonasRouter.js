@@ -11,10 +11,12 @@ rutaZona.post("/createzona", zonaController.CreateZona);
 rutaZona.post('/createzonadetail',zonaController.CreateDetalleZona);
 
 rutaZona.put("/updatezona/:id", zonaController.UpdateZona);
-rutaZona.put("/createzona/:id", zonaController.UpdateDetalleZona);
+rutaZona.put("/updatezonaDetalle/:id", zonaController.UpdateDetalleZona);
 
 rutaZona.get("/obclientes", zonaController.obtenerClientes);
 // rutaZona.delete("/rutas/:id", zonaController.eliminarZona);
+
+rutaZona.get('/rutaInfo/:idRuta', zonaController.obtenerInfoRuta);
 
 rutaZona.put("/cambioestadorutas/:id", zonaController.cambioEstadoZona);
 

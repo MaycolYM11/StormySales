@@ -66,7 +66,7 @@ function Tabla_zonas() {
     <>
     <div className='ContainerMayor'>
     <div className='TituConte'>
-        <h1 className='tituloR' >Rutas</h1><hr/>
+        <h1 className='tituloR' >Rutas</h1><hr class="customi-hr" />
     </div>
     <div className='BotonesSuperior'>
           <div className='Buscar'>
@@ -127,6 +127,7 @@ function Tabla_zonas() {
                 )}
               </tbody>
             </table>
+            <hr class="customi-hr" />
             <div className="pagination">
               <button onClick={handlePreviousPage} disabled={currentPage === 1}>
                 Anterior

@@ -80,8 +80,15 @@ const CreateDetalleZona = async (req, res) => {
 
 
   const UpdateZona = async (req, res) => {
-    const { idZona, Nombre_zona, Id_empleado } = req.body;
+    const { idZona } = req.params;
+    const { Nombre_zona, Id_empleado } = req.body;
     try {
+      console.log('Datos recibidos en el backend para actualizar la zona:', {
+        idZona,
+        Nombre_zona,
+        Id_empleado
+      });
+  
       const query = 'UPDATE Zona SET Nombre_zona = ?, Id_empleado = ? WHERE ID_zona = ?;';
       await db.query(query, [Nombre_zona, Id_empleado, idZona]);
       res.json({ message: 'Zona actualizada' });
@@ -93,9 +100,16 @@ const CreateDetalleZona = async (req, res) => {
   };
   
   const UpdateDetalleZona = async (req, res) => {
-    const { idDetalleZona, idCliente, direccion } = req.body;
+    const { idDetalleZona } = req.params;
+    const { idCliente, direccion } = req.body;
     try {
-      const query = 'UPDATE Detalle_zona SET Id_cliente = ?, Direccion_clienteFK = ? WHERE ID_Detalle_zona = ?;';
+      console.log('Datos recibidos en el backend para actualizar el detalle de la zona:', {
+        idDetalleZona,
+        idCliente,
+        direccion
+      });
+  
+      const query = 'UPDATE Detalle_zona SET Id_cliente = ?, Direccion_clienteFK = ? WHERE ID_detallezona = ?;';
       await db.query(query, [idCliente, direccion, idDetalleZona]);
       res.json({ message: 'Detalle zona actualizado' });
       console.log('Detalle zona actualizado');
@@ -104,6 +118,8 @@ const CreateDetalleZona = async (req, res) => {
       res.status(500).json({ message: `Error al actualizar el Detalle zona: ${error.message}` });
     }
   };
+  
+  
   
 
 const obtenerUsuariosRol2 = async (req, res) => {
@@ -147,7 +163,26 @@ const cambioEstadoZona = async (req, res) => {
 };
 
 
+const obtenerInfoRuta = async (req, res) => {
+    const { idRuta } = req.params; // Suponiendo que la ruta se identifica por un ID
+    
+    try {
+        // Consulta para obtener la información de la ruta, incluyendo el empleado asignado
+        const queryRuta = `SELECT z.ID_zona, dz.Id_cliente, c.nombre, c.direccion, c.email,
+                                  u.nombre AS NombreEmpleado, u.Apellido AS ApellidoEmpleado
+                           FROM Zona z
+                           INNER JOIN Usuarios u ON z.Id_empleado = u.Identificacion_Usuario
+                           INNER JOIN Detalle_zona dz ON z.ID_zona = dz.ID_zonaFK
+                           INNER JOIN Clientes c ON dz.Id_cliente = c.Identificacion_Clientes
+                           WHERE z.ID_zona = ?`;
+        const [infoRuta] = await db.query(queryRuta, [idRuta]);
 
+        res.json(infoRuta);
+    } catch (error) {
+        console.error('Error al obtener información de la ruta:', error);
+        res.status(500).json({ error: 'Error al obtener información de la ruta' });
+    }
+};
 
 
 // const eliminarZona = async (req, res) => {
@@ -189,6 +224,7 @@ module.exports = {
     // verificarTelefonoExistente
     obtenerClientes,
     UpdateZona,
-    UpdateDetalleZona
+    UpdateDetalleZona,
+    obtenerInfoRuta
     
 };

@@ -1,30 +1,45 @@
 import React, { useEffect, useState } from 'react';
 import Swal from 'sweetalert2';
 import axios from 'axios';
+import './Tablas.css';
 
 const Edit_zonas = ({ closeModal, datos, consulta }) => {
-  const [nombreRuta, setNombreRuta] = useState('');
-  const [empleadoSeleccionado, setEmpleadoSeleccionado] = useState('');
+  const [nombreRuta, setNombreRuta] = useState(datos.Nombre_zona || '');
+  const [empleadoSeleccionado, setEmpleadoSeleccionado] = useState(datos.Id_empleado || '');
   const [clientesSeleccionados, setClientesSeleccionados] = useState([]);
-  const [clientes, setClientes] = useState([]); // Estado para almacenar la lista de clientes
+  const [clientes, setClientes] = useState([]);
+  const [empleados, setEmpleados] = useState([]);
+  const [idZona, setIdZona] = useState(datos.idZona || '');
+  const [idDetalleZonas, setIdDetalleZonas] = useState({});
 
   useEffect(() => {
-    // Aquí puedes inicializar los campos con los datos recibidos
-    setNombreRuta(datos.Nombre_zona);
-    setEmpleadoSeleccionado(datos.Id_empleado);
-    // Si tienes los clientes seleccionados disponibles en datos, también puedes inicializarlos
-    // setClientesSeleccionados(datos.clientes);
-
-    obtenerClientes(); // Llama a la función para obtener la lista de clientes
+    console.log('Datos recibidos para editar:', datos);
+    setNombreRuta(datos.Nombre_zona || '');
+    setEmpleadoSeleccionado(datos.Id_empleado || '');
+    setIdZona(datos.idZona || '');
+    obtenerClientes();
+    obtenerEmpleados();
   }, [datos]);
 
-  // Función para obtener la lista de clientes
   const obtenerClientes = async () => {
     try {
       const response = await axios.get('http://localhost:3001/zonas/obclientes');
-      setClientes(response.data);
+      const clientesConSeleccion = response.data.map(cliente => ({
+        ...cliente,
+        seleccionado: false
+      }));
+      setClientes(clientesConSeleccion);
     } catch (error) {
       console.error('Error al obtener la lista de clientes:', error);
+    }
+  };
+
+  const obtenerEmpleados = async () => {
+    try {
+      const response = await axios.get('http://localhost:3001/zonas/usuariosrol2');
+      setEmpleados(response.data);
+    } catch (error) {
+      console.error('Error al obtener la lista de empleados:', error);
     }
   };
 
@@ -32,33 +47,76 @@ const Edit_zonas = ({ closeModal, datos, consulta }) => {
     setEmpleadoSeleccionado(e.target.value);
   };
 
-  const handleSeleccionCliente = (cliente) => {
-    // Verificar si el cliente ya está seleccionado
-    const clienteIndex = clientesSeleccionados.findIndex(item => item.Identificacion_Clientes === cliente.Identificacion_Clientes);
-    if (clienteIndex === -1) {
-      // Agregar el cliente a la lista de seleccionados
-      setClientesSeleccionados([...clientesSeleccionados, cliente]);
-    } else {
-      // Eliminar el cliente de la lista de seleccionados
-      const nuevosClientesSeleccionados = [...clientesSeleccionados];
-      nuevosClientesSeleccionados.splice(clienteIndex, 1);
-      setClientesSeleccionados(nuevosClientesSeleccionados);
+  const handleSeleccionCliente = (clienteId) => {
+    setClientes(clientes.map(cliente =>
+      cliente.Identificacion_Clientes === clienteId
+        ? { ...cliente, seleccionado: !cliente.seleccionado }
+        : cliente
+    ));
+  };
+
+  const validarCampos = () => {
+    if (!nombreRuta || !empleadoSeleccionado) {
+      Swal.fire({
+        icon: 'error',
+        text: 'Por favor, complete todos los campos obligatorios.',
+      });
+      return false;
     }
+    return true;
   };
 
   const editarZona = async () => {
-    try {
-      // Aquí va la lógica para editar la zona
-      const response = await axios.put(`http://localhost:3001/zonas/updatezona/${datos.Id_zona}`, {
-        Nombre_zona: nombreRuta,
-        Id_empleado: empleadoSeleccionado, // Ajusta según tus necesidades
-        clientes: clientesSeleccionados // Ajusta según tus necesidades
+    if (!validarCampos()) {
+      return;
+    }
+
+    if (!idZona) {
+      console.error('ID de zona no definido.');
+      Swal.fire({
+        icon: 'error',
+        text: 'ID de zona no definido. No se puede actualizar la zona sin un ID válido.',
       });
+      return;
+    }
+
+    try {
+      const zonaData = {
+        idZona: idZona,
+        Nombre_zona: nombreRuta,
+        Id_empleado: empleadoSeleccionado
+      };
+
+      console.log('Datos a enviar para actualizar la zona:', zonaData);
+
+      const response = await axios.put(`http://localhost:3001/zonas/updatezona/${idZona}`, zonaData);
+      console.log('Zona actualizada:', response.data);
+
+      for (let cliente of clientes.filter(cliente => cliente.seleccionado)) {
+        const detalleZonaId = idDetalleZonas[cliente.Identificacion_Clientes];
+
+        if (!detalleZonaId) {
+          console.error('ID de detalle de zona no definido para el cliente:', cliente.Identificacion_Clientes);
+          continue;
+        }
+
+        const detalleZonaData = {
+          idDetalleZona: detalleZonaId,
+          idCliente: cliente.Identificacion_Clientes,
+          direccion: cliente.direccion
+        };
+
+        console.log('Datos a enviar para actualizar el detalle de la zona:', detalleZonaData);
+
+        const detalleResponse = await axios.put(`http://localhost:3001/zonas/updatezonaDetalle/${detalleZonaId}`, detalleZonaData);
+        console.log('Detalle zona actualizado:', detalleResponse.data);
+      }
+
       consulta();
       closeModal();
       Swal.fire({
         icon: 'success',
-        text: `Datos actualizados para la zona`,
+        text: 'Datos actualizados para la zona',
       });
     } catch (error) {
       console.error('No se pudo realizar la petición PUT:', error);
@@ -94,12 +152,15 @@ const Edit_zonas = ({ closeModal, datos, consulta }) => {
                 className="text_cuadroRe-unique"
               >
                 <option value="">Selecciona un Empleado</option>
-                {/* Aquí puedes mapear tus empleados */}
+                {empleados.map((empleado) => (
+                  <option key={empleado.Identificacion_Usuario} value={empleado.Identificacion_Usuario}>
+                    {empleado.nombre} {empleado.Apellido}
+                  </option>
+                ))}
               </select>
             </div>
           </div>
           <h2 className="subtitulo-unique">Clientes y Direcciones</h2>
-          {/* Muestra la lista de clientes si está definida */}
           {clientes && (
             <div className='tabla-container-unique'>
               <table className='tabla-unique'>
@@ -115,7 +176,7 @@ const Edit_zonas = ({ closeModal, datos, consulta }) => {
                 </thead>
                 <tbody>
                   {clientes.map(cliente => (
-                    <tr key={cliente.Identificacion_Clientes}>
+                    <tr key={cliente.Identificacion_Clientes} className={cliente.seleccionado ? "fila-seleccionada-unique" : ""}>
                       <td>{cliente.Identificacion_Clientes}</td>
                       <td>{cliente.nombre}</td>
                       <td>{cliente.direccion}</td>
@@ -127,10 +188,10 @@ const Edit_zonas = ({ closeModal, datos, consulta }) => {
                       </td>
                       <td>
                         <button
-                          className={`botonAgregar-unique ${clientesSeleccionados.findIndex(item => item.Identificacion_Clientes === cliente.Identificacion_Clientes) !== -1 ? 'seleccionado' : ''}`}
-                          onClick={() => handleSeleccionCliente(cliente)}
+                          className={`botonAgregar-unique ${cliente.seleccionado ? "agregado-unique" : ""}`}
+                          onClick={() => handleSeleccionCliente(cliente.Identificacion_Clientes)}
                         >
-                          <i className="biSelect bi-check2"></i>
+                          {cliente.seleccionado ? <i className="biSelect bi-x"></i> : <i className="biSelect bi-check2"></i>}
                         </button>
                       </td>
                     </tr>
