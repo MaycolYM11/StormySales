@@ -11,7 +11,7 @@ const MainSideMenu = () => {
         zonas: false,
         informes: false,
     });
-    const [usuario, setUsuario] = useState(null);
+    const [usuario, setUsuario] = useState([]);
     
     
     
@@ -260,8 +260,8 @@ const MainSideMenu = () => {
                             <i className="bi bi-person-circle"></i>
                         </div>
                         <div className="infoTexts_User">
-                            <span className="Cargo_User">{usuario}</span>
-                            <span className="Name_User">{usuario}</span>
+                            <span className="Cargo_User">{usuario.cargo}</span>
+                            <span className="Name_User">{usuario.user}</span>
                         </div>
                     </div>
                 </div>
