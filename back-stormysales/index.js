@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 
 const superviRouter = require('./routers/SupervisorRouter');
+const AbonoRouter = require('./routers/AbonoRouter');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -18,6 +19,7 @@ app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use('/usuario', superviRouter);
+app.use('/Abono', AbonoRouter);
 
 app.get("/", (req, res) => {
     res.send("¡Hola! Este es el servidor backend!");

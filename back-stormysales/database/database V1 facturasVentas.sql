@@ -147,7 +147,7 @@ VALUES
 		(2,'Gorrita de ñero',2,35000,35000*2),
         (2,'Pan duro',4,4000,4000*4);
 
-
+select * from Abonos;
 
 INSERT INTO Zona (Nombre_zona, Estado_zona, Id_empleado) VALUES 
 ('Zona Norte', 1, '1234567890'),
@@ -158,3 +158,25 @@ INSERT INTO Detalle_zona (ID_zonaFK, Id_cliente, Direccion_clienteFK) VALUES
 (1, '1234567890', 'Carrera 10 #20-30'),
 (2, '0987654321', 'Calle 50 #15-25'),
 (3, '2345678901', 'Avenida 80 #35-45');
+
+select * from Abonos;
+
+INSERT INTO Abonos (ID_factura_fk, fecha_abono, cantidad_abono)
+VALUES 
+    (1, CURDATE(), 1000.00),
+    (1, CURDATE(), 500.00);
+    
+INSERT INTO Abonos (ID_factura_fk, fecha_abono, cantidad_abono)
+VALUES 
+    (2, CURDATE(), 20000.00),
+    (2, CURDATE(), 7000.00);
+    
+SELECT 
+	ID_abono,
+	ID_factura_fk,
+	fecha_abono,
+	cantidad_abono
+FROM 
+	Abonos
+WHERE 
+	ID_factura_fk = 1;

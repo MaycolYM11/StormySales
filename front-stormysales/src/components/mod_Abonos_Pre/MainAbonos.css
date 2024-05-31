@@ -293,42 +293,42 @@
   color: var(--TxT-Color-01);
 }
 
-.th--Descripcion,
-.td--Descripcion {
-  width: 300px;
+.th--FechaAbono,
+.td--FechaAbono {
+  width: 200px;
   text-align: left;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-.td--Descripcion {
+.td--FechaAbono {
   color: var(--TxT-Color-02);
 }
 
-.th--Cantidad,
-.td--Cantidad {
-  width: 120px;
+.th--Empleado,
+.td--Empleado {
+  width: 280px;
   text-align: left;
 }
 
-.td--Cantidad {
+.td--Empleado {
   color: var(--TxT-Color-02);
 }
 
-.th--Precio,
-.td--Precio {
+.th--CantidadAbono,
+.td--CantidadAbono {
   width: 180px;
   text-align: left;
 }
 
-.th--Importe,
-.td--Importe {
+.th--Calculo,
+.td--Calculo {
   width: 150px;
   text-align: left;
 }
 
-.th__Abono .td--Importe {
+.th__Abono .td--Calculo {
   color: var(--TxT-Color-02);
 }
 
@@ -356,23 +356,23 @@
 }
 
 .th--Item,
-.th--Descripcion,
-.th--Cantidad,
-.th--Precio,
-.th--Importe {
+.th--FechaAbono,
+.th--Empleado,
+.th--CantidadAbono,
+.th--Calculo {
   color: var(--TxT-Color-03);
 }
 
 .th--Item,
-.th--Descripcion,
-.th--Cantidad,
-.th--Precio,
-.th--Importe,
+.th--FechaAbono
+.th--Empleado,
+.th--CantidadAbono,
+.th--Calculo,
 .td--Item,
-.td--Descripcion,
-.td--Cantidad,
-.td--Precio,
-.td--Importe {
+.td--FechaAbono,
+.td--Empleado,
+.td--CantidadAbono,
+.td--Calculo {
   border-bottom: 2px solid var(--Separador-Actions--Hover-2);
 }
 

@@ -17,3 +17,9 @@ Content-Type: application/json
     "apellido":"gutierrez",
     "contrasena":"0000"
 }
+
+###
+GET http://localhost:3001/Abono/BuscarFacturaCliente/1/1 HTTP/1.1
+
+###
+GET http://localhost:3001/Abono/AbonosDatos/1 HTTP/1.1
