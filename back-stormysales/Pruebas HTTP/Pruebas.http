@@ -6,7 +6,21 @@ GET http://localhost:3001/usuario/barrabusqueda//jhon HTTP/1.1
 
 
 ###
-GET http://localhost:3001/usuario/verifyidsupervisor/1112223 HTTP/1.1
+GET http://localhost:3001/usuario/verifyidsupervisor/444444 HTTP/1.1
+
+###
+POST http://localhost:3001/usuario/postsupervisor HTTP/1.1
+Content-Type: application/json
+
+{
+    "id":"444444",
+    "nombre":"francisco",
+    "apellido":"gutierrez",
+    "email":"ashe@gmail.com",
+    "contrasena":"0000"
+}
+
+
 
 ###
 PUT http://localhost:3001/usuario/putsupervisor/444444 HTTP/1.1
@@ -59,3 +73,8 @@ Content-Type:application/json
 {
     "state":"2"
 }
+
+POST url HTTP/1.1
+header name: header value
+
+content

@@ -16,8 +16,8 @@ const autenticarIngreso = async (req,res)=>{
         if (usuario === idEntra && result[0].estado===2) {
             const passReal = result[0].Contrasena;
             const rol = result[0].rol;
-            const name = result[0].nombre;
-            const lastname = result[0].Apellido;
+            const name = result[0].Nombre_Usuario;
+            const lastname = result[0].Apellido_Usuario;
 
             try {
                 let ingreso = await bcrypt.compare(contrasenaEntra, passReal);
