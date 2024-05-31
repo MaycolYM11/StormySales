@@ -43,11 +43,11 @@ const MainLayout = () => {
           <Route element={<ProtectedRoute isAllowed={!!user && user.rol === 1} redirectTo='/inicio'/>}>
             <Route path="/tabla-supervisores" element={<TablaSupervisores/>} />
             <Route path="/tabla-vendedores" element={<TablaVendedores/>} />
+            <Route path="/zonas" element={<Zonas />} />
           </Route>
           <Route element={<ProtectedRoute isAllowed={!!user && (user.rol === 1 || user.rol === 2)} redirectTo='/inicio'/>}>
             <Route path="/tabla-clientes" element={<TablaClientes/>} />
             <Route path="/facturacion" element={<Facturacion />} />
-            <Route path="/zonas" element={<Zonas />} />
             <Route path="/informes" element={<Informes />} />
             <Route path="/Abonos" element={<Abonos />} />
           </Route>

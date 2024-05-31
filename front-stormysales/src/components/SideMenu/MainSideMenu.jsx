@@ -11,31 +11,31 @@ const MainSideMenu = () => {
         zonas: false,
         informes: false,
     });
-    // const [usuario, setUsuario] = useState(null);
+    const [usuario, setUsuario] = useState(null);
     
     
     
 
-    // useEffect(()=>{
-    //     const traerDatos = async () => {
-    //         const datos = await JSON.parse(localStorage.getItem("usuario"));
-    //         console.log(datos);
-    //         if (datos) {
-    //             let cargo = '';
-    //             if (datos.rol === 1) {
-    //                 cargo = 'Supervisor';
-    //             } else if (datos.rol === 2) {
-    //                 cargo = 'Vendedor';
-    //             }
-    //             setUsuario({
-    //                 user: datos.name + ' ' + datos.lastname,
-    //                 cargo: cargo,
-    //                 rol: datos.rol
-    //             });
-    //         }
-    //     }
-    //     traerDatos();
-    // },[])
+    useEffect(()=>{
+        const traerDatos = async () => {
+            const datos = await JSON.parse(localStorage.getItem("usuario"));
+            console.log(datos);
+            if (datos) {
+                let cargo = '';
+                if (datos.rol === 1) {
+                    cargo = 'Supervisor';
+                } else if (datos.rol === 2) {
+                    cargo = 'Vendedor';
+                }
+                setUsuario({
+                    user: datos.name + ' ' + datos.lastname,
+                    cargo: cargo,
+                    rol: datos.rol
+                });
+            }
+        }
+        traerDatos();
+    },[])
 
     const handleLogout = () => {
         Swal.fire({
@@ -122,17 +122,24 @@ const MainSideMenu = () => {
                         </div>
                         <div className={`subMenu--BTN ${subMenusOpen.gestionUsuarios ? 'activeSubMenu' : ''}`}>
 
-                            <Link to='/tabla-supervisores' style={linkStyles}>
-                                <div className="option_SubMenu" onClick={handleSubMenuClick}>
-                                    <div className="point_SubMenu"></div>
-                                    <span className='text_SubMenu'>Supervisores</span>
-                                </div></Link>
+                            <div className={usuario && usuario.rol === 1 ? '' : 'hide'}>
+                                <Link to='/tabla-supervisores' style={linkStyles}>
+                                    <div className="option_SubMenu" onClick={handleSubMenuClick}>
+                                        <div className="point_SubMenu"></div>
+                                        <span className='text_SubMenu'>Supervisores</span>
+                                    </div>
+                                </Link>
+                            </div>
 
-                            <Link to='/tabla-vendedores' style={linkStyles}>
-                                <div className="option_SubMenu" onClick={handleSubMenuClick}>
-                                    <div className="point_SubMenu"></div>
-                                    <span className='text_SubMenu'>Vendedores</span>
-                                </div></Link>
+                            <div className={usuario && usuario.rol === 1 ? '' : 'hide'}>
+                                <Link to='/tabla-vendedores' style={linkStyles}>
+                                    <div className="option_SubMenu" onClick={handleSubMenuClick}>
+                                        <div className="point_SubMenu"></div>
+                                        <span className='text_SubMenu'>Vendedores</span>
+                                    </div>
+                                </Link>
+                            </div>
+                            
 
                             <Link to='/tabla-clientes' style={linkStyles}>
                                 <div className="option_SubMenu" onClick={handleSubMenuClick}>
@@ -174,29 +181,33 @@ const MainSideMenu = () => {
                     </div>
 
                     {/* Opción de Zonas */}
-                    <div className={`optionContainer ${subMenusOpen.zonas ? 'clicBTN' : ''}`} onClick={() => toggleSubMenu('zonas')}>
-                        <div className="containerMenu--BTN">
-                            <div className="iconMenu">
-                                <i className="bi bi-radar"></i>
+                    <div className={usuario && usuario.rol === 1 ? '' : 'hide'}>
+                        <div className={`optionContainer ${subMenusOpen.zonas ? 'clicBTN' : ''}`} onClick={() => toggleSubMenu('zonas')}>
+                            <div className="containerMenu--BTN">
+                                <div className="iconMenu">
+                                    <i className="bi bi-radar"></i>
+                                </div>
+                                <div className='containerBNT'>
+                                    <div>
+                                        <span className='TextOption'>Zonas</span>
+                                    </div>
+                                    <div className={`RightArrow ${subMenusOpen.zonas ? '--Rotate' : ''}`}>
+                                        <i className="bi bi-chevron-right"></i>
+                                    </div>
+                                </div>
                             </div>
-                            <div className='containerBNT'>
-                                <div>
-                                    <span className='TextOption'>Zonas</span>
-                                </div>
-                                <div className={`RightArrow ${subMenusOpen.zonas ? '--Rotate' : ''}`}>
-                                    <i className="bi bi-chevron-right"></i>
-                                </div>
+                            <div className={`subMenu--BTN ${subMenusOpen.zonas ? 'activeSubMenu' : ''}`}>
+                                <Link to='/zonas' style={linkStyles}>
+                                    <div className="option_SubMenu" onClick={handleSubMenuClick}>
+                                        <div className="point_SubMenu"></div>
+                                        <span className='text_SubMenu'>Gestión de Zona</span>
+                                    </div>
+                                </Link>
                             </div>
-                        </div>
-                        <div className={`subMenu--BTN ${subMenusOpen.zonas ? 'activeSubMenu' : ''}`}>
-                            <Link to='/zonas' style={linkStyles}>
-                                <div className="option_SubMenu" onClick={handleSubMenuClick}>
-                                    <div className="point_SubMenu"></div>
-                                    <span className='text_SubMenu'>Gestión de Zona</span>
-                                </div>
-                            </Link>
                         </div>
                     </div>
+                    
+                    
 
                     {/* Opción de Informes */}
                     <div className={`optionContainer ${subMenusOpen.informes ? 'clicBTN' : ''}`} onClick={() => toggleSubMenu('informes')}>
@@ -249,8 +260,8 @@ const MainSideMenu = () => {
                             <i className="bi bi-person-circle"></i>
                         </div>
                         <div className="infoTexts_User">
-                            <span className="Cargo_User">{}</span>
-                            <span className="Name_User">{}</span>
+                            <span className="Cargo_User">{usuario}</span>
+                            <span className="Name_User">{usuario}</span>
                         </div>
                     </div>
                 </div>
