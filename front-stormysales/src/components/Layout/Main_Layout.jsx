@@ -5,7 +5,7 @@ import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 
 import Inicio from '../../components/Home/MainHome';
-import GestionUsuarios from '../../components/mod_Usuarios_Pre/Main_Usuarios_Pre';
+//import GestionUsuarios from '../../components/mod_Usuarios_Pre/Main_Usuarios_Pre';
 import Facturacion from '../../components/mod_Facturacion_Pre/Main_Facturacion_Pre';
 import Abonos from '../../components/mod_Abonos_Pre/Main_Abonos_Pre';
 import Zonas from '../../components/mod_Zonas_Pre/Main_Zonas_Pre';
@@ -22,6 +22,7 @@ const MainLayout = () => {
       </div>
       <div className="Main_ContentPages">
         <Routes>
+          <Route path="/" element={<Inicio className="fullHeight" />} />
           <Route path="/inicio" element={<Inicio className="fullHeight" />} />
           <Route path="/tabla-supervisores" element={<TablaSupervisores/>} />
           <Route path="/tabla-vendedores" element={<TablaVendedores/>} />

@@ -106,6 +106,7 @@
     border-radius: 15px;
     box-shadow: 0px 0px 15px 0px rgba(15, 16, 23, 0.2);
     transition: all .5s ease;
+    padding: 20px;
 }
 
 .logoMini--Tittle-factura {
@@ -123,8 +124,7 @@
 
 .Factura_Empleado--top-right .grupDiv_Factura-Right .tittleGrup_Factura,
 .Factura_Empleado--top-right .grupDiv_Factura-Left .resultGrup_Factura {
-    margin-left: 20px;
-    font-size: 18px;
+    font-size: 15px;
 }
 
 .separador__Factura-TopRight{

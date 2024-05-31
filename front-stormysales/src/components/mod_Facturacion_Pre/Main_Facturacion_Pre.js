@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import FacturaTop from './FacturaTop';
 import Swal from 'sweetalert2';
 import './MainFactura.css';
 import './TableFactura.css';
 import './Right_PartFactura.css';
 
+import FacturaTop from './FacturaTop';
 import MetodoPago from './metodo_pago/MetodosPago_Left';
 import ModalSelectCliente from './modal_usu_Factura/Modal_Escoger_Usu';
+import ModalRegistroFactura from './registrar_factura/modal_registrar_factura';
 
 const Main_Facturacion_Pre = () => {
   const [productos, setProductos] = useState([]);
@@ -18,8 +19,17 @@ const Main_Facturacion_Pre = () => {
   const [referencia, setReferencia] = useState('');
   const [modalMetodoPagoVisible, setModalMetodoPagoVisible] = useState(false);
   const [modalSelectClienteVisible, setModalSelectClienteVisible] = useState(false);
+  const [usuarioSeleccionado, setUsuarioSeleccionado] = useState(null);
 
   const [/*modalOpen*/, setModalOpen] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [facturaData, setFacturaData] = useState(null);
+
+  const Empleado = {
+    'id_empleado': '1001339605',
+    'Nombre': 'Migue Angel',
+    'Apellido': 'Ayala',
+  }
 
 
   const toggleModalMetodoPago = () => {
@@ -103,8 +113,10 @@ const Main_Facturacion_Pre = () => {
   /* Modal de usuario ------*/
   const handleSelectUser = (user) => {
     console.log('--> Padre: Usuario seleccionado:', user);
+    setUsuarioSeleccionado(user);
     setModalOpen(false);
   };
+
 
 
   const handleMetodoPagoSubmit = (metodo, ref) => {
@@ -114,6 +126,70 @@ const Main_Facturacion_Pre = () => {
   };
 
 
+  const handleOpenModal = () => {
+    if (productos.length === 0) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'No se han agregado ningún producto.',
+      });
+      return;
+    }
+
+    if (!usuarioSeleccionado) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'No ha seleccionado ningún cliente.',
+      });
+      return;
+    }
+
+    if (!metodoPago) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'No ha seleccionado ningún método de pago.',
+      });
+      return;
+    }
+
+    const facturaData = {
+      cliente: {
+        ID: usuarioSeleccionado.ID,
+        Nombre: usuarioSeleccionado.Nombre,
+        Apellido: usuarioSeleccionado.Apellido,
+      },
+      metodoPago: metodoPago,
+      referencia: referencia,
+      subtotal: subtotal.toFixed(2),
+      iva: iva.toFixed(2),
+      total: total.toFixed(2),
+      fecha: new Date().toLocaleDateString(),
+      hora: new Date().toLocaleTimeString(),
+      empleado: {
+        id_empleado : Empleado.id_empleado,
+        nombre: Empleado.Nombre,
+        apellido: Empleado.Apellido,
+      },
+      productos: productos.map(producto => ({
+        nombreProducto: producto.nombreProducto, 
+        cantidad: producto.cantidad,
+        precioUnitario: producto.precioUnitario,
+        importe: producto.importe
+      }))
+    };
+    console.log('Factura Data:', facturaData);
+    setFacturaData(facturaData);
+    setShowModal(true);
+  };
+
+
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
+
 
   useEffect(() => {
     console.log(`Método de pago seleccionado: ${metodoPago}, y su referencia: ${referencia}`);
@@ -122,6 +198,14 @@ const Main_Facturacion_Pre = () => {
 
   return (
     <>
+      {showModal && (
+        <ModalRegistroFactura
+          facturaData={facturaData}
+          onClose={handleCloseModal}
+          onRegister={() => { }}
+          cliente={usuarioSeleccionado}
+        />
+      )}
       {modalMetodoPagoVisible && (
         <MetodoPago handleMetodoPagoSubmit={handleMetodoPagoSubmit} />
       )}
@@ -130,7 +214,7 @@ const Main_Facturacion_Pre = () => {
       )}
       <div className="FacturacionMain">
         <div className='containerFactura-Top'>
-          <FacturaTop />
+          <FacturaTop usuarioSeleccionado={usuarioSeleccionado} />
         </div>
         <div className="ContainerFactura_Center">
           <div className="tableCenter_Factura">
@@ -210,7 +294,7 @@ const Main_Facturacion_Pre = () => {
             </div>
           </div>
           <div className="RegistrarFactura-Bottom __registrar-Factura">
-            <button className='btn__registrar-Factura'>
+            <button className='btn__registrar-Factura' onClick={handleOpenModal}>
               <span className='btnText-Facturacion'>Registrar Factura</span>
               <i className="bi bi-save2"></i>
             </button>

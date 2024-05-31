@@ -6,6 +6,8 @@ const superviRouter = require('./routers/SupervisorRouter');
 const vendeRouter = require('./routers/VendedorRouter');
 const clientRouter = require('./routers/ClientesRouter');
 
+const facturacionRouter = require('./routers/r_mod_facturacion/router_Facturacion')
+
 const app = express();
 const PORT = process.env.PORT || 3001;
 
@@ -22,6 +24,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/usuario', superviRouter);
 app.use('/usuario', vendeRouter);
 app.use('/usuario', clientRouter);
+
+// Rutas Facturación
+app.use('/factura', facturacionRouter);
+
 
 
 app.get("/", (req, res) => {

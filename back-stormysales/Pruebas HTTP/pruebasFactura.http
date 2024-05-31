@@ -1,0 +1,66 @@
+###
+GET http://localhost:3001/factura/getclientesactivos HTTP/1.1
+
+###
+GET http://localhost:3001/factura/getclienteactivo?nombre=Juan HTTP/1.1
+
+###
+GET http://localhost:3001/factura/getlastfacturaid HTTP/1.1
+
+###
+GET http://localhost:3001/factura/getallfacturas HTTP/1.1
+
+###
+GET http://localhost:3001/factura/getallfacturasdetalles HTTP/1.1
+
+###
+GET http://localhost:3001/factura/getidfacturasdetalles/1 HTTP/1.1
+
+###
+POST http://localhost:3001/factura/insertfactura HTTP/1.1
+Content-Type: application/json
+
+{
+    "ID_cliente_fk": "1234567890",
+    "ID_vendedor_fk": "0987654321",
+    "fecha_venta_hora": "2024-05-30T12:00:00",
+    "metodo_pago": "tarjeta",
+    "referencia_metodo_pago": "1234-5678-9876",
+    "detalles": [
+        {
+            "descripcion": "Producto A",
+            "cantidad": 2,
+            "precio_unitario": 5000
+        },
+        {
+            "descripcion": "Producto B",
+            "cantidad": 3,
+            "precio_unitario": 10000
+        }
+    ]
+}
+
+
+###
+PUT http://localhost:3001/factura/updatefactura/1 HTTP/1.1
+Content-Type: application/json
+
+{
+    "ID_cliente_fk": "1234567890",
+    "ID_vendedor_fk": "0987654321",
+    "fecha_venta_hora": "2024-05-30T12:00:00",
+    "subtotal": 45000,
+    "IVA": 8550,
+    "total": 53550,
+    "estado_fk": 2,
+    "metodo_pago": "tarjeta",
+    "referencia_metodo_pago": "1234-5678-9876"
+}
+
+
+###
+DELETE http://localhost:3001/factura/deletefactura/1 HTTP/1.1
+
+###
+PUT http://localhost:3001/factura/inactivatefactura/1 HTTP/1.1
+
