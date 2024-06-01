@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./MainAbonos.css";
 import AbonoTop from "./AbonoTop";
-import axios from 'axios';
+import axios from "axios";
 
 const Main_Abonos_Pre = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -11,8 +11,10 @@ const Main_Abonos_Pre = () => {
 
   const handleSearch = async () => {
     try {
-      const response = await axios.get(`http://localhost:3001/Abono/BuscarFacturaCliente/${searchQuery}/${searchQuery}`);
-      setFacturaData(response.data[0]); 
+      const response = await axios.get(
+        `http://localhost:3001/Abono/BuscarFacturaCliente/${searchQuery}/${searchQuery}`
+      );
+      setFacturaData(response.data[0]);
       setError(null);
     } catch (err) {
       setError("No se encontraron datos o hubo un error en la búsqueda.");
@@ -25,7 +27,9 @@ const Main_Abonos_Pre = () => {
     const fetchAbonos = async () => {
       if (facturaData) {
         try {
-          const response = await axios.get(`http://localhost:3001/Abono/AbonosDatos/${facturaData.ID_factura}`);
+          const response = await axios.get(
+            `http://localhost:3001/Abono/AbonosDatos/${facturaData.ID_factura}`
+          );
           setAbonosData(response.data);
         } catch (err) {
           setError("Error al obtener los abonos.");
@@ -55,11 +59,13 @@ const Main_Abonos_Pre = () => {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
-          <button className="ButtonBuscar" onClick={handleSearch}>Buscar</button>
+          <button className="ButtonBuscar" onClick={handleSearch}>
+            Buscar
+          </button>
         </div>
         <div className="containerAbono-Top">
           {facturaData && <AbonoTop facturaData={facturaData} />}
-          {error && <div className="error">{error}</div>}
+          {error && <div className="errorTop">{error}</div>}
         </div>
         <div className="ContainerAbono_Center">
           <div className="tableCenter_Abono">
@@ -69,7 +75,9 @@ const Main_Abonos_Pre = () => {
                   <th className="th__Abono th--Item">N° Item</th>
                   <th className="th__Abono th--FechaAbono">Fecha de Abono</th>
                   <th className="th__Abono th--Empleado">Empleado a Cargo</th>
-                  <th className="th__Abono th--CantidadAbono">Cantidad de Abono</th>
+                  <th className="th__Abono th--CantidadAbono">
+                    Cantidad de Abono
+                  </th>
                   <th className="th__Abono th--Calculo">Calculo</th>
                   <th className="th__Abono th--Acciones">Acciones</th>
                 </tr>
@@ -79,13 +87,19 @@ const Main_Abonos_Pre = () => {
                   abonosData.map((abono, index) => (
                     <tr className="tr__Abono" key={index}>
                       <td className="td__Abono td--Item">{index + 1}</td>
-                      <td className="td__Abono td--FechaAbono">{abono.fecha_abono}</td>
+                      <td className="td__Abono td--FechaAbono">
+                        {abono.fecha_abono}
+                      </td>
                       <td className="td__Abono td--Empleado">Empleado</td>
                       <td className="td__Abono td--CantidadAbono">
-                        <span className="precioColor">${abono.cantidad_abono}</span>
+                        <span className="precioColor">
+                          ${abono.cantidad_abono}
+                        </span>
                       </td>
                       <td className="td__Abono td--Calculo">
-                        <span className="precioColor">${calcularTotalRestante(index)}</span>
+                        <span className="precioColor">
+                          ${calcularTotalRestante(index)}
+                        </span>
                       </td>
                       <td className="td__Abono td--Acciones">
                         <div className="AccionesAbono-Container-Row">
@@ -104,7 +118,9 @@ const Main_Abonos_Pre = () => {
                   ))
                 ) : (
                   <tr className="tr__Abono">
-                    <td colSpan="6" className="td__Abono td--NoData">No hay abonos disponibles</td>
+                    <td colSpan="6" className="td__Abono td--NoData">
+                      No hay abonos disponibles
+                    </td>
                   </tr>
                 )}
               </tbody>
@@ -114,9 +130,9 @@ const Main_Abonos_Pre = () => {
               <div className="Abono-bootomTable_Show_Right"></div>
             </div>
           </div>
-          <div className="contenedorRegistrar">
-            <button className="btn-Registrar">Registrar Abono</button>
-          </div>
+        </div>
+        <div className="contenedorRegistrar">
+          <button className="btn-Registrar">Registrar Abono</button>
         </div>
       </div>
       <div className="AbonoLeft">
