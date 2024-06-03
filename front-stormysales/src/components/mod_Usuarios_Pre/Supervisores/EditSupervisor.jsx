@@ -8,7 +8,7 @@ const EditSupervisor = ({ closeModal, datos, consulta }) => {
     const [lastname, setLastname] = useState(datos.lastname);
     
     // const [cel, setCel] = useState(datos.tel);
-    // const [email, setEmail] = useState(datos.email);
+    const [email, setEmail] = useState(datos.email);
 
     const editarRegistro = async (x) => {
         try {
@@ -16,7 +16,7 @@ const EditSupervisor = ({ closeModal, datos, consulta }) => {
                 nombre: name,
                 apellido: lastname,
                 // cel: cel,
-                // email: email,
+                email: email,
                 contrasena: password
             });
             console.log(response.data);
@@ -101,6 +101,26 @@ const EditSupervisor = ({ closeModal, datos, consulta }) => {
         return con;
     }
 
+    function Verificar_email() {
+        const Inemail = document.getElementById('correo').value;
+
+        let con = true;
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    
+        if (Inemail.trim()=== "") {
+            document.getElementById('wrongemail').innerHTML = 'Este espacio no puede quedar en blanco';
+            con = false;
+        } else if (!emailPattern.test(Inemail)) {
+            document.getElementById('wrongemail').innerHTML = 'Formato de correo electrónico no válido';
+            con = false;
+        } else {
+            document.getElementById('wrongemail').innerHTML = '';
+        }
+    
+        return con;
+    }
+    
+
     function Verificar_password(){
         const Inpassword = document.getElementById('password').value;
     
@@ -156,6 +176,11 @@ const EditSupervisor = ({ closeModal, datos, consulta }) => {
             /*console.log(con);*/
         }
 
+        if(!Verificar_email()){
+            /*document.write('Las contraseñas no son identicas');*/
+            con=false;
+            /*console.log(con);*/
+        }
         if(!Verificar_password()){
             /*document.write('Las contraseñas no son identicas');*/
             con=false;
@@ -217,6 +242,13 @@ const EditSupervisor = ({ closeModal, datos, consulta }) => {
                     <input readOnly className='input-form' type="text" name="numid" id="numid" value={datos.id} onBlur={Verificar_id} />
                     <p id="wrongid"></p>
                 </span>
+
+                <span>
+                    <label for="email">correo</label>
+                    <input className='input-form' type="email" name="email" id="correo" placeholder="correo" value={email} onBlur={Verificar_email} onChange={(e) => setEmail(e.target.value)}/>
+                    <p id="wrongemail"></p>
+                </span>
+
                 <span>
                     <label for="password">Contraseña</label>
                     <input className='input-form' type="password" name="password" id="password" placeholder="Contraseña" value={password} onKeyUp={Verificar_password} onBlur={Verificar_password} onChange={(e) => setPassword(e.target.value)}/>

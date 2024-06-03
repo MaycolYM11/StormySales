@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './stylesSideMenu.css';
 import ImgenLogo from '../../assets/Logo/Logo_SideMenu.png';
 import { Link } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 const MainSideMenu = () => {
     const [subMenusOpen, setSubMenusOpen] = useState({
@@ -10,7 +11,60 @@ const MainSideMenu = () => {
         zonas: false,
         informes: false,
     });
+    const [usuario, setUsuario] = useState([]);
+    
+    
+    
 
+    useEffect(()=>{
+        const traerDatos = async () => {
+            const datos = await JSON.parse(localStorage.getItem("usuario"));
+            console.log(datos);
+            if (datos) {
+                let cargo = '';
+                if (datos.rol === 1) {
+                    cargo = 'Supervisor';
+                } else if (datos.rol === 2) {
+                    cargo = 'Vendedor';
+                }
+                setUsuario({
+                    user: datos.name + ' ' + datos.lastname,
+                    cargo: cargo,
+                    rol: datos.rol
+                });
+            }
+        }
+        traerDatos();
+    },[])
+
+    const handleLogout = () => {
+        Swal.fire({
+            title: 'Cerrar Sesión',
+            text: '¿Desea cerrar sesión?',
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sí, cerrar sesión',
+            cancelButtonText: 'No, mantener sesión',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire({
+                    title: 'Sesión cerrada con éxito',
+                    icon: 'success',
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: 'Aceptar',
+                }).then(() => {
+                    if (result.isConfirmed) {
+                        localStorage.removeItem("usuario");
+                    }
+                }).then(() => {
+                    // <Navigate to='/' />
+                    window.location.reload()
+                });
+            }
+        });
+    };
     const linkStyles = {
         textDecoration: 'none',
         color: 'inherit',
@@ -68,19 +122,26 @@ const MainSideMenu = () => {
                         </div>
                         <div className={`subMenu--BTN ${subMenusOpen.gestionUsuarios ? 'activeSubMenu' : ''}`}>
 
-                            <Link to='/tabla-supervisores' style={linkStyles}>
-                                <div className="option_SubMenu" onClick={handleSubMenuClick}>
-                                    <div className="point_SubMenu"></div>
-                                    <span className='text_SubMenu'>Supervisores</span>
-                                </div></Link>
+                            <div className={usuario && usuario.rol === 1 ? '' : 'hide'}>
+                                <Link to='/tabla-supervisores' style={linkStyles}>
+                                    <div className="option_SubMenu" onClick={handleSubMenuClick}>
+                                        <div className="point_SubMenu"></div>
+                                        <span className='text_SubMenu'>Supervisores</span>
+                                    </div>
+                                </Link>
+                            </div>
 
-                            <Link to='/gestion-usuarios' style={linkStyles}>
-                                <div className="option_SubMenu" onClick={handleSubMenuClick}>
-                                    <div className="point_SubMenu"></div>
-                                    <span className='text_SubMenu'>Vendedores</span>
-                                </div></Link>
+                            <div className={usuario && usuario.rol === 1 ? '' : 'hide'}>
+                                <Link to='/tabla-vendedores' style={linkStyles}>
+                                    <div className="option_SubMenu" onClick={handleSubMenuClick}>
+                                        <div className="point_SubMenu"></div>
+                                        <span className='text_SubMenu'>Vendedores</span>
+                                    </div>
+                                </Link>
+                            </div>
+                            
 
-                            <Link to='/gestion-usuarios' style={linkStyles}>
+                            <Link to='/tabla-clientes' style={linkStyles}>
                                 <div className="option_SubMenu" onClick={handleSubMenuClick}>
                                     <div className="point_SubMenu"></div>
                                     <span className='text_SubMenu'>Clientes</span>
@@ -120,29 +181,33 @@ const MainSideMenu = () => {
                     </div>
 
                     {/* Opción de Zonas */}
-                    <div className={`optionContainer ${subMenusOpen.zonas ? 'clicBTN' : ''}`} onClick={() => toggleSubMenu('zonas')}>
-                        <div className="containerMenu--BTN">
-                            <div className="iconMenu">
-                                <i className="bi bi-radar"></i>
+                    <div className={usuario && usuario.rol === 1 ? '' : 'hide'}>
+                        <div className={`optionContainer ${subMenusOpen.zonas ? 'clicBTN' : ''}`} onClick={() => toggleSubMenu('zonas')}>
+                            <div className="containerMenu--BTN">
+                                <div className="iconMenu">
+                                    <i className="bi bi-radar"></i>
+                                </div>
+                                <div className='containerBNT'>
+                                    <div>
+                                        <span className='TextOption'>Zonas</span>
+                                    </div>
+                                    <div className={`RightArrow ${subMenusOpen.zonas ? '--Rotate' : ''}`}>
+                                        <i className="bi bi-chevron-right"></i>
+                                    </div>
+                                </div>
                             </div>
-                            <div className='containerBNT'>
-                                <div>
-                                    <span className='TextOption'>Zonas</span>
-                                </div>
-                                <div className={`RightArrow ${subMenusOpen.zonas ? '--Rotate' : ''}`}>
-                                    <i className="bi bi-chevron-right"></i>
-                                </div>
+                            <div className={`subMenu--BTN ${subMenusOpen.zonas ? 'activeSubMenu' : ''}`}>
+                                <Link to='/zonas' style={linkStyles}>
+                                    <div className="option_SubMenu" onClick={handleSubMenuClick}>
+                                        <div className="point_SubMenu"></div>
+                                        <span className='text_SubMenu'>Gestión de Zona</span>
+                                    </div>
+                                </Link>
                             </div>
-                        </div>
-                        <div className={`subMenu--BTN ${subMenusOpen.zonas ? 'activeSubMenu' : ''}`}>
-                            <Link to='/zonas' style={linkStyles}>
-                                <div className="option_SubMenu" onClick={handleSubMenuClick}>
-                                    <div className="point_SubMenu"></div>
-                                    <span className='text_SubMenu'>Gestión de Zona</span>
-                                </div>
-                            </Link>
                         </div>
                     </div>
+                    
+                    
 
                     {/* Opción de Informes */}
                     <div className={`optionContainer ${subMenusOpen.informes ? 'clicBTN' : ''}`} onClick={() => toggleSubMenu('informes')}>
@@ -178,25 +243,25 @@ const MainSideMenu = () => {
 
                 {/* Separador /// esto es el Footer del Menu  */}
                 <div className="containerBottom_Menu">
-                    <div className="optionContainer_Bottom">
+                    <div className="optionContainer_Bottom" onClick={handleLogout}>
                         <div className="iconMenu_Bottom">
                             <i className="bi bi-box-arrow-left"></i>
                         </div>
                         <span className='TextOption'>Cerrar Sesión</span>
                     </div>
-                    <div className="optionContainer_Bottom">
+                    {/* <div className="optionContainer_Bottom">
                         <div className="iconMenu_Bottom">
                             <i className="bi bi-gear-fill"></i>
                         </div>
                         <span className='TextOption'>Configuración</span>
-                    </div>
+                    </div> */}
                     <div className="infoContainer_Bottom">
                         <div className="imageIcon_User">
                             <i className="bi bi-person-circle"></i>
                         </div>
                         <div className="infoTexts_User">
-                            <span className="Cargo_User">Supervisor</span>
-                            <span className="Name_User">Miguel Ayala</span>
+                            <span className="Cargo_User">{usuario.cargo}</span>
+                            <span className="Name_User">{usuario.user}</span>
                         </div>
                     </div>
                 </div>

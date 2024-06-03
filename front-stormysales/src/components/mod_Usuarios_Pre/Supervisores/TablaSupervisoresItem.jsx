@@ -15,9 +15,9 @@ export const TablaSupervisoresItem = (props) => {
 
     const ponerTexto = () => {
         if (estado === 2) {
-            setTextoActivar('off');
-        } else if (estado === 1) {
             setTextoActivar('on');
+        } else if (estado === 1) {
+            setTextoActivar('off');
         }
     }
 
@@ -76,13 +76,16 @@ export const TablaSupervisoresItem = (props) => {
                 <td className="columna__names">
                     <h3 id='names'>{props.name + " " + props.lastname}</h3>
                 </td>
+                <td className="columna__email">
+                    <h3 id='email'>{props.email}</h3>
+                </td>
                 <td className="columna__state">
                     <h3 className={props.idEstado === 2 ? 'active' : 'inactive' } >{props.estado}</h3>
                 </td>
                 <td className="columna_acciones" id='columna_acciones'>
                     <div className='sing'>
-                        <button type="button" id="edit" name="edit" onClick={handleMostrarEdit}><i className=" tugle sbi bi-pencil-square"></i></button>
-                        <button type="button" id="delete" name="delete" onClick={() => confirmDelete(props)}><i className={`tugle bi bi-toggle-${textoActivar}`}></i></button>
+                        <div type="button" id="edit" name="edit" onClick={handleMostrarEdit}><i className=" tugle sbi bi-pencil-square"></i></div>
+                        <div type="button" id="delete" name="delete" onClick={() => confirmDelete(props)}><i className={`tugle bi bi-toggle-${textoActivar}`}></i></div>
                     </div>
                 </td>
             </tr>
