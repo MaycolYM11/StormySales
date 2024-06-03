@@ -16,6 +16,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  align-items: center;
 }
 .AbonoRight{
   grid-area: 1 / 1 / 2 / 2;
@@ -38,6 +39,11 @@
   font-weight: bold;
   color: var(--BtN-Color-BG-04-5);
 }
+.errorTop i{
+  font-size: 200px;
+  margin-right: 3px;
+}
+
 .ContainerAbono_Center{
   padding: 20px;
   width: 62vw;
@@ -95,8 +101,8 @@
 .AbonoForm{
   display: flex;
   flex-direction: column;
-  justify-self: center;
-  width: 440px;
+  justify-content: center;
+  width: 98%;
 }
 .formAbonotittle {
   margin-top: 10px;
@@ -110,11 +116,11 @@
 .formInputAbono {
   position: static;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
   padding-left: 20px;
-  margin: 15px 0 15px 0;
+  margin: 0 0 0 0;
 }
 
 .formAbono {
@@ -151,6 +157,24 @@
 .formAbono input:hover {
   border-color: wheat transparenti;
 }
+.iconoInput{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  position: relative;
+  background: #636f83;
+  height: 64px;
+  width: 60px;
+  top: -65px;
+  left: 140px;
+}
+
+.iconoInput i{
+  font-size: 25px;
+  color: var(--TxT-Color-01)
+}
 
 .formBotones {
   width: 95vw;
@@ -164,7 +188,7 @@
   background: var(--Home-BG-05);
   border-radius: 10px;
   margin: 15px 0 0 0;
-  width: 320px;
+  width: 370px;
   height: 55px;
 }
 .AbonoDatos {
@@ -222,7 +246,7 @@
   background: var(--BG-Button-Active);
   border: 2px solid transparent;
   border-radius: 10px;
-  width: 320px;
+  width: 370px;
   height: 45px;
   font-size: 17px;
   color: white;
@@ -239,7 +263,7 @@
 }
 .selectMpago {
   height: 35px;
-  width: 290px;
+  width: 330px;
   background-color: #fb836b;
   border-radius: 10px;
   color: white;
@@ -390,6 +414,12 @@
 .td--CantidadAbono,
 .td--Calculo {
   border-bottom: 2px solid var(--Separador-Actions--Hover-2);
+}
+
+.td--NoData{
+  color: var(--TxT-Color-03);
+  font-style: italic;
+  margin-right: 30px;
 }
 
 /* Acciones ------------------> */

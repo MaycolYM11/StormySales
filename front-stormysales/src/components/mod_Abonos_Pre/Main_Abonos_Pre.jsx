@@ -65,7 +65,7 @@ const Main_Abonos_Pre = () => {
         </div>
         <div className="containerAbono-Top">
           {facturaData && <AbonoTop facturaData={facturaData} />}
-          {error && <div className="errorTop">{error}</div>}
+          {error && <div className="errorTop">{error} <i class="bi bi-exclamation-circle"></i></div>}
         </div>
         <div className="ContainerAbono_Center">
           <div className="tableCenter_Abono">
@@ -145,17 +145,26 @@ const Main_Abonos_Pre = () => {
               <label htmlFor="">Escriba al valor para abonar</label>
               <input type="text" />
             </div>
+            <div className="iconoInput">
+              <i class="bi bi-currency-dollar"></i>
+            </div>
           </div>
           <div className="formInputAbono">
             <div className="formAbono">
               <label htmlFor="">Seleccione la proxima fecha de pago</label>
               <input type="text" />
             </div>
+            <div className="iconoInput">
+              <i class="bi bi-calendar-event-fill"></i>
+            </div>
           </div>
           <div className="formInputAbono">
             <div className="formAbono">
               <label htmlFor="">Nota (max. 225)</label>
               <input type="text" />
+            </div>
+            <div className="iconoInput">
+              <i class="bi bi-input-cursor-text"></i>
             </div>
           </div>
           <div className="formBotones">
