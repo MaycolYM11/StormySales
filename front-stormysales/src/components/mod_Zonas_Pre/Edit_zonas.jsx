@@ -9,17 +9,24 @@ const Edit_zonas = ({ closeModal, datos, consulta }) => {
   const [clientesSeleccionados, setClientesSeleccionados] = useState([]);
   const [clientes, setClientes] = useState([]);
   const [empleados, setEmpleados] = useState([]);
-  const [idZona, setIdZona] = useState(datos.idZona || '');
+  const [idZona, setIdZona] = useState(datos.Id_zona || '');
   const [idDetalleZonas, setIdDetalleZonas] = useState({});
+  const [currentPage, setCurrentPage] = useState(1);
+  const [clientsPerPage] = useState(5);
 
   useEffect(() => {
     console.log('Datos recibidos para editar:', datos);
     setNombreRuta(datos.Nombre_zona || '');
     setEmpleadoSeleccionado(datos.Id_empleado || '');
-    setIdZona(datos.idZona || '');
+    setIdZona(datos.Id_zona || '');
     obtenerClientes();
     obtenerEmpleados();
+    obtenerDetalleZonas(datos.Id_zona);
   }, [datos]);
+
+  useEffect(() => {
+    actualizarDetalleZonas();
+  }, [clientesSeleccionados]);
 
   const obtenerClientes = async () => {
     try {
@@ -43,16 +50,52 @@ const Edit_zonas = ({ closeModal, datos, consulta }) => {
     }
   };
 
+  const obtenerDetalleZonas = async (idZona) => {
+    if (!idZona) {
+      console.error('ID de zona no definido.');
+      return;
+    }
+
+    try {
+      console.log(`Obteniendo detalles de la zona para idZona: ${idZona}`);
+      const response = await axios.get(`http://localhost:3001/zonas/detalleZona/${idZona}`);
+      console.log('Respuesta de detalle de zonas:', response.data);
+      const detalleZonas = {};
+      response.data.forEach(detalle => {
+        detalleZonas[detalle.Id_cliente] = detalle.ID_detallezona;
+      });
+      console.log('Detalles de zonas mapeados:', detalleZonas);
+      setIdDetalleZonas(detalleZonas);
+    } catch (error) {
+      console.error('Error al obtener los detalles de la zona:', error);
+    }
+  };
+
+  const actualizarDetalleZonas = () => {
+    const detallesActualizados = {};
+    clientesSeleccionados.forEach(cliente => {
+      const idDetalleZona = idDetalleZonas[cliente.Identificacion_Clientes];
+      detallesActualizados[cliente.Identificacion_Clientes] = idDetalleZona || null;
+    });
+    console.log('Detalles actualizados:', detallesActualizados);
+    setIdDetalleZonas(detallesActualizados);
+  };
+  
+
   const handleEmpleadoChange = (e) => {
     setEmpleadoSeleccionado(e.target.value);
   };
 
   const handleSeleccionCliente = (clienteId) => {
-    setClientes(clientes.map(cliente =>
+    const clientesActualizados = clientes.map(cliente =>
       cliente.Identificacion_Clientes === clienteId
         ? { ...cliente, seleccionado: !cliente.seleccionado }
         : cliente
-    ));
+    );
+    setClientes(clientesActualizados);
+    const seleccionados = clientesActualizados.filter(cliente => cliente.seleccionado);
+    console.log('Clientes seleccionados:', seleccionados);
+    setClientesSeleccionados(seleccionados);
   };
 
   const validarCampos = () => {
@@ -82,41 +125,40 @@ const Edit_zonas = ({ closeModal, datos, consulta }) => {
 
     try {
       const zonaData = {
-        idZona: idZona,
+        idZona: datos.Id_zona,
         Nombre_zona: nombreRuta,
         Id_empleado: empleadoSeleccionado
       };
 
       console.log('Datos a enviar para actualizar la zona:', zonaData);
 
-      const response = await axios.put(`http://localhost:3001/zonas/updatezona/${idZona}`, zonaData);
-      console.log('Zona actualizada:', response.data);
+      await axios.put(`http://localhost:3001/zonas/updatezona/${datos.Id_zona}`, {
+        Nombre_zona: nombreRuta,
+        Id_empleado: empleadoSeleccionado
+      });
 
-      for (let cliente of clientes.filter(cliente => cliente.seleccionado)) {
-        const detalleZonaId = idDetalleZonas[cliente.Identificacion_Clientes];
-
-        if (!detalleZonaId) {
-          console.error('ID de detalle de zona no definido para el cliente:', cliente.Identificacion_Clientes);
+      for (let cliente of clientesSeleccionados) {
+        const idDetalleZona = idDetalleZonas[cliente.Identificacion_Clientes];
+        console.log(`Id detalle zona --------------------->${idDetalleZona}`);
+        if (idDetalleZona === null) {
+          console.error('ID de detalle de zona no encontrado para el cliente:', cliente.Identificacion_Clientes);
+          Swal.fire({
+            icon: 'error',
+            text: `ID de detalle de zona no encontrado para el cliente ${cliente.Identificacion_Clientes}.`,
+          });
           continue;
         }
-
-        const detalleZonaData = {
-          idDetalleZona: detalleZonaId,
+        await axios.put(`http://localhost:3001/zonas/updateDetalleZona/${idDetalleZona}`, {
           idCliente: cliente.Identificacion_Clientes,
           direccion: cliente.direccion
-        };
-
-        console.log('Datos a enviar para actualizar el detalle de la zona:', detalleZonaData);
-
-        const detalleResponse = await axios.put(`http://localhost:3001/zonas/updatezonaDetalle/${detalleZonaId}`, detalleZonaData);
-        console.log('Detalle zona actualizado:', detalleResponse.data);
+        });
       }
 
       consulta();
       closeModal();
       Swal.fire({
         icon: 'success',
-        text: 'Datos actualizados para la zona',
+        text: `Datos actualizados para la zona`,
       });
     } catch (error) {
       console.error('No se pudo realizar la petición PUT:', error);
@@ -126,6 +168,13 @@ const Edit_zonas = ({ closeModal, datos, consulta }) => {
       });
     }
   };
+
+  // Pagination
+  const indexOfLastClient = currentPage * clientsPerPage;
+  const indexOfFirstClient = indexOfLastClient - clientsPerPage;
+  const currentClients = clientes.slice(indexOfFirstClient, indexOfLastClient);
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
     <div className="registrar-contenedor-unique">
@@ -153,15 +202,15 @@ const Edit_zonas = ({ closeModal, datos, consulta }) => {
               >
                 <option value="">Selecciona un Empleado</option>
                 {empleados.map((empleado) => (
-                  <option key={empleado.Identificacion_Usuario} value={empleado.Identificacion_Usuario}>
-                    {empleado.nombre} {empleado.Apellido}
-                  </option>
-                ))}
+                    <option key={empleado.Identificacion_Usuario} value={empleado.Identificacion_Usuario}>
+                      {empleado.nombre} {empleado.Apellido}
+                    </option>
+                  ))}
               </select>
             </div>
           </div>
           <h2 className="subtitulo-unique">Clientes y Direcciones</h2>
-          {clientes && (
+          {currentClients && (
             <div className='tabla-container-unique'>
               <table className='tabla-unique'>
                 <thead>
@@ -175,10 +224,10 @@ const Edit_zonas = ({ closeModal, datos, consulta }) => {
                   </tr>
                 </thead>
                 <tbody>
-                  {clientes.map(cliente => (
+                  {currentClients.map(cliente => (
                     <tr key={cliente.Identificacion_Clientes} className={cliente.seleccionado ? "fila-seleccionada-unique" : ""}>
                       <td>{cliente.Identificacion_Clientes}</td>
-                      <td>{cliente.nombre}</td>
+                     <td>{cliente.nombre}</td>
                       <td>{cliente.direccion}</td>
                       <td>{cliente.email}</td>
                       <td>
@@ -200,6 +249,12 @@ const Edit_zonas = ({ closeModal, datos, consulta }) => {
               </table>
             </div>
           )}
+          {clientes.length > clientsPerPage && (
+            <div className="pagination">
+              <button onClick={() => paginate(currentPage - 1)} disabled={currentPage === 1}>Anterior</button>
+              <button onClick={() => paginate(currentPage + 1)} disabled={indexOfLastClient >= clientes.length}>Siguiente</button>
+            </div>
+          )}
           <button className='guardar-btn-unique' onClick={editarZona}><i className="biGuar bi-floppy"></i>Guardar Ruta editada</button>
         </div>
       </div>
@@ -208,3 +263,4 @@ const Edit_zonas = ({ closeModal, datos, consulta }) => {
 };
 
 export default Edit_zonas;
+

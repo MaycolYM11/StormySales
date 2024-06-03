@@ -1,5 +1,3 @@
-// Componente Tabla_zonas_item.jsx
-
 import React, { useEffect, useState } from 'react';
 import Edit_zonas from './Edit_zonas';
 import Swal from 'sweetalert2';
@@ -89,7 +87,7 @@ export const Tabla_zonas_item = ({ consulta, ...props }) => {
           <h3>{props.Empleado_asignado}</h3>
         </td>
         <td className="cantidad-rutas-column">
-          <h3>{props.Cantidad_rutas}<button type='button' className='BotonRutas' onClick={obtenerInfoRuta}><i class="biRutas bi-info-circle"></i></button></h3>
+          <h3>{props.Cantidad_rutas}<button type='button' className='BotonRutas' onClick={obtenerInfoRuta}><i className="biRutas bi-info-circle"></i></button></h3>
           {mostrarModalRutasInfo && (
             <div className="modal-container-editInfo">
               <div className="modal-content-editInfo">
@@ -140,4 +138,3 @@ export const Tabla_zonas_item = ({ consulta, ...props }) => {
     </>
   );
 }
-

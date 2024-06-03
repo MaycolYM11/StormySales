@@ -162,3 +162,18 @@ INSERT INTO Detalle_zona (ID_zonaFK, Id_cliente, Direccion_clienteFK) VALUES
 (3, '2345678901', 'Avenida 80 #35-45');
 
 select * from zona;
+select * from Detalle_zona;
+select * from Clientes;
+
+INSERT INTO Clientes (Identificacion_Clientes, nombre, Apellido, Estado_Clientes, email, direccion, telefono)
+VALUES
+('3456789012', 'Pedro', 'Lopez', 2, 'pedro@gmail.com', 'Carrera 30 #10-20', 345678901),
+('4567890123', 'Ana', 'Rodriguez', 2, 'ana@hotmail.com', 'Calle 25 #40-50', 456789012),
+('5678901234', 'Carlos', 'Gonzalez', 2, 'carlos@yahoo.com', 'Avenida 50 #60-70', 567890123),
+('6789012345', 'Laura', 'Sanchez', 2, 'laura@gmail.com', 'Carrera 40 #30-40', 678901234),
+('7890123456', 'Diego', 'Ramirez', 2, 'diego@hotmail.com', 'Calle 60 #70-80', 789012345),
+('8901234567', 'Sofia', 'Diaz', 2, 'sofia@yahoo.com', 'Avenida 70 #80-90', 890123456),
+('9012345678', 'Alejandro', 'Fernandez', 2, 'alejandro@gmail.com', 'Carrera 20 #50-60', 901234567);
+
+
+

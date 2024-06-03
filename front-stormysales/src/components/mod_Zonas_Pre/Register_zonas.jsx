@@ -11,6 +11,8 @@ const RegisterProveedor = ({ isOpen, closeModal, reConsulta }) => {
   const [empleados, setEmpleados] = useState([]);
   const [empleadoSeleccionado, setEmpleadoSeleccionado] = useState('');
   const [zonaId, setZonaId] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [clientsPerPage] = useState(5);
 
   useEffect(() => {
     if (isOpen) {
@@ -118,6 +120,13 @@ const RegisterProveedor = ({ isOpen, closeModal, reConsulta }) => {
       mostrarError('Error al guardar rutas', 'Ha ocurrido un error al intentar guardar las rutas.');
     }
   };
+
+  const indexOfLastClient = currentPage * clientsPerPage;
+  const indexOfFirstClient = indexOfLastClient - clientsPerPage;
+  const currentClients = clientesFiltrados.slice(indexOfFirstClient, indexOfLastClient);
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
   return (
     <div className={`registrar-contenedor-unique ${isOpen ? 'visible' : 'hidden'}`}>
       <div className="fondo-register-unique">
@@ -135,7 +144,7 @@ const RegisterProveedor = ({ isOpen, closeModal, reConsulta }) => {
                 placeholder="Nombre de la Ruta......" 
                 className="text_cuadroRe-unique"
               />
-              <button type="button" className="Boton_cuadroRe-unique"><i class="biModal bi-pencil"></i></button>
+              <button type="button" className="Boton_cuadroRe-unique"><i className="biModal bi-pencil"></i></button>
             </div>
             <div className='BuscarRegis-unique'>
               <input 
@@ -144,7 +153,7 @@ const RegisterProveedor = ({ isOpen, closeModal, reConsulta }) => {
                 onChange={(e) => setBuscarCliente(e.target.value)} 
                 placeholder="Buscar un Cliente......"    
                 className="text_cuadroRe-unique"/>
-              <button type="button" className="Boton_cuadroRe-unique"><i class="biModal bi-search"></i></button>
+              <button type="button" className="Boton_cuadroRe-unique"><i className="biModal bi-search"></i></button>
             </div>
             <div className='BuscarRegis-unique'>
               <select 
@@ -163,7 +172,7 @@ const RegisterProveedor = ({ isOpen, closeModal, reConsulta }) => {
           </div>
           <h2 className="subtitulo-unique">Clientes y Direcciones</h2>
           <div className='tabla-container-unique'>
-            {clientesFiltrados.length === 0 ? (
+            {currentClients.length === 0 ? (
               <p>No se encontraron resultados.</p>
             ) : (
               <table className='tabla-unique'>
@@ -179,7 +188,7 @@ const RegisterProveedor = ({ isOpen, closeModal, reConsulta }) => {
                   </tr>
                 </thead>
                 <tbody>
-                  {clientesFiltrados.map(cliente => (
+                  {currentClients.map(cliente => (
                     <tr key={cliente.Identificacion_Clientes} className={cliente.seleccionado ? "fila-seleccionada-unique" : ""}>
                       <td className='Idclientcss'>{cliente.Identificacion_Clientes}</td>
                       <td>{cliente.nombre}</td>
@@ -203,6 +212,13 @@ const RegisterProveedor = ({ isOpen, closeModal, reConsulta }) => {
                   ))}
                 </tbody>
               </table>
+            )}
+            {/* Botones de paginación */}
+            {clientesFiltrados.length > clientsPerPage && (
+              <div className="pagination">
+                <button onClick={() => paginate(currentPage - 1)} disabled={currentPage === 1}>Anterior</button>
+                <button onClick={() => paginate(currentPage + 1)} disabled={indexOfLastClient >= clientesFiltrados.length}>Siguiente</button>
+              </div>
             )}
           </div>
           <button className='guardar-btn-unique' onClick={guardarRutas}><i className="biGuar bi-floppy"></i>Guardar Ruta</button>
