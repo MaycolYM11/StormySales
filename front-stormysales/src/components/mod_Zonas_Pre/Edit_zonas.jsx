@@ -102,16 +102,13 @@ const Edit_zonas = ({ closeModal, datos, consulta }) => {
   const eliminarCliente = async (clienteId, idZona) => {
     try {
       await axios.delete(`http://localhost:3001/zonas/elininarcliente/${clienteId}`, { data: { idZona } });
- 
-      await obtenerDetalleZonas(idZona);
+
+      const nuevosClientesSeleccionados = clientesSeleccionados.filter(id => id !== clienteId);
+      setClientesSeleccionados(nuevosClientesSeleccionados);
   
       Swal.fire({
         icon: 'success',
         text: 'El cliente ha sido eliminado de la zona correctamente.',
-      }).then((result) => {
-        if (result.isConfirmed) {
-          consulta();
-        }
       });
     } catch (error) {
       console.error('Error al eliminar el cliente:', error);
@@ -121,6 +118,7 @@ const Edit_zonas = ({ closeModal, datos, consulta }) => {
       });
     }
   };
+  
   
 
   const validarCampos = () => {

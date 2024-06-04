@@ -86,15 +86,15 @@ function Tabla_zonas() {
           </div>
       </div>
       <div className='main-containerZona'>
-        <div className='table-container'>
+        <div className='table-containerZona'>
           <div className="option-container">
             <form className="form">
             </form>
             <Register_zonas isOpen={registerform} closeModal={()=> setRegisterform(false)} reConsulta={actualizarTabla}/>
           </div>
 
-          <section className="table__body">
-            <table className='tabla'>
+          <section className="table__bodyZona">
+            <table className='tablaZona'>
               <thead>
                 <tr>
                   <th><h2>ID Zona</h2></th>

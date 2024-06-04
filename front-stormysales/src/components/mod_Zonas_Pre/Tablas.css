@@ -31,24 +31,24 @@
   text-align: center;
 }
 
-.table__body{
+.table__bodyZona{
   display: block;
 }
 
-.tabla{
+.tablaZona{
   width: 100%;
 }
-.tabla thead{
+.tablaZona thead{
 font-size: 15px;
 }
-.tabla thead,.tabla th{
+.tablaZona thead,.tablaZona th{
   color: #bcc9db;
   text-align: center;
   position: sticky;
   background-color: #3d414c;
 }
 
-.tabla ,.tabla th,.tabla td {
+.tablaZona ,.tablaZona th,.tablaZona td {
   border-collapse: collapse;
   padding: 0%;
 }
@@ -593,7 +593,7 @@ align-items: center;
   font-weight: bold;
 }
 
-.table-container {
+.table-containerZona {
   overflow-x: auto;
   border-radius: 20px;
   margin: 10px;
