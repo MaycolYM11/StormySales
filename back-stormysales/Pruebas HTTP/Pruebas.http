@@ -6,7 +6,21 @@ GET http://localhost:3001/usuario/barrabusqueda//jhon HTTP/1.1
 
 
 ###
-GET http://localhost:3001/usuario/verifyidsupervisor/1112223 HTTP/1.1
+GET http://localhost:3001/usuario/verifyidsupervisor/444444 HTTP/1.1
+
+###
+POST http://localhost:3001/usuario/postsupervisor HTTP/1.1
+Content-Type: application/json
+
+{
+    "id":"444444",
+    "nombre":"francisco",
+    "apellido":"gutierrez",
+    "email":"ashe@gmail.com",
+    "contrasena":"0000"
+}
+
+
 
 ###
 PUT http://localhost:3001/usuario/putsupervisor/444444 HTTP/1.1
@@ -18,6 +32,7 @@ Content-Type: application/json
     "contrasena":"0000"
 }
 
+<<<<<<< HEAD
 
 ###
 PUT http://localhost:3001/zonas/updatezona/4 HTTP/1.1
@@ -35,3 +50,51 @@ Content-Type: application/json
    "idCliente":"8901234567", 
    "direccion":"Prueba"
 }
+=======
+###
+clientes
+###
+GET http://localhost:3001/usuario/mostrarclientes HTTP/1.1
+
+###
+GET http://localhost:3001/usuario/verifyidcliente/0987654321 HTTP/1.1
+
+###
+POST http://localhost:3001/usuario/crearcliente HTTP/1.1
+Content-Type:application/json
+
+{
+    "id": "635214",
+    "nombre": "arnulfo",
+    "Apellido": "Gonzalez",
+    "email": "arngo@hotmail.com",
+    "direccion": "Carrera 58 #95-25",
+    "telefono": 32147896
+}
+
+###
+
+PUT http://localhost:3001/usuario/actualizarcliente/635214 HTTP/1.1
+Content-Type:application/json
+
+{
+    "nombre": "arnulfo",
+    "Apellido": "Gonzalez",
+    "email": "arngo@hotmail.com",
+    "direccion": "transversal 58 #95-25",
+    "telefono": "31024789"
+}
+
+###
+PUT http://localhost:3001/usuario/cambiarestadocliente/635214 HTTP/1.1
+Content-Type:application/json
+
+{
+    "state":"2"
+}
+
+POST url HTTP/1.1
+header name: header value
+
+content
+>>>>>>> 341d5fb966aa00d9308b7985137c2eb886671291

@@ -284,3 +284,7 @@ Link {
 .container_Menu::-webkit-scrollbar-thumb:hover {
     background: #494d58;
 }
+
+.hide{
+    display: none;
+}

@@ -94,6 +94,7 @@ function TablaVendedores() {
                 <tr className='cabeza'>
                   <td>Id</td>
                   <td>Nombre</td>
+                  <td>e-mail</td>
                   <td>Estado</td>
                   <td className='columna_acciones' id='columna_acciones'>Acciones</td>
                 </tr>
@@ -107,6 +108,7 @@ function TablaVendedores() {
                       id={usuario.id}
                       name={usuario.nombre}
                       lastname={usuario.Apellido}
+                      email={usuario.email_usuario}
                       contrasena={usuario.Contrasena}
                       cargo={usuario.Rol_Usuario}
                       estado={usuario.Nombre_estado}

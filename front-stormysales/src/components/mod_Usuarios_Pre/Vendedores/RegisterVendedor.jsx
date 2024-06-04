@@ -12,6 +12,7 @@ export const RegisterVendedor = ({isOpen, closeModal,reConsulta}) => {
                 "id" : numid,
                 "nombre": name,
                 "apellido":apell,
+                "email":email,
                 "contrasena" :password,
             }).then(() => {
                 reConsulta(); 
@@ -32,7 +33,7 @@ export const RegisterVendedor = ({isOpen, closeModal,reConsulta}) => {
     const [apell,setApell] = useState('');
     
     // const [cel,setCel] = useState('');
-    // const [email,setEmail] = useState('');
+    const [email,setEmail] = useState('');
     const [password,setPassword] = useState('');
 
     if(!isOpen) return null ;
@@ -157,6 +158,25 @@ export const RegisterVendedor = ({isOpen, closeModal,reConsulta}) => {
     //     return con;
     // }
 
+    function Verificar_email() {
+        const Inemail = document.getElementById('email').value;
+    
+        let con = true;
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    
+        if (Inemail.trim() === "") {
+            document.getElementById('wrongemail').innerHTML = 'Este espacio no puede quedar en blanco';
+            con = false;
+        } else if (!emailPattern.test(Inemail)) {
+            document.getElementById('wrongemail').innerHTML = 'Formato de correo electrónico no válido';
+            con = false;
+        } else {
+            document.getElementById('wrongemail').innerHTML = '';
+        }
+    
+        return con;
+    }
+
     function Verificar_password(){
         const Inpassword = document.getElementById('password').value;
     
@@ -221,11 +241,11 @@ export const RegisterVendedor = ({isOpen, closeModal,reConsulta}) => {
         //     con=false;
         //     /*console.log(con);*/
         // }
-        // if(!Verificar_email()){
-        //     /*document.write('Las contraseñas no son identicas');*/
-        //     con=false;
-        //     /*console.log(con);*/
-        // }
+        if(!Verificar_email()){
+            /*document.write('Las contraseñas no son identicas');*/
+            con=false;
+            /*console.log(con);*/
+        }
         if(!Verificar_password()){
             /*document.write('Las contraseñas no son identicas');*/
             con=false;
@@ -291,6 +311,12 @@ export const RegisterVendedor = ({isOpen, closeModal,reConsulta}) => {
                     <label for="numid">Número de Identificación</label>
                     <input className='input-form' type="text" name="numid" id="numid" placeholder="Identificación" onBlur={Verificar_id} onChange={(e) => setNumid(e.target.value)} />
                     <p id="wrongid" className="error-message"></p>
+                </div>
+
+                <div className="form-group">
+                    <label for="numid">e-mail</label>
+                    <input className='input-form' type="text" name="email" id="email" placeholder="correo" onBlur={Verificar_email} onChange={(e) => setEmail(e.target.value)} />
+                    <p id="wrongemail" className="error-message"></p>
                 </div>
                 
                 <div className="form-group">

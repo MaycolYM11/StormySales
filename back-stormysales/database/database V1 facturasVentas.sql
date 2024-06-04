@@ -35,7 +35,7 @@ create table Clientes(
     Estado_Clientes int not null,
     email varchar(45) not  null, 
     direccion varchar(45) not null,
-    telefono int not null,
+    telefono bigint not null,
     primary key(Identificacion_Clientes),
 	foreign key (Estado_Clientes) references Estado(ID_estado)
 );
@@ -115,7 +115,7 @@ insert into Estado (Nombre_estado)
             
 -- select * from Estado;
 
-INSERT INTO Usuarios (Identificacion_Usuario, nombre, Apellido, Rol_Usuario, Estado_Usuario, Contrasena)
+INSERT INTO Usuarios (Identificacion_Usuario, nombre, Apellido, email_usuario, Rol_Usuario, Estado_Usuario, Contrasena)
 VALUES
 ('1234567890', 'John', 'Doe',"Emailusuario@gmail.com", 1, 2, 'password123'),
 ('0987654321', 'Jane', 'Doe',"Emailusuario@gmail.com", 2, 2, 'password456'),

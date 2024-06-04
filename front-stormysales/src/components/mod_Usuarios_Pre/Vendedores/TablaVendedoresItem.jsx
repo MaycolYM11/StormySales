@@ -15,9 +15,9 @@ export const TablaVendedoresItem = (props) => {
 
     const ponerTexto = () => {
         if (estado === 2) {
-            setTextoActivar('off');
-        } else if (estado === 1) {
             setTextoActivar('on');
+        } else if (estado === 1) {
+            setTextoActivar('off');
         }
     }
 
@@ -75,6 +75,9 @@ export const TablaVendedoresItem = (props) => {
                 </td>
                 <td className="columna__names">
                     <h3 id='names'>{props.name + " " + props.lastname}</h3>
+                </td>
+                <td className='columna__names'>
+                    <h3>{props.email}</h3>
                 </td>
                 <td className="columna__state">
                     <h3 className={props.idEstado === 2 ? 'active' : 'inactive' } >{props.estado}</h3>
