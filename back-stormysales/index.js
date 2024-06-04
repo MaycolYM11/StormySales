@@ -9,6 +9,8 @@ const informeRo = require('./routers/informeRo');
 const clientRouter = require('./routers/ClientesRouter');
 const loginRouter = require('./routers/Loginrouter');
 
+const facturacionRouter = require('./routers/r_mod_facturacion/router_Facturacion')
+
 const app = express();
 const PORT = process.env.PORT || 3001;
 
@@ -28,6 +30,10 @@ app.use('/zonas', rutaZona);
 app.use('/api', informeRo);
 app.use('/usuario', clientRouter);
 app.use('/ingreso', loginRouter)
+
+// Rutas Facturación
+app.use('/factura', facturacionRouter);
+
 
 
 app.get("/", (req, res) => {

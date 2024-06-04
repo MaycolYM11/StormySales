@@ -1,0 +1,150 @@
+/*-------------- containerFactura-Right ----------------- */
+.containerFactura-Right {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    /*display: none;    -------------------------------*/
+}
+
+.centerInputs_Right-Factura {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/*T[itulo */
+.Tittle_Right-Factura {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 40px;
+}
+
+.tittleDatos_prod-F {
+    color: var(--TxT-Color-01);
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.itemNumber_factura {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    border-radius: 15px;
+    color: var(--TxT-Color-01);
+    background-color: var(--Table-BG-Color);
+}
+
+/* INputs ++++++ */
+.inputsDiv_Right-F {
+    width: 100%;
+}
+
+.grupInput_Right-F {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.tittle-Input_Right-F {
+    font-size: 15px;
+    color: var(--TxT-Color-03);
+}
+
+.inputContent_Right-F {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    background-color: var(--Table-BG-Color);
+    border-radius: 15px;
+    margin-top: 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.textAreaInput-Right_Right-F {
+    width: 100%;
+    padding: 0 20px;
+}
+
+.styleInput-F {
+    width: 100%;
+    height: 40px;
+    outline: none;
+    border: none;
+    background-color: transparent;
+    font-size: 15px;
+    color: var(--TxT-Color-01);
+    -webkit-appearance: textfield;
+    -moz-appearance: textfield;
+}
+
+.styleInput-F::-webkit-outer-spin-button,
+.styleInput-F::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.styleInput-F[type="number"] {
+    -moz-appearance: textfield;
+}
+
+.styleInput-F input[type="number"] {
+    -webkit-appearance: none;
+    -moz-appearance: textfield;
+    margin: 0;
+}
+
+.iconInput-Left_Right-F {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100px;
+    height: 60px;
+    background-color: var(--Table-Actions-BG-Color);
+}
+
+.iconInput-Left_Right-F i {
+    font-size: 30px;
+    color: var(--TxT-Color-01);
+}
+
+/* Button Final ------>> */
+.BtnAgregarProducto-Factura {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    border-radius: 15px;
+    border: none;
+    padding: 20px;
+    font-size: 17px;
+    color: var(--TxT-Color-02);
+    background-color: var(--BtN-Color-BG-04);
+    margin-top: 30px;
+    cursor: pointer;
+    transition: background-color 0.5s ease, opacity 0.28s ease;
+}
+
+.BtnAgregarProducto-Factura i {
+    font-size: 20px;
+    margin-left: 10px;
+    color: var(--TxT-Color-02);
+}
+
+.BtnAgregarProducto-Factura:hover {
+    background-color: var(--BtN-Color-BG-04-5);
+}
+
+.BtnAgregarProducto-Factura:active {
+    opacity: 50%;
+}

@@ -4,7 +4,6 @@
     --BG-01-Cards: #3d414c;
     --BG-02-Cards: #2f323c;
     --TxT-Color-01: #9a98ff;
-    --TxT-Color-01-2: #d4d2ff;
     --TxT-Color-02: #ffffff;
     --TxT-Color-03: #aeb5c8;
 
@@ -30,4 +29,34 @@
     /* RIGHT Content */
     --Right-BG-Color: #282b32;
     --Right-BG-Color-20: #282b3240;
+
+    /* MODAL COLORS */
+    --Modal-BG-01: #30333c;
+    --Modal-BG-02: #474c58;
+    --Modal-Tabla-BG-01: #3d414c;
+    --Modal-Tabla-BG-02: #535968;
+    --Modal--Separador-Actions: #282b327a;
+    --Modal-BTN-BG-01: #9a98ff;
+    --Modal-Estado-BG-01: #43695c;
+    --Modal-Estado-Txt-01: #9fffcf;
+    --Modal-Txt-01: #a2aac0;
+
+    /*Metodo Pago */
+    --MP--BG-00: rgba(28, 30, 36, .75);
+    --MP--BG-01: #282b32;
+    --MP--Txt-Color-01: #ff957c;
+    --MP--Txt-Color-02: #ffffff;
+    --MP--Txt-Color-03: #ffeeeb;
+    --MP--Txt-Color-04: #868ea3;
+    --MP--Input-BG-01: #3d414c;
+    --MP--Input-BG-02: #474c58;
+    --MP--BTN-BG-01: #ff957c;
+    --MP--Selects-BG-01: #3d414c;
+    --MP--Selects-BG-02: #363a44;
+    --MP--Selects-Border-01: #373a44;
+    --MP--Selects-Border-02: #282b32;
+    --MP--Selects-Border-03: #1a1c22;
+    --MP--Radio-BG-01: #333741;
+    --MP--Radio-border-BG-01: #282b32;
+    --MP--Radio-in-BG-01: #e0826c;
 }

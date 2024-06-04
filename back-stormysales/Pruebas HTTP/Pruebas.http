@@ -32,7 +32,6 @@ Content-Type: application/json
     "contrasena":"0000"
 }
 
-<<<<<<< HEAD
 
 ###
 PUT http://localhost:3001/zonas/updatezona/4 HTTP/1.1
@@ -50,7 +49,6 @@ Content-Type: application/json
    "idCliente":"8901234567", 
    "direccion":"Prueba"
 }
-=======
 ###
 clientes
 ###
@@ -97,4 +95,3 @@ POST url HTTP/1.1
 header name: header value
 
 content
->>>>>>> 341d5fb966aa00d9308b7985137c2eb886671291
