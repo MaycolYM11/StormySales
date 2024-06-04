@@ -1,114 +1,505 @@
 @import url(../../styles/ColorsFacturaAll.css);
 @import url(../../styles/ColorsAll.css);
 
+.MainContainer_Abonos {
+  display: grid;
+  grid-template-columns: 1fr 440px;
+  grid-template-rows: 1fr;
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+}
 
-.MainContainer_Abonos{
-    display: flex;
-    flex-direction: row;
+.AbonoLeft {
+  height: 100vh;
+  background: var(--Right-BG-Color);
+  grid-area: 1 / 2 / 6 / 3;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
 }
 .AbonoRight{
-    width: 75%;
+  grid-area: 1 / 1 / 2 / 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
-.AbonoLeft{
-    width: 25%;
-    height: 100vh;
-    background: var(--Right-BG-Color);
-    display: flex;
-    flex-direction: column;
+.containerAbono-Top {
+  width: 400px;
+  min-height: 200px;
+  margin: 20px 0 0 20px;
+}
+.errorTop{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 400px;
+  width: 70vw;
+  font-size: 25px;
+  font-weight: bold;
+  color: var(--BtN-Color-BG-04-5);
+}
+.errorTop i{
+  font-size: 200px;
+  margin-right: 3px;
+}
+
+.ContainerAbono_Center{
+  padding: 20px;
+  width: 62vw;
+  height: auto;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: auto;
 }
 /*Buscar*/
 
-.BuscarFactura{
-    display: flex;
-    align-items: center;
-    padding-left: 40px;
-    height: 100px;
-    background: #3d414c;
+.BuscarFactura {
+  display: flex;
+  align-items: center;
+  padding-left: 40px;
+  height: 100px;
+  background: #3d414c;
 }
-.InputBuscar{
-    height: 50px;
-    width: 480px;
-    background: #4b505d;
-    border: 2px solid transparent;
-    transition: border-color 0.3s;
-    border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px;
-    box-shadow: 0px 0px 15px 0px rgba(15, 16, 23, 0.2);
+.InputBuscar {
+  height: 50px;
+  width: 480px;
+  background: #4b505d;
+  border: 2px solid transparent;
+  transition: border-color 0.3s;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  box-shadow: 0px 0px 15px 0px rgba(15, 16, 23, 0.2);
 }
-.InputBuscar:hover{
-    border-color: white;
+.InputBuscar:hover {
+  border-color: white;
 }
 
 .InputBuscar::placeholder {
-    padding-left: 20px;
-    color: var(--TxT-Color-03);
+  padding-left: 20px;
+  color: var(--TxT-Color-03);
 }
-.ButtonBuscar{
-    height: 55px;
-    width: 90px;
-    background: var(--BtN-Color-BG-05);
-    color: white;
-    border: 2px solid transparent;
-    transition: border-color 0.3s;
-    border-top-right-radius: 10px;
-    border-bottom-right-radius: 10px;
-    box-shadow: 0px 0px 15px 0px rgba(15, 16, 23, 0.2);
-    font-weight: bold;
+.ButtonBuscar {
+  height: 55px;
+  width: 90px;
+  background: var(--BtN-Color-BG-04);
+  color: white;
+  border: 2px solid transparent;
+  transition: border-color 0.3s;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  box-shadow: 0px 0px 15px 0px rgba(15, 16, 23, 0.2);
+  font-weight: bold;
 }
-.ButtonBuscar:hover{
-    border-color: white;
+.ButtonBuscar:hover {
+  border-color: white;
 }
 
 /*Formulario Derecha*/
-
-.formAbonotittle{
-    margin-top: 10px;
-    padding-left: 20px;
-    margin-bottom: 20px;
+.AbonoForm{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 98%;
+}
+.formAbonotittle {
+  margin-top: 10px;
+  padding-left: 20px;
+  margin-bottom: 20px;
 }
 
-.formAbonotittle h2{
-    color: var(--TxT-Color-01);
+.formAbonotittle h2 {
+  color: var(--TxT-Color-01);
 }
-.formInputAbono{
-    position: static;
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    width: 95%;
-    padding-left: 20px;
-}
-
-.formAbono{
-    position: absolute;
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-    width: 30vw;
-}
-.formAbono label{
-    position: absolute;
-    top: 50%;
-    left: 8px;
-    transform: translateY(-50%);
-    color: var(--TxT-Color-03);
-    background-color: #3d414c;
-    padding: 0 5px;
-    transition: all 0.2s ease-in-out;
-}
-.formAbono:focus-within label{
-    top: 0;
-    font-size: 12px;
-} 
-.formAbono input{
-    border: 2px solid transparent;
-    background: #3d414c;
-    border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px;
-    width: 300px;
-    height: 50px;
+.formInputAbono {
+  position: static;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding-left: 20px;
+  margin: 0 0 0 0;
 }
 
-.formAbono input:hover{
-    border-color: white;
+.formAbono {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  width: 30vw;
+  position: relative;
+}
+
+.formAbono label {
+  position: absolute;
+  top: 25px;
+  left: 8px;
+  color: var(--TxT-Color-03);
+  background-color: #3d414c;
+  padding: 0 5px;
+  transition: all 0.2s ease-in-out;
+}
+
+.formAbono:focus-within label {
+  top: 0;
+  font-size: 12px;
+}
+.formAbono input {
+  border: 2px solid transparent;
+  background: #3d414c;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  width: 320px;
+  height: 60px;
+  margin-top: 5px;
+}
+.formAbono input:hover {
+  border-color: wheat transparenti;
+}
+.iconoInput{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  position: relative;
+  background: #636f83;
+  height: 64px;
+  width: 60px;
+  top: -65px;
+  left: 140px;
+}
+
+.iconoInput i{
+  font-size: 25px;
+  color: var(--TxT-Color-01)
+}
+
+.formBotones {
+  width: 95vw;
+  padding-left: 20px;
+  margin: 30px 0 15px 0;
+}
+.formMpago {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--Home-BG-05);
+  border-radius: 10px;
+  margin: 15px 0 0 0;
+  width: 370px;
+  height: 55px;
+}
+.AbonoDatos {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 50px;
+}
+.datoSubtotal {
+  background: var(--Main-Container-BG-2);
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+  width: 360px;
+  height: 50px;
+}
+.datoIva {
+  background: var(--Main-Container-BG-2);
+  margin-top: 2px;
+  width: 360px;
+  height: 50px;
+}
+.datoTotal {
+  background: var(--Main-Container-BG-2);
+  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+  margin-top: 2px;
+  width: 360px;
+  height: 50px;
+}
+.datoSubtotal,
+.datoIva,
+.datoTotal {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+.tittle_Abono,
+.tittle_AbonoTotal {
+  color: var(--TxT-Color-01);
+  font-weight: 500;
+}
+.tittle_AbonoTotal,
+.result_AbonoTotal {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+/* Botones */
+
+.btn-Calcular {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--BG-Button-Active);
+  border: 2px solid transparent;
+  border-radius: 10px;
+  width: 370px;
+  height: 45px;
+  font-size: 17px;
+  color: white;
+}
+.btn-Calcular span {
+  margin-right: 10px;
+  font-size: 22px;
+  color: white;
+}
+.btn-Calcular:hover {
+  border: 2px solid white;
+  background: var(--BG-Button-No-Active);
+  transition: 0.5s;
+}
+.selectMpago {
+  height: 35px;
+  width: 330px;
+  background-color: #fb836b;
+  border-radius: 10px;
+  color: white;
+  text-align: center;
+  font-weight: bold;
+}
+.perro:hover {
+  background-color: #8f2e1a;
+  color: #333;
+}
+
+.contenedorRegistrar{
+  background: #3D4E57;
+  max-width: 1300px;
+  height: 80px;
+  border-radius: 20px;
+  margin-top: 30px;
+  margin-left: 30px;
+  margin-right: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.btn-Registrar{
+  background: #72b9c3;
+  height: 55px;
+  width: 95%;
+  border-radius: 10px;
+  color: white;
+  font-weight: 700;
+  border: 2px solid transparent;
+}
+
+.btn-Registrar:hover {
+  border: 2px solid white;
+  background: #436c72;
+  transition: 0.5s;
+}
+
+/* --- TABLE ----------------------> */
+
+.tb__Abono {
+  border: none;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  /* border-collapse: collapse; */
+  border-spacing: 0;
+  background-color: var(--Table-BG-Color);
+  overflow-x: auto;
+  width: 1119px;
+  font-size: 15px;
+  overflow: hidden;
+}
+
+.tr__Abono--Tittles {
+  color: var(--TxT-Color-03);
+}
+
+.th--Item,
+.td--Item {
+  padding-left: 20px;
+  width: 100px;
+  text-align: left;
+}
+
+.td--Item {
+  color: var(--TxT-Color-01);
+}
+
+.th--FechaAbono,
+.td--FechaAbono {
+  width: 200px;
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.td--FechaAbono {
+  color: var(--TxT-Color-02);
+}
+
+.th--Empleado,
+.td--Empleado {
+  width: 280px;
+  text-align: left;
+}
+
+.td--Empleado {
+  color: var(--TxT-Color-02);
+}
+
+.th--CantidadAbono,
+.td--CantidadAbono {
+  width: 180px;
+  text-align: left;
+}
+
+.th--Calculo,
+.td--Calculo {
+  width: 150px;
+  text-align: left;
+}
+
+.th__Abono .td--Calculo {
+  color: var(--TxT-Color-02);
+}
+
+.th--Acciones,
+.td--Acciones {
+  width: auto;
+  text-align: center;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--Table-Actions-BG-Color);
+  overflow: hidden;
+}
+
+.th--Acciones {
+  padding: 20px 0;
+  border-top-right-radius: 10px;
+  border-left: 2px solid var(--Separador-Actions--Hover-2);
+}
+
+.td--Acciones {
+  padding: 5px 0;
+  border-left: 2px solid var(--Separador-Actions--Hover-2);
+}
+
+.th--Item,
+.th--FechaAbono,
+.th--Empleado,
+.th--CantidadAbono,
+.th--Calculo {
+  color: var(--TxT-Color-03);
+}
+
+.th--Item,
+.th--FechaAbono
+.th--Empleado,
+.th--CantidadAbono,
+.th--Calculo,
+.td--Item,
+.td--FechaAbono,
+.td--Empleado,
+.td--CantidadAbono,
+.td--Calculo {
+  border-bottom: 2px solid var(--Separador-Actions--Hover-2);
+}
+
+.td--NoData{
+  color: var(--TxT-Color-03);
+  font-style: italic;
+  margin-right: 30px;
+}
+
+/* Acciones ------------------> */
+
+.AccionesAbono-Container-Row {
+  padding: 5px;
+}
+
+.containerIconsAbono-Acciones {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 120px;
+  background-color: var(--Table-Actions-BG-Icons-Color);
+  color: var(--Table-Actions-Icons-Color);
+  border-radius: 15px;
+  border: 2px solid var(--Separador-Actions--Hover-2);
+}
+
+.separadorVerticalAbono-Acciones {
+  width: 2px;
+  height: 43px;
+  margin: 0 4px;
+  background-color: var(--Separador-Actions--Hover-2);
+}
+
+.BTN_iconClick-Abono {
+  padding: 10px;
+  margin: 0 5px;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  border-radius: 15px;
+  transition: background-color 0.5s ease;
+}
+
+.BTN_iconClick-Abono:hover {
+  background-color: var(--Separador-Actions--Hover);
+}
+
+.BTN_iconClick-Abono:active {
+  opacity: 50%;
+  background-color: var(--Separador-Actions--Hover-2);
+}
+
+.separadorVerticalAbono-Acciones .BTN_iconClick-Abono i {
+  font-size: 20px;
+  color: var(--Table-Actions-Icons-Color);
+}
+
+.precioColor {
+  color: var(--TxT-Color-01);
+}
+
+.td--Cantidad {
+  color: var(--TxT-Color-01);
+}
+
+.dollar-resaltado-A {
+  color: var(--TxT-Color-01);
+}
+
+/*--------------- BOTTOM -----------*/
+
+.Abono-bootomTable_Show {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 1118px;
+  background-color: var(--Table-BG-Color);
+  height: 10px;
+  border-bottom-right-radius: 15px;
+  border-bottom-left-radius: 15px;
+  overflow: hidden;
+}
+
+.Abono-bootomTable_Show_Right {
+  width: 178px;
+  height: 100%;
+  background-color: var(--Table-Actions-BG-Color);
+  border-left: 2px solid var(--Separador-Actions--Hover-2);
 }

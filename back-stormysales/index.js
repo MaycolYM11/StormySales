@@ -8,6 +8,7 @@ const rutaZona = require('./routers/zonasRouter');
 const informeRo = require('./routers/informeRo');
 const clientRouter = require('./routers/ClientesRouter');
 const loginRouter = require('./routers/Loginrouter');
+const AbonoRouter = require('./routers/AbonoRouter');
 
 const facturacionRouter = require('./routers/r_mod_facturacion/router_Facturacion')
 
@@ -30,6 +31,7 @@ app.use('/zonas', rutaZona);
 app.use('/api', informeRo);
 app.use('/usuario', clientRouter);
 app.use('/ingreso', loginRouter)
+app.use('/Abono', AbonoRouter)
 
 // Rutas Facturación
 app.use('/factura', facturacionRouter);

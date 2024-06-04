@@ -1,6 +1,6 @@
 
 create database sis_fact;
-  -- drop database sis_fact;
+-- drop database sis_fact;
 use sis_fact;
 
 create table rol(
@@ -39,6 +39,7 @@ create table Clientes(
     primary key(Identificacion_Clientes),
 	foreign key (Estado_Clientes) references Estado(ID_estado)
 );
+
 create table Factura(
 	ID_factura int auto_increment not null,
     ID_cliente_fk varchar(30) not null,
@@ -59,7 +60,7 @@ create table Factura(
 create table DetalleFactura(
 	ID_detalle int auto_increment not null,
     ID_factura_fk int not null,
-    descripcion varchar(25) not null,
+    descripcion varchar(40) not null,
     cantidad int not null,
     precio_unitario float not null,
     importe_total float not null,
@@ -72,10 +73,14 @@ create table DetalleFactura(
 create table Abonos(
 	ID_abono int auto_increment not null,
     ID_factura_fk int not null,
+    ID_Vendedor_fk varchar(30) not null,
+    Metodo_Pago	varchar(30) not null,
+    Desc_Abono varchar(40) not null,
     fecha_abono date not null,
     cantidad_abono float not null,
     primary key (ID_abono),
-    foreign key (ID_factura_fk) references Factura(ID_factura)
+    foreign key (ID_factura_fk) references Factura(ID_factura),
+    foreign key (ID_Vendedor_fk) references Usuarios(Identificacion_Usuario)
 );
 
 
@@ -94,7 +99,7 @@ create table Detalle_zona(
 	ID_detallezona int auto_increment not null,
     ID_zonaFK int not null,
     Id_cliente varchar(30) not null,
-    Direccion_clienteFK varchar(45) not null,
+    Direccion_clienteFK varchar(255) not null,
     primary key (ID_detallezona),
     foreign key (ID_zonaFK) references Zona(ID_zona),
     foreign key (Id_cliente) references Clientes(Identificacion_Clientes)
@@ -146,7 +151,7 @@ VALUES
 (2, 'Gorrita de ñero', 2, 35000, 35000 * 2),
 (2, 'Pan duro', 4, 4000, 4000 * 4);
 
-
+-- select * from Abonos;
 
 INSERT INTO Zona (Nombre_zona, Estado_zona, Id_empleado) VALUES 
 ('Zona Norte', 1, '1234567890'),
@@ -174,7 +179,7 @@ VALUES
 ('9012345678', 'Alejandro', 'Fernandez', 2, 'alejandro@gmail.com', 'Carrera 20 #50-60', 901234567);
 
 
-SELECT * FROM Detalle_zona WHERE ID_zonaFK = 4 AND Id_cliente = 3456789012
+SELECT * FROM Detalle_zona WHERE ID_zonaFK = 4 AND Id_cliente = 3456789012;
 
 -- Mas clientes
 INSERT INTO Clientes (Identificacion_Clientes, nombre, Apellido, Estado_Clientes, email, direccion, telefono)
@@ -220,3 +225,16 @@ VALUES
 ('1000000039', 'Alejandra Isabel', 'Gonzalez Ramirez', 2, 'alejandra.isabel@yahoo.com', 'Calle 80 #10-20', 3001234605),
 ('1000000040', 'Oscar Eduardo', 'Torres Martinez', 2, 'oscar.eduardo@gmail.com', 'Avenida 20 #50-60', 3001234606);
 
+select * from Abonos;
+
+INSERT INTO Abonos (ID_factura_fk,ID_Vendedor_fk, fecha_abono, cantidad_abono,Desc_Abono,Metodo_Pago)
+VALUES 
+    (1,2345678901, CURDATE(), 1000.00,'Se hara el pago cuanto tenga la plata','Efectivo'),
+    (1,1234567890, CURDATE(), 500.00,'Se hara el pago cuanto tenga la plata','Transferencia'),
+	(1,2345678901, CURDATE(), 40200.00,'Se hara el pago cuanto tenga la plata','Efectivo');
+    
+INSERT INTO Abonos (ID_factura_fk,ID_Vendedor_fk, fecha_abono, cantidad_abono,Desc_Abono,Metodo_Pago)
+VALUES 
+    (2,1234567890, CURDATE(), 20000.00,'Se haran los pagos en el tiempo Establecido','Tarjeta'),
+    (2,2345678901, CURDATE(), 7000.00,'Se haran los pagos en el tiempo Establecido','Tarjeta');
+    

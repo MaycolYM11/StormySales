@@ -95,3 +95,22 @@ POST url HTTP/1.1
 header name: header value
 
 content
+
+###
+GET http://localhost:3001/Abono/BuscarFacturaCliente/1/1 HTTP/1.1
+
+###
+POST  http://localhost:3001/Abono/CrearAbono HTTP/1.1
+Content-Type:application/json
+
+{
+    "ID_factura_fk": "1",
+    "ID_Vendedor_fk": "1234567890",
+    "fecha_abono": "2024-06-03",
+    "cantidad_abono": "100000",
+    "Desc_Abono": "para que pague el pito",
+    "Metodo_Pago": "Efectivo"
+}
+
+###
+DELETE  http://localhost:3001/Abono/EliminarAbono/1 HTTP/1.1
