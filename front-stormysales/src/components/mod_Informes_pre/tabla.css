@@ -1,0 +1,192 @@
+/* Código CSS para la sección de encabezado */
+.table-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.table-header h2 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #9a98ff;
+}
+
+.table-header p {
+  font-size: 14px;
+  line-height: 1.5;
+  color: #666;
+}
+
+/* Código CSS para la clase contenedora */
+.tabla-container {
+  padding: 20px;
+  border-radius: 8px;
+}
+
+/* Código CSS para la barra de búsqueda, el selector de rango de fechas y la tabla */
+.tabla-container .search-bar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.tabla-container .search-bar input[type="text"] {
+  padding: 15px;
+  border: 1px solid #383737;
+  border-radius: 6px;
+  width: 300px;
+  margin-bottom: 10px;
+}
+
+.tabla-container .search-bar button {
+  padding: 10px 20px;
+  background-color: #6663fe;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+
+.tabla-container .buttonD {
+  text-align: center;
+  padding: 10px 20px;
+  background-color: #6663fe;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-bottom: 10px;
+}
+
+.tabla-container .search-bar button:hover,
+.tabla-container .buttonD:hover {
+  background-color: #6542a3;
+}
+
+.tabla-container .date-range-picker,
+.tabla-container .date-range-picker2 {
+  display: flex;
+  align-items: center;
+  border-radius: 8px;
+  background-color: #3f4350;
+  margin-bottom: 10px;
+}
+
+.tabla-container .date-range-picker {
+  margin-right: 10px;
+}
+
+.tabla-container .date-range-picker2 {
+  margin-left: 10px;
+}
+
+.tabla-container .date-range-picker label,
+.tabla-container .date-range-picker2 label {
+  margin-right: 8px;
+  color: #fff;
+  margin-left: 10px;
+}
+
+.tabla-container .date-range-picker input[type="date"],
+.tabla-container .date-range-picker2 input[type="date"] {
+  padding: 10px;
+  border: 0px solid #ddd;
+  border-radius: 4px;
+  background-color: #494e5d;
+  color: #fff;
+}
+
+.tabla-container table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0 auto;
+  background-color: #494e5d;
+}
+
+.tabla-container th, .tabla-container td {
+  padding: 8px;
+  text-align: left;
+  border: 1px solid #494e5d;
+}
+
+.tabla-container th {
+  background-color: #494e5d;
+  color: #fff;
+}
+
+.tabla-container tr:nth-child(even) {
+  background-color: #3f424d;
+}
+
+.tabla-container th, .tabla-container td:first-child {
+  text-align: center;
+}
+
+/* Estilos para la columna de estado */
+.tabla-container .status {
+  padding: 5px 10px;
+  border-radius: 15px;
+  color: white;
+  text-align: center;
+  display: inline-block;
+}
+
+.tabla-container .status.mayor {
+  background-color: #9fffcf;
+  color: #0ce03a;
+}
+
+.tabla-container .status.peor {
+  background-color: #90495b;
+  color: #ff0101;
+}
+
+.tabla-container .status.masbajo {
+  background-color: rgb(180, 139, 64);
+  color: rgb(255, 145, 0);
+}
+
+.tabla-container .currency {
+  color: #7e2ed9;
+}
+
+.tabla-container .purple {
+  color: #7e2ed9;
+}
+
+/* Estilos CSS */
+.tabla-container .empleado-seleccionado {
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+  text-align: center;
+}
+
+.tabla-container .empleado-seleccionado.mostrar {
+  opacity: 1;
+  text-align: center;
+}
+
+.tabla-container .detalles {
+  margin: 0 auto;
+  background-color: #564e4e;
+  border: 1px solid #6038a1;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  max-width: 300px;
+  margin-top: 10px;
+}
+
+.tabla-container .detalles p {
+  margin: 5px 0;
+}
+
+.tabla-container .detalles strong {
+  margin-right: 5px;
+}

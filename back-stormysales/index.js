@@ -5,6 +5,7 @@ const cors = require('cors');
 const superviRouter = require('./routers/SupervisorRouter');
 const vendeRouter = require('./routers/VendedorRouter')
 const rutaZona = require('./routers/zonasRouter');
+const informeRo = require('./routers/informeRo');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -22,6 +23,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/usuario', superviRouter);
 app.use('/usuario', vendeRouter);
 app.use('/zonas', rutaZona); 
+app.use('/api', informeRo);
 
 app.get("/", (req, res) => {
     res.send("¡Hola! Este es el servidor backend!");
