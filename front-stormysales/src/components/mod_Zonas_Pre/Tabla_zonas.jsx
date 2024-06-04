@@ -85,7 +85,7 @@ function Tabla_zonas() {
             <button type="button" className="botonAgre" id="lanzar-modal" name="agregar" onClick={abrirFormularioRegistro}><i className="biNuevaRuta bi-flag"></i> Nueva ruta</button>
           </div>
       </div>
-      <div className='main-container'>
+      <div className='main-containerZona'>
         <div className='table-container'>
           <div className="option-container">
             <form className="form">

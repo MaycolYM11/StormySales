@@ -176,4 +176,4 @@ VALUES
 ('9012345678', 'Alejandro', 'Fernandez', 2, 'alejandro@gmail.com', 'Carrera 20 #50-60', 901234567);
 
 
-
+SELECT * FROM Detalle_zona WHERE ID_zonaFK = 4 AND Id_cliente = 3456789012

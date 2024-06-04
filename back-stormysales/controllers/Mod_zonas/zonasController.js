@@ -142,6 +142,19 @@ const CreateDetalleZona = async (req, res) => {
     }
   };
   
+
+  const validarClienteEnZona = async (req, res) => {
+    try {
+      const { idZona, idCliente } = req.params;
+      const [result] = await db.query('SELECT * FROM Detalle_zona WHERE ID_zonaFK = ? AND Id_cliente = ?', [idZona, idCliente]);
+      res.json({ clienteAsociado: result.length > 0 });
+    } catch (error) {
+      console.log(`Error: ${error}`);
+      res.status(500).json({ error: 'Error al validar el cliente en la zona.' });
+    }
+  };
+  
+  
   
   
   
@@ -155,6 +168,28 @@ const obtenerUsuariosRol2 = async (req, res) => {
         console.error('Error al obtener usuarios con rol 2:', error);
         res.status(500).json({ error: 'Error al obtener usuarios con rol 2' });
     }
+};
+
+const obtenerClientesConDetalleZona = async (req, res) => {
+  try {
+    const { idZona } = req.params;
+
+    const clientes = await db.query('SELECT * FROM Clientes');
+    const detalleZona = await db.query('SELECT * FROM Detalle_zona WHERE ID_zonaFK = ?', [idZona]);
+
+    const clientesConDetalle = clientes.map(cliente => {
+      const detalle = detalleZona.find(d => d.Id_cliente === cliente.Identificacion_Clientes);
+      return {
+        ...cliente,
+        asociado: !!detalle
+      };
+    });
+
+    res.json(clientesConDetalle);
+  } catch (error) {
+    console.error('Error al obtener los clientes y detalles de la zona:', error);
+    res.status(500).json({ error: 'Error al obtener los clientes y detalles de la zona.' });
+  }
 };
 
 
@@ -188,10 +223,9 @@ const cambioEstadoZona = async (req, res) => {
 
 
 const obtenerInfoRuta = async (req, res) => {
-    const { idRuta } = req.params; // Suponiendo que la ruta se identifica por un ID
+    const { idRuta } = req.params; 
     
     try {
-        // Consulta para obtener la información de la ruta, incluyendo el empleado asignado
         const queryRuta = `SELECT z.ID_zona, dz.Id_cliente, c.nombre, c.direccion, c.email,
                                   u.nombre AS NombreEmpleado, u.Apellido AS ApellidoEmpleado
                            FROM Zona z
@@ -209,35 +243,20 @@ const obtenerInfoRuta = async (req, res) => {
 };
 
 
-// const eliminarZona = async (req, res) => {
-//     try {
-//         const { id } = req.params;
-//         await db.query('DELETE FROM Registro_Proveedor WHERE ID_Registro_Proveedor_PK = ?', [id]);
-//         res.json({ message: 'Proveedor eliminado correctamente' });
-//     } catch (error) {
-//         console.log('Error: ${error}');
-//         res.status(500).json({ error: 'Error al eliminar el proveedor.' });
-//     }
-// };
+const clienteElim = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { idZona } = req.body;  
 
-// const verificarTelefonoExistente = async (req, res) => {
-//     try {
-//         const { telefono } = req.body;
-//         const query = 'SELECT Telefono_Contacto FROM Registro_Proveedor WHERE Telefono_Contacto = ? LIMIT 1';
-//         const [rows] = await db.query(query, [telefono]);
+  
+    await db.query('DELETE FROM Detalle_zona WHERE Id_cliente = ? AND ID_zonaFK = ?', [id, idZona]);
 
-//         if (rows.length > 0) {
-//             return res.status(200).json({ exists: true, message: 'El número de teléfono ya existe.' });
-//         }
-
-//         return res.status(200).json({ exists: false, message: 'El número de teléfono está disponible.' });
-//     } catch (error) {
-//         console.error('Error al verificar el número de teléfono:', error);
-//         return res.status(500).json({ error: 'Error interno del servidor.' });
-//     }
-// };
-
-
+    res.json({ message: 'Cliente eliminado correctamente de la zona.' });
+  } catch (error) {
+    console.error(`Error: ${error}`);
+    res.status(500).json({ error: 'Error al eliminar el cliente de la zona.' });
+  }
+};
 
 
 module.exports = {
@@ -245,14 +264,15 @@ module.exports = {
     obtenerZonaPorId,
     CreateZona,
     CreateDetalleZona,
-    // eliminarZona,
+    clienteElim,
     cambioEstadoZona,
     obtenerUsuariosRol2,
-    // verificarTelefonoExistente
     obtenerClientes,
     UpdateZona,
     UpdateDetalleZona,
     obtenerInfoRuta,
-    DetalleZona
+    DetalleZona,
+    validarClienteEnZona,
+    obtenerClientesConDetalleZona
     
 };

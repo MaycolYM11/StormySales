@@ -11,7 +11,7 @@
   color: #6663FE;
 }
 
-.main-container{
+.main-containerZona{
   box-shadow: 5px 5px 5px 5px rgb(37, 37, 37);
   font-family: 'Outfit', sans-serif;
   background-color: #3d414c;
@@ -224,7 +224,7 @@ background-color: #49906c;
 }
 
 /* --------------------------------------------------- */
-.main-container a {
+.main-containerZona a {
   text-decoration: none;
   color: black;
 }

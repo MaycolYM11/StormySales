@@ -213,7 +213,6 @@ const RegisterProveedor = ({ isOpen, closeModal, reConsulta }) => {
                 </tbody>
               </table>
             )}
-            {/* Botones de paginación */}
             {clientesFiltrados.length > clientsPerPage && (
               <div className="pagination">
                 <button onClick={() => paginate(currentPage - 1)} disabled={currentPage === 1}>Anterior</button>

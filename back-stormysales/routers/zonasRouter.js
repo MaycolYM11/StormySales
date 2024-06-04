@@ -14,6 +14,9 @@ rutaZona.put("/updatezona/:id", zonaController.UpdateZona);
 rutaZona.put("/updatezonaDetalle/:id", zonaController.UpdateDetalleZona);
 rutaZona.get("/detalleZona/:id", zonaController.DetalleZona);
 
+
+rutaZona.get('/validarClienteEnZona/:idZona/:idCliente', zonaController.validarClienteEnZona);
+
 rutaZona.get("/obclientes", zonaController.obtenerClientes);
 
 rutaZona.get('/rutaInfo/:idRuta', zonaController.obtenerInfoRuta);
@@ -21,7 +24,10 @@ rutaZona.get('/rutaInfo/:idRuta', zonaController.obtenerInfoRuta);
 rutaZona.put("/cambioestadorutas/:id", zonaController.cambioEstadoZona);
 
 rutaZona.get("/usuariosrol2", zonaController.obtenerUsuariosRol2);
-// rutaZona.post("/verificar-telefono", zonaController.verificarTelefonoExistente);
-// rutaZona.delete("/rutas/:id", zonaController.eliminarZona);
+
+rutaZona.delete("/elininarcliente/:id", zonaController.clienteElim);
+
+
+rutaZona.get('/clientesConDetalle/:idZona', zonaController.obtenerClientesConDetalleZona);
 
 module.exports = rutaZona;

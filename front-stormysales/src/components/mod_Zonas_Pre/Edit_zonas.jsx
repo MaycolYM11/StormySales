@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import Swal from 'sweetalert2';
 import axios from 'axios';
-import './Tablas.css';
 
 const Edit_zonas = ({ closeModal, datos, consulta }) => {
-  const [nombreRuta, setNombreRuta] = useState(datos.Nombre_zona || '');
-  const [empleadoSeleccionado, setEmpleadoSeleccionado] = useState(datos.Id_empleado || '');
+  const [nombreRuta, setNombreRuta] = useState(datos.Nombre_zona);
+  const [empleadoSeleccionado, setEmpleadoSeleccionado] = useState(datos.Id_empleado);
   const [clientesSeleccionados, setClientesSeleccionados] = useState([]);
   const [clientes, setClientes] = useState([]);
   const [empleados, setEmpleados] = useState([]);
-  const [idZona, setIdZona] = useState(datos.Id_zona || '');
+  const [idZona, setIdZona] = useState(datos.Id_zona);
   const [idDetalleZonas, setIdDetalleZonas] = useState({});
   const [currentPage, setCurrentPage] = useState(1);
   const [clientsPerPage] = useState(5);
@@ -24,18 +23,10 @@ const Edit_zonas = ({ closeModal, datos, consulta }) => {
     obtenerDetalleZonas(datos.Id_zona);
   }, [datos]);
 
-  useEffect(() => {
-    actualizarDetalleZonas();
-  }, [clientesSeleccionados]);
-
   const obtenerClientes = async () => {
     try {
       const response = await axios.get('http://localhost:3001/zonas/obclientes');
-      const clientesConSeleccion = response.data.map(cliente => ({
-        ...cliente,
-        seleccionado: false
-      }));
-      setClientes(clientesConSeleccion);
+      setClientes(response.data);
     } catch (error) {
       console.error('Error al obtener la lista de clientes:', error);
     }
@@ -61,42 +52,76 @@ const Edit_zonas = ({ closeModal, datos, consulta }) => {
       const response = await axios.get(`http://localhost:3001/zonas/detalleZona/${idZona}`);
       console.log('Respuesta de detalle de zonas:', response.data);
       const detalleZonas = {};
+      const clientesEnZona = [];
       response.data.forEach(detalle => {
         detalleZonas[detalle.Id_cliente] = detalle.ID_detallezona;
+        clientesEnZona.push(detalle.Id_cliente);
       });
-      console.log('Detalles de zonas mapeados:', detalleZonas);
       setIdDetalleZonas(detalleZonas);
+      setClientesSeleccionados(clientesEnZona);
     } catch (error) {
       console.error('Error al obtener los detalles de la zona:', error);
     }
   };
 
-  const actualizarDetalleZonas = () => {
-    const detallesActualizados = {};
-    clientesSeleccionados.forEach(cliente => {
-      const idDetalleZona = idDetalleZonas[cliente.Identificacion_Clientes];
-      detallesActualizados[cliente.Identificacion_Clientes] = idDetalleZona || null;
-    });
-    console.log('Detalles actualizados:', detallesActualizados);
-    setIdDetalleZonas(detallesActualizados);
-  };
-  
-
   const handleEmpleadoChange = (e) => {
     setEmpleadoSeleccionado(e.target.value);
   };
 
-  const handleSeleccionCliente = (clienteId) => {
-    const clientesActualizados = clientes.map(cliente =>
-      cliente.Identificacion_Clientes === clienteId
-        ? { ...cliente, seleccionado: !cliente.seleccionado }
-        : cliente
-    );
-    setClientes(clientesActualizados);
-    const seleccionados = clientesActualizados.filter(cliente => cliente.seleccionado);
-    console.log('Clientes seleccionados:', seleccionados);
-    setClientesSeleccionados(seleccionados);
+  const handleSeleccionCliente = async (clienteId) => {
+    try {
+      const response = await axios.get(`http://localhost:3001/zonas/validarClienteEnZona/${idZona}/${clienteId}`);
+      const { clienteAsociado } = response.data;
+
+      if (clienteAsociado) {
+        Swal.fire({
+          icon: 'error',
+          text: 'Este cliente ya está asociado con esta zona.',
+          showCancelButton: true,
+          confirmButtonText: 'Eliminar cliente',
+          cancelButtonText: 'Cancelar',
+        }).then(async (result) => {
+          if (result.isConfirmed) {
+            await eliminarCliente(clienteId, idZona);
+          }
+        });
+      } else {
+        const clienteYaSeleccionado = clientesSeleccionados.includes(clienteId);
+        const nuevosClientesSeleccionados = clienteYaSeleccionado ? clientesSeleccionados.filter(id => id !== clienteId) : [...clientesSeleccionados, clienteId];
+        setClientesSeleccionados(nuevosClientesSeleccionados);
+      }
+    } catch (error) {
+      console.error('Error al validar el cliente en la zona:', error);
+      Swal.fire({
+        icon: 'error',
+        text: 'Error al validar el cliente en la zona.',
+      });
+    }
   };
+
+  const eliminarCliente = async (clienteId, idZona) => {
+    try {
+      await axios.delete(`http://localhost:3001/zonas/elininarcliente/${clienteId}`, { data: { idZona } });
+ 
+      await obtenerDetalleZonas(idZona);
+  
+      Swal.fire({
+        icon: 'success',
+        text: 'El cliente ha sido eliminado de la zona correctamente.',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          consulta();
+        }
+      });
+    } catch (error) {
+      console.error('Error al eliminar el cliente:', error);
+      Swal.fire({
+        icon: 'error',
+        text: 'Error al eliminar el cliente.',
+      });
+    }
+  };
+  
 
   const validarCampos = () => {
     if (!nombreRuta || !empleadoSeleccionado) {
@@ -137,21 +162,22 @@ const Edit_zonas = ({ closeModal, datos, consulta }) => {
         Id_empleado: empleadoSeleccionado
       });
 
-      for (let cliente of clientesSeleccionados) {
-        const idDetalleZona = idDetalleZonas[cliente.Identificacion_Clientes];
+      for (let clienteId of clientesSeleccionados) {
+        const idDetalleZona = idDetalleZonas[clienteId];
         console.log(`Id detalle zona --------------------->${idDetalleZona}`);
-        if (idDetalleZona === null) {
-          console.error('ID de detalle de zona no encontrado para el cliente:', cliente.Identificacion_Clientes);
-          Swal.fire({
-            icon: 'error',
-            text: `ID de detalle de zona no encontrado para el cliente ${cliente.Identificacion_Clientes}.`,
+        if (!idDetalleZona) {
+          const cliente = clientes.find(c => c.Identificacion_Clientes === clienteId);
+          await axios.post(`http://localhost:3001/zonas/createzonadetail`, {
+            idZona: idZona,
+            idCliente: clienteId,
+            direccion: cliente.direccion
           });
-          continue;
+        } else {
+          await axios.put(`http://localhost:3001/zonas/updateDetalleZona/${idDetalleZona}`, {
+            idCliente: clienteId,
+            direccion: clientes.find(c => c.Identificacion_Clientes === clienteId).direccion
+          });
         }
-        await axios.put(`http://localhost:3001/zonas/updateDetalleZona/${idDetalleZona}`, {
-          idCliente: cliente.Identificacion_Clientes,
-          direccion: cliente.direccion
-        });
       }
 
       consulta();
@@ -161,7 +187,7 @@ const Edit_zonas = ({ closeModal, datos, consulta }) => {
         text: `Datos actualizados para la zona`,
       });
     } catch (error) {
-      console.error('No se pudo realizar la petición PUT:', error);
+      console.error('No se pudo realizar la petición:', error);
       Swal.fire({
         icon: 'error',
         text: 'Error al actualizar los datos de la zona',
@@ -169,7 +195,6 @@ const Edit_zonas = ({ closeModal, datos, consulta }) => {
     }
   };
 
-  // Pagination
   const indexOfLastClient = currentPage * clientsPerPage;
   const indexOfFirstClient = indexOfLastClient - clientsPerPage;
   const currentClients = clientes.slice(indexOfFirstClient, indexOfLastClient);
@@ -193,6 +218,7 @@ const Edit_zonas = ({ closeModal, datos, consulta }) => {
                 placeholder="Nombre de la Ruta......"
                 className="text_cuadroRe-unique"
               />
+               <button type="button" className="Boton_cuadroRe-unique"><i className="biModal bi-pencil"></i></button>
             </div>
             <div className='BuscarRegis-unique'>
               <select
@@ -202,10 +228,10 @@ const Edit_zonas = ({ closeModal, datos, consulta }) => {
               >
                 <option value="">Selecciona un Empleado</option>
                 {empleados.map((empleado) => (
-                    <option key={empleado.Identificacion_Usuario} value={empleado.Identificacion_Usuario}>
-                      {empleado.nombre} {empleado.Apellido}
-                    </option>
-                  ))}
+                  <option key={empleado.Identificacion_Usuario} value={empleado.Identificacion_Usuario}>
+                    {empleado.nombre} {empleado.Apellido}
+                  </option>
+                ))}
               </select>
             </div>
           </div>
@@ -225,9 +251,9 @@ const Edit_zonas = ({ closeModal, datos, consulta }) => {
                 </thead>
                 <tbody>
                   {currentClients.map(cliente => (
-                    <tr key={cliente.Identificacion_Clientes} className={cliente.seleccionado ? "fila-seleccionada-unique" : ""}>
+                    <tr key={cliente.Identificacion_Clientes} className={clientesSeleccionados.includes(cliente.Identificacion_Clientes) ? "fila-seleccionada-unique" : ""}>
                       <td>{cliente.Identificacion_Clientes}</td>
-                     <td>{cliente.nombre}</td>
+                      <td>{cliente.nombre}</td>
                       <td>{cliente.direccion}</td>
                       <td>{cliente.email}</td>
                       <td>
@@ -237,10 +263,10 @@ const Edit_zonas = ({ closeModal, datos, consulta }) => {
                       </td>
                       <td>
                         <button
-                          className={`botonAgregar-unique ${cliente.seleccionado ? "agregado-unique" : ""}`}
+                          className={`botonAgregar-unique ${clientesSeleccionados.includes(cliente.Identificacion_Clientes) ? "agregado-unique" : ""}`}
                           onClick={() => handleSeleccionCliente(cliente.Identificacion_Clientes)}
                         >
-                          {cliente.seleccionado ? <i className="biSelect bi-x"></i> : <i className="biSelect bi-check2"></i>}
+                          {clientesSeleccionados.includes(cliente.Identificacion_Clientes) ? <i className="biSelect bi-x"></i> : <i className="biSelect bi-check2"></i>}
                         </button>
                       </td>
                     </tr>
