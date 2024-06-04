@@ -57,8 +57,12 @@ SELECT
 	Apellido AS "Apellido",
 	email AS "Email",
 	direccion AS "Direccion",
-	telefono AS "Telefono"
-FROM Clientes
+	telefono AS "Telefono",
+    E.Nombre_estado  AS "Estado"
+    
+FROM Clientes C
+INNER JOIN Estado E
+	ON E.ID_estado = C.Estado_Clientes 
 WHERE Estado_Clientes = 2;
 
 

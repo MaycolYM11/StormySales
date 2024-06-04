@@ -1,4 +1,3 @@
-
 create database sis_fact;
 -- drop database sis_fact;
 use sis_fact;
@@ -75,7 +74,7 @@ create table Abonos(
     ID_factura_fk int not null,
     ID_Vendedor_fk varchar(30) not null,
     Metodo_Pago	varchar(30) not null,
-    Desc_Abono varchar(40) not null,
+    Desc_Abono varchar(200) not null,
     fecha_abono date not null,
     cantidad_abono float not null,
     primary key (ID_abono),
