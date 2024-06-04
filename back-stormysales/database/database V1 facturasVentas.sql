@@ -1,6 +1,6 @@
 
 create database sis_fact;
-  -- drop database sis_fact;
+-- drop database sis_fact;
 use sis_fact;
 
 create table rol(
@@ -70,10 +70,14 @@ create table DetalleFactura(
 create table Abonos(
 	ID_abono int auto_increment not null,
     ID_factura_fk int not null,
+    ID_Vendedor_fk varchar(30) not null,
+    Metodo_Pago	varchar(30) not null,
+    Desc_Abono varchar(30) not null,
     fecha_abono date not null,
     cantidad_abono float not null,
     primary key (ID_abono),
-    foreign key (ID_factura_fk) references Factura(ID_factura)
+    foreign key (ID_factura_fk) references Factura(ID_factura),
+    foreign key (ID_Vendedor_fk) references Usuarios(Identificacion_Usuario)
 );
 
 
@@ -148,7 +152,7 @@ VALUES
 		(2,'Gorrita de ñero',2,35000,35000*2),
         (2,'Pan duro',4,4000,4000*4);
 
-select * from Abonos;
+-- select * from Abonos;
 
 INSERT INTO Zona (Nombre_zona, Estado_zona, Id_empleado) VALUES 
 ('Zona Norte', 1, '1234567890'),
@@ -161,31 +165,16 @@ INSERT INTO Detalle_zona (ID_zonaFK, Id_cliente, Direccion_clienteFK) VALUES
 (2, '0987654321', 'Calle 50 #15-25'),
 (3, '2345678901', 'Avenida 80 #35-45');
 
-<<<<<<< HEAD
 select * from Abonos;
 
-INSERT INTO Abonos (ID_factura_fk, fecha_abono, cantidad_abono)
+INSERT INTO Abonos (ID_factura_fk,ID_Vendedor_fk, fecha_abono, cantidad_abono,Desc_Abono,Metodo_Pago)
 VALUES 
-    (1, CURDATE(), 1000.00),
-    (1, CURDATE(), 500.00);
+    (1,2345678901, CURDATE(), 1000.00,'Se hara el pago cuanto tenga la plata','Efectivo'),
+    (1,1234567890, CURDATE(), 500.00,'Se hara el pago cuanto tenga la plata','Transferencia'),
+	(1,2345678901, CURDATE(), 40200.00,'Se hara el pago cuanto tenga la plata','Efectivo');
     
-INSERT INTO Abonos (ID_factura_fk, fecha_abono, cantidad_abono)
+INSERT INTO Abonos (ID_factura_fk,ID_Vendedor_fk, fecha_abono, cantidad_abono,Desc_Abono,Metodo_Pago)
 VALUES 
-    (2, CURDATE(), 20000.00),
-    (2, CURDATE(), 7000.00);
+    (2,1234567890, CURDATE(), 20000.00,'Se haran los pagos en el tiempo Establecido','Tarjeta'),
+    (2,2345678901, CURDATE(), 7000.00,'Se haran los pagos en el tiempo Establecido','Tarjeta');
     
-SELECT 
-	ID_abono,
-	ID_factura_fk,
-	fecha_abono,
-	cantidad_abono
-FROM 
-	Abonos
-WHERE 
-	ID_factura_fk = 1;
-=======
-select * from zona;
-
-SELECT Identificacion_Usuario as id,Contrasena,Rol_Usuario as rol,nombre,Apellido,Estado_Usuario as estado
-                                        FROM Usuario WHERE ID_Numero_Identificacion_PK = ?;
->>>>>>> 341d5fb966aa00d9308b7985137c2eb886671291

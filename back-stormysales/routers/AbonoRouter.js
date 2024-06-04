@@ -4,5 +4,7 @@ const rutaDatos = express.Router();
 
 rutaDatos.get('/BuscarFacturaCliente/:id_factura?/:id_cliente?', AbonoController.busquedaFacturaCliente);
 rutaDatos.get('/AbonosDatos/:ID_factura_fk', AbonoController.AbonosDatos);
+rutaDatos.post('/CrearAbono', AbonoController.crearAbono);
+rutaDatos.delete('/EliminarAbono/:ID_abono', AbonoController.eliminarAbono);
 
 module.exports = rutaDatos;

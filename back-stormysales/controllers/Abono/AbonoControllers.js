@@ -57,14 +57,17 @@ const AbonosDatos = async (req, res) => {
     try {
         const query = `
             SELECT 
-                ID_abono,
-                ID_factura_fk,
-                DATE_FORMAT(fecha_abono, '%Y-%m-%d') AS fecha_abono,
-                cantidad_abono
+                A.ID_abono,
+                A.ID_factura_fk,
+                DATE_FORMAT(A.fecha_abono, '%Y-%m-%d') AS fecha_abono,
+                A.cantidad_abono,
+                U.nombre,
+                U.Apellido
             FROM 
-                Abonos
+                Abonos A
+            JOIN Usuarios U ON A.ID_Vendedor_fk = U.Identificacion_Usuario
             WHERE 
-                ID_factura_fk = ?;
+                A.ID_factura_fk = ?;
         `;
 
         const [result] = await db.query(query, [ID_factura_fk]);
@@ -80,7 +83,67 @@ const AbonosDatos = async (req, res) => {
     }
 };
 
+const crearAbono = async (req, res) => {
+    const { ID_factura_fk, ID_Vendedor_fk, fecha_abono, cantidad_abono, Desc_Abono, Metodo_Pago } = req.body;
+
+    try {
+ 
+        const [vendedorExiste] = await db.query(
+            'SELECT COUNT(*) as count FROM Usuarios WHERE Identificacion_Usuario = ?',
+            [ID_Vendedor_fk]
+        );
+
+        if (vendedorExiste[0].count === 0) {
+            return res.status(400).json({ message: 'El vendedor no existe' });
+        }
+
+      
+        const query = `
+            INSERT INTO Abonos 
+            (ID_factura_fk, ID_Vendedor_fk, fecha_abono, cantidad_abono, Desc_Abono, Metodo_Pago)
+            VALUES 
+            (?, ?, ?, ?, ?, ?);
+        `;
+
+        const [result] = await db.query(query, [ID_factura_fk, ID_Vendedor_fk, fecha_abono, cantidad_abono, Desc_Abono, Metodo_Pago]);
+
+        if (result.affectedRows === 1) {
+            res.json({ message: 'Abono creado correctamente' });
+        } else {
+            res.status(400).json({ message: 'Error al crear el abono' });
+        }
+    } catch (error) {
+        console.log(`Error al crear el abono: ${error}`);
+        res.status(500).json({ message: `Error al crear el abono: ${error}` });
+    }
+};
+
+const eliminarAbono = async (req, res) => {
+    const { ID_abono } = req.params;
+
+    try {
+        const query = `
+            DELETE FROM Abonos 
+            WHERE ID_abono = ?;
+        `;
+
+        const [result] = await db.query(query, [ID_abono]);
+
+        if (result.affectedRows === 1) {
+            res.json({ message: 'Abono eliminado correctamente' });
+        } else {
+            res.status(400).json({ message: 'Error al eliminar el abono' });
+        }
+    } catch (error) {
+        console.log(`Error al eliminar el abono: ${error}`);
+        res.status(500).json({ message: `Error al eliminar el abono: ${error}` });
+    }
+};
+
+
 module.exports = {
     busquedaFacturaCliente,
-    AbonosDatos
+    AbonosDatos,
+    crearAbono,
+    eliminarAbono
 };
