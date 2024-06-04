@@ -1,11 +1,10 @@
 import React from 'react';
 import Swal from 'sweetalert2';
+import jsPDF from 'jspdf';
+import 'jspdf-autotable';
 import './ModalRegistroFactura.css';
 
 const ModalRegistroFactura = ({ facturaData, onClose, cliente }) => {
-    console.log('----> Modal registrar, llega: ', facturaData);
-    console.log('----> Modal registrar, ID Vendedor: ', facturaData.fecha);
-    console.log('----> Modal registrar, Fecha y hora: ', facturaData.hora);
 
     const handleRegistrarFactura = async () => {
         Swal.fire({
@@ -20,7 +19,7 @@ const ModalRegistroFactura = ({ facturaData, onClose, cliente }) => {
                     // Formatear la fecha manualmente
                     const fechaParts = facturaData.fecha.split('/');
                     const fechaFormateada = `${fechaParts[2]}-${fechaParts[1]}-${fechaParts[0]}`;
-
+    
                     const response = await fetch('http://localhost:3001/factura/insertfactura', {
                         method: 'POST',
                         headers: {
@@ -39,16 +38,17 @@ const ModalRegistroFactura = ({ facturaData, onClose, cliente }) => {
                             }))
                         })
                     });
-
+    
                     if (response.ok) {
                         Swal.fire('¡Registrado!', 'La factura ha sido registrada con éxito.', 'success').then(() => {
                             onClose();
                             window.location.reload();
+                            handleDownloadPDF(); // Ejecutar la función para descargar el PDF después de registrar la factura
                         });
                     } else {
                         Swal.fire('Error', 'Hubo un problema al registrar la factura.', 'error');
                     }
-
+    
                 } catch (error) {
                     console.error('Error:', error);
                     Swal.fire('Error', 'Hubo un problema al registrar la factura.', 'error');
@@ -56,55 +56,100 @@ const ModalRegistroFactura = ({ facturaData, onClose, cliente }) => {
             }
         });
     };
+    
+const handleDownloadPDF = () => {
+        const doc = new jsPDF();
 
+        // Título
+        doc.setFontSize(18);
+        doc.text('StormySales - Factura', 10, 10);
 
+        // Detalles de la factura
+        doc.setFontSize(12);
+        doc.text('Detalle de la factura:', 10, 30);
+        doc.setFontType('bold');
+        doc.text(`Cliente: ${cliente.Nombre} ${cliente.Apellido}`, 20, 40);
+        doc.text(`Empleado: ${facturaData.empleado.nombre} ${facturaData.empleado.apellido}`, 20, 50);
+        doc.text(`Fecha: ${facturaData.fecha}`, 20, 60);
+        doc.text(`Hora: ${facturaData.hora}`, 20, 70);
+
+        // Resumen Totales
+        doc.text('Resumen Totales:', 10, 90);
+        doc.setFontType('normal');
+        doc.text(`Subtotal: ${facturaData.subtotal}`, 20, 100);
+        doc.text(`IVA: ${facturaData.iva}`, 20, 110);
+        doc.text(`Total: ${facturaData.total}`, 20, 120);
+
+        // Productos
+        doc.text('Productos:', 10, 140);
+        doc.autoTable({
+            startY: 150,
+            head: [['Nombre', 'Cantidad', 'Precio Unitario', 'Importe']],
+            body: facturaData.productos.map(producto => [
+                producto.nombreProducto, 
+                producto.cantidad, 
+                producto.precioUnitario, 
+                producto.importe
+            ]),
+            theme: 'grid' // Usar tema grid para la tabla en escala de grises y negros
+        });
+
+        const currentDate = new Date();
+        const formattedDate = currentDate.toLocaleDateString().replace(/\//g, '-');
+        const formattedTime = currentDate.toLocaleTimeString().replace(/:/g, '-');
+
+        doc.save(`Factura_${formattedDate}_${formattedTime}.pdf`);
+    };
 
     return (
         <div className="modalpagarFactura-container">
             <div className="modalpagarFactura-content">
-                <div>
-                    <h2 className='tittleModal_Pagar'>Detalles de la Factura</h2>
+                <div className="seccion">
+                    <h2>Detalle de la factura:</h2>
                     <div className="datos-cliente">
-                        <p>Cliente: <span className='resultColor_Pagar'>{cliente ? `${cliente.Nombre} ${cliente.Apellido}` : 'Cliente no especificado'}</span></p>
-                        <p>Empleado: <span className='resultColor_Pagar'>{facturaData.empleado.nombre} {facturaData.empleado.apellido}</span></p>
-                        <p>Fecha: <span className='resultColor_Pagar'>{facturaData.fecha}</span></p>
-                        <p>Hora: <span className='resultColor_Pagar'>{facturaData.hora}</span></p>
-                    </div>
-
-                    <div className="datos-calculos">
-                        <p>Subtotal: <span className='resultColor_Pagar'>{facturaData.subtotal}</span></p>
-                        <p>IVA: <span className='resultColor_Pagar'>{facturaData.iva}</span></p>
-                        <p>Total: <span className='resultColor_Pagar'>{facturaData.total}</span></p>
-                    </div>
-                    <div className="datos-metodo-pago">
-                        <p>Método de Pago: <span className='resultColor_Pagar'>{facturaData.metodoPago}</span></p>
-                        <p>Referencia: <span className='resultColor_Pagar'>{facturaData.referencia}</span></p>
+                        <p>Cliente: <span>{cliente ? `${cliente.Nombre} ${cliente.Apellido}` : 'Cliente no especificado'}</span></p>
+                        <p>Empleado: <span>{facturaData.empleado.nombre} {facturaData.empleado.apellido}</span></p>
+                        <p>Fecha: <span>{facturaData.fecha}</span></p>
+                        <p>Hora: <span>{facturaData.hora}</span></p>
                     </div>
                 </div>
-                <h3>Productos:</h3>
-                <table className="modalpagarFactura-table">
-                    <thead>
-                        <tr>
-                            <th>Nombre</th>
-                            <th>Cantidad</th>
-                            <th>Precio Unitario</th>
-                            <th>Importe</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {facturaData.productos.map((producto, index) => (
-                            <tr key={index}>
-                                <td>{producto.nombreProducto}</td>
-                                <td>{producto.cantidad}</td>
-                                <td>{producto.precioUnitario}</td>
-                                <td>{producto.importe}</td>
+
+                <div className="seccion">
+                    <h2>Resumen Totales:</h2>
+                    <div className="datos-calculos">
+                        <p>Subtotal: <span>{facturaData.subtotal}</span></p>
+                        <p>IVA: <span>{facturaData.iva}</span></p>
+                        <p>Total: <span>{facturaData.total}</span></p>
+                    </div>
+                </div>
+
+                <div className="seccion">
+                    <h2>Productos:</h2>
+                    <table className="modalpagarFactura-table">
+                        <thead>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Cantidad</th>
+                                <th>Precio Unitario</th>
+                                <th>Importe</th>
                             </tr>
-                        ))}
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            {facturaData.productos.map((producto, index) => (
+                                <tr key={index}>
+                                    <td>{producto.nombreProducto}</td>
+                                    <td>{producto.cantidad}</td>
+                                    <td>{producto.precioUnitario}</td>
+                                    <td>{producto.importe}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
                 <div className="accionesRegistrarFactura">
                     <button className="modalpagarFactura-close-BTN" onClick={onClose}>Cerrar</button>
                     <button className='modalpagarRegistrar_factura_BTN' onClick={handleRegistrarFactura}>Registrar Factura</button>
+                    <button className='modalpagarRegistrar_factura_BTN PDFFactura' onClick={handleDownloadPDF}>Descargar PDF</button>
                 </div>
             </div>
         </div>

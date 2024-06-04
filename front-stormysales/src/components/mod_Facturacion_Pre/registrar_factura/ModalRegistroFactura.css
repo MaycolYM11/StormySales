@@ -120,3 +120,7 @@
 .resultColor_Pagar{
     color: var(--TxT-Color-02);
 }
+
+.PDFFactura{
+    background-color: var(--BtN-Color-BG-01);
+}

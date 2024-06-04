@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import Edit_zonas from './Edit_zonas';
+import Editzonas from './Edit_zonas';
 import Swal from 'sweetalert2';
 import axios from 'axios';
 import './Tablas.css'; 
 
-export const Tabla_zonas_item = ({ consulta, ...props }) => {
+export const Tablazonasitem = ({ consulta, ...props }) => {
   const [estado, setEstado] = useState(props.Estado_zona === 'Activo' ? 1 : 2);
   const [mostrarEditForm, setMostrarEditForm] = useState(false);
   const [idDetalleZona, setIdDetalleZona] = useState('');
@@ -134,7 +134,7 @@ export const Tabla_zonas_item = ({ consulta, ...props }) => {
           </button>
         </td>
       </tr>
-      {mostrarEditForm && <Edit_zonas closeModal={handleMostrarEdit} datos={{...props, idZona: props.Id_zona, idDetalleZona: idDetalleZona}} consulta={consulta} />}
+      {mostrarEditForm && <Editzonas closeModal={handleMostrarEdit} datos={{...props, idZona: props.Id_zona, idDetalleZona: idDetalleZona}} consulta={consulta} />}
     </>
   );
 }

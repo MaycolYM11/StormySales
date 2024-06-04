@@ -2,27 +2,38 @@ import React, { useState, useEffect } from 'react';
 import './stylesFactura.css';
 import LogoMini from '../../assets/Logo/Logo-2.png';
 
-const FacturaTop = ({ usuarioSeleccionado  }) => {
+const FacturaTop = ({ usuarioSeleccionado }) => {
   const [lastFacturaId, setLastFacturaId] = useState('');
+  const [empleado, setEmpleado] = useState({ id_empleado: '', nombre: '', apellido: '' });
 
   useEffect(() => {
     const fetchLastFacturaId = async () => {
       try {
         const response = await fetch('http://localhost:3001/factura/getlastfacturaid');
         const data = await response.json();
-        const newLastFacturaId = parseInt(data.ultimoID) + 1; // Convertir a número e incrementar
+        const newLastFacturaId = parseInt(data.ultimoID) + 1; 
         setLastFacturaId(newLastFacturaId);
         console.log('----> Hijo FacturaTop, me esta llegando: ', data);
       } catch (error) {
         console.error('Error al obtener el último ID de factura:', error);
       }
     };
-  
-    fetchLastFacturaId();
-  }, []);
-  
 
-  console.log('----> Hijo FacturaTop, me esta llegando: ', usuarioSeleccionado );
+    fetchLastFacturaId();
+
+    const userSession = JSON.parse(localStorage.getItem('usuario'));
+    console.log('----> Usuario en localStorage: ', userSession); 
+    if (userSession) {
+      setEmpleado({
+        id_empleado: userSession.user,
+        nombre: userSession.name,
+        apellido: userSession.lastname
+      });
+    }
+  }, []);
+
+  console.log('----> Hijo FacturaTop, me esta llegando: ', usuarioSeleccionado);
+  console.log(`----> Este es el usuario en Login: ${empleado.id_empleado} ${empleado.nombre} ${empleado.apellido}`); // Debugging employee state
 
   const currentDate = new Date();
   const formattedDate = currentDate.toLocaleDateString();
@@ -51,7 +62,7 @@ const FacturaTop = ({ usuarioSeleccionado  }) => {
             <span className='tittleGrup_Factura'>Teléfono:</span>
           </div>
           <div className="grupDiv_Factura-Left">
-            {usuarioSeleccionado  ? (
+            {usuarioSeleccionado ? (
               <>
                 <span className='resultGrup_Factura'>{usuarioSeleccionado.ID}</span>
                 <span className='resultGrup_Factura'>{usuarioSeleccionado.Nombre}</span>
@@ -88,8 +99,8 @@ const FacturaTop = ({ usuarioSeleccionado  }) => {
               <span className='tittleGrup_Factura'>Nombre del Empleado:</span>
             </div>
             <div className="grupDiv_Factura-Left">
-              <span className='resultGrup_Factura'>10013390605</span>
-              <span className='resultGrup_Factura'>Miguel Ayala</span>
+              <span className='resultGrup_Factura'>{empleado.id_empleado}</span>
+              <span className='resultGrup_Factura'>{empleado.nombre} {empleado.apellido}</span>
             </div>
           </div>
           <div className="separador__Factura-TopRight"></div>

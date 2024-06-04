@@ -1,12 +1,12 @@
 import React from 'react'
-import Tabla_zonas from './Tabla_zonas';
+import TablaZonas from './Tabla_zonas';
 
-const Main_Zonas_Pre = () => {
+const MainZonasPre = () => {
   return (
     <div>
-      <Tabla_zonas/>
+      <TablaZonas/>
     </div>
   )
 }
 
-export default Main_Zonas_Pre
+export default MainZonasPre

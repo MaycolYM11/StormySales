@@ -346,5 +346,5 @@
 }
 .client-table th.th__IDcliente,
 .client-table td.th__IDcliente {
-    padding-left: 30px; /* Cambia el margen izquierdo por un relleno izquierdo */
+    padding-left: 30px;
 }

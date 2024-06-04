@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import './Tablas.css';
-import { Tabla_zonas_item } from './Tabla_zonas_item';
-import Register_zonas from './Register_zonas';
+import { Tablazonasitem } from './Tabla_zonas_item';
+import Registerzonas from './Register_zonas';
 import axios from 'axios';
 
-function Tabla_zonas() {
+function Tablazonas() {
   const [zonas, setZonas] = useState([]);
   const [registerform, setRegisterform] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
@@ -90,7 +90,7 @@ function Tabla_zonas() {
           <div className="option-container">
             <form className="form">
             </form>
-            <Register_zonas isOpen={registerform} closeModal={()=> setRegisterform(false)} reConsulta={actualizarTabla}/>
+            <Registerzonas isOpen={registerform} closeModal={()=> setRegisterform(false)} reConsulta={actualizarTabla}/>
           </div>
 
           <section className="table__body">
@@ -109,7 +109,7 @@ function Tabla_zonas() {
               <tbody>
                 {currentItems.length > 0 ? (
                   currentItems.map(zona => (
-                    <Tabla_zonas_item 
+                    <Tablazonasitem 
                       key={zona.Id_zona}
                       Id_zona={zona.Id_zona}
                       Nombre_zona={zona.Nombre_zona}
@@ -146,4 +146,4 @@ function Tabla_zonas() {
   )
 }
 
-export default Tabla_zonas;
+export default Tablazonas;

@@ -25,11 +25,7 @@ const Main_Facturacion_Pre = () => {
   const [showModal, setShowModal] = useState(false);
   const [facturaData, setFacturaData] = useState(null);
 
-  const Empleado = {
-    'id_empleado': '1001339605',
-    'Nombre': 'Migue Angel',
-    'Apellido': 'Ayala',
-  }
+  const [empleado, setEmpleado] = useState('');
 
 
   const toggleModalMetodoPago = () => {
@@ -168,9 +164,9 @@ const Main_Facturacion_Pre = () => {
       fecha: new Date().toLocaleDateString(),
       hora: new Date().toLocaleTimeString(),
       empleado: {
-        id_empleado : Empleado.id_empleado,
-        nombre: Empleado.Nombre,
-        apellido: Empleado.Apellido,
+        id_empleado: empleado.id_empleado,
+        nombre: empleado.nombre,
+        apellido: empleado.apellido,
       },
       productos: productos.map(producto => ({
         nombreProducto: producto.nombreProducto, 
@@ -185,7 +181,18 @@ const Main_Facturacion_Pre = () => {
   };
 
 
-
+  useEffect(() => {
+    // Extrae los datos del localStorage
+    const userSession = JSON.parse(localStorage.getItem('usuario'));
+    if (userSession) {
+      setEmpleado({
+        id_empleado: userSession.user,
+        nombre: userSession.name,
+        apellido: userSession.lastname
+      });
+    }
+  }, []);
+  
   const handleCloseModal = () => {
     setShowModal(false);
   };

@@ -167,6 +167,9 @@ select * from zona;
 select * from Detalle_zona;
 select * from Clientes;
 
+select * from Factura;
+select * from DetalleFactura;
+
 INSERT INTO Clientes (Identificacion_Clientes, nombre, Apellido, Estado_Clientes, email, direccion, telefono)
 VALUES
 ('3456789012', 'Pedro', 'Lopez', 2, 'pedro@gmail.com', 'Carrera 30 #10-20', 345678901),
