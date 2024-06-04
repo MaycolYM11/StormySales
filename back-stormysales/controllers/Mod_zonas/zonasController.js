@@ -23,7 +23,7 @@ const obtenerZonas = async (req, res) => {
         `);
         res.json(result);
     } catch (error) {
-        console.log(`Error: ${error}`);
+        console.log('Error: ${error}');
         res.status(500).json({ error: 'Error al obtener zonas.' });
     }
 };
@@ -36,70 +36,171 @@ const obtenerZonaPorId = async (req, res) => {
         const [result] = await db.query('SELECT * FROM Zona WHERE Id_zona = ?', [id]);
         res.json(result[0] || {});
     } catch (error) {
-        console.log(`Error: ${error}`);
+        console.log('Error: ${error}');
         res.status(500).json({ error: 'Error al obtener la zona.' });
     }
 };
 
-// ------------------------------------------------------------
-
-const crearZona = async (req, res) => {
-    const { Nombre_zona, Id_empleado, clientes } = req.body; 
+const CreateZona = async (req, res) => {
+    const { Nombre_zona, Id_empleado } = req.body;
+    console.log(req.body);
     try {
-        const createZonaQuery = "INSERT INTO Zona (Nombre_zona, Estado_zona, Id_empleado) VALUES (?, 1, ?)";
-        const [zonaResult] = await db.query(createZonaQuery, [Nombre_zona, Id_empleado]);
-        const nuevaZonaId = zonaResult.insertId;
-        const insertClientesQuery = `
-            INSERT INTO Detalle_zona (ID_zonaFK, Id_cliente, Direccion_clienteFK)
-            SELECT ?, c.Identificacion_Clientes, c.direccion
-            FROM Clientes c
-            WHERE c.Identificacion_Clientes IN (?)
-        `;
-
-        const clientesIds = clientes.map(cliente => cliente.Identificacion_Clientes);
-        await db.query(insertClientesQuery, [nuevaZonaId, clientesIds]);
-
-        res.json({ message: 'Zona creada correctamente', id: nuevaZonaId });
+        const query = 'INSERT INTO Zona (Nombre_zona, Estado_zona, Id_empleado) VALUES (?, 2, ?);'
+        const result = await db.query(query, [Nombre_zona, Id_empleado]);
+        
+        const insertId = result[0].insertId; // Obtener el ID de la zona recién creada
+        
+        if (insertId) {
+            res.json({ message: 'Zona creada', insertId: insertId });
+            console.log('Zona creada con ID:', insertId);
+        } else {
+            throw new Error('No se pudo obtener el ID de la zona creada.');
+        }
     } catch (error) {
-        console.error(`Error: ${error}`);
-        res.status(500).json({ error: 'Error al crear la zona.' });
+        res.status(500).json({ message: `Error al crear la zona: ${error.message}` });
+        console.log(`Error al crear la zona: ${error.message}`);
     }
-};
+}
 
-
-
-const actualizarZona = async (req, res) => {
+  
+const CreateDetalleZona = async (req, res) => {
+    const { idZona, idCliente, direccion } = req.body;
+    console.log(req.body); 
     try {
-        const { id } = req.params;
-        const { Nombre_zona, Id_empleado_asignado, Cantidad_rutas } = req.body;
-
-        // Obtener el email del empleado asignado
-        const empleado = await db.query('SELECT email_usuario FROM Usuarios WHERE Identificacion_Usuario = ?', [Id_empleado_asignado]);
-        const Email = empleado[0].email_usuario;
-
-        // Consulta de actualización con los campos necesarios
-        const updateQuery = "UPDATE Zona SET Nombre_zona = ?, Id_empleado_asignado = ?, Cantidad_rutas = ?, Email = ? WHERE ID_zona = ?";
-        
-        // Ejecutar la consulta de actualización
-        await db.query(updateQuery, [Nombre_zona, Id_empleado_asignado, Cantidad_rutas, Email, id]);
-        
-        // Devolver un mensaje de éxito
-        res.json({ message: 'Zona actualizada correctamente' });
+      const query = 'INSERT INTO Detalle_zona (ID_zonaFK, Id_cliente, Direccion_clienteFK) VALUES (?,?,?);'
+      await db.query(query, [idZona, idCliente, direccion]);
+      res.json({ message: 'Detalle zona creada' });
+      console.log('Detalle zona creada');
     } catch (error) {
-        console.log(`Error: ${error}`);
-        res.status(500).json({ error: 'Error al actualizar la zona.' });
+      console.error(`Error al crear el Detalle zona: ${error.message}`); 
+      res.json({ message: `Error al crear el Detalle zona: ${error.message}` });
     }
-};
+  };
+  
+
+
+  const UpdateZona = async (req, res) => {
+    const { id } = req.params;
+    const { Nombre_zona, Id_empleado } = req.body;
+    try {
+      console.log('Datos recibidos en el backend para actualizar la zona:', {
+        id,
+        Nombre_zona,
+        Id_empleado
+      });
+  
+      const query = 'UPDATE Zona SET Nombre_zona = ?, Id_empleado = ? WHERE ID_zona = ?;';
+      await db.query(query, [Nombre_zona, Id_empleado, id]);
+      res.json({ message: 'Zona actualizada' });
+      console.log('Zona actualizada');
+    } catch (error) {
+      console.error(`Error al actualizar la zona: ${error.message}`);
+      res.status(500).json({ message: `Error al actualizar la zona: ${error.message}` });
+    }
+  };
+  
+  const UpdateDetalleZona = async (req, res) => {
+    const { id } = req.params;
+    const { idCliente, direccion } = req.body;
+    try {
+      console.log('Datos recibidos en el backend para actualizar el detalle de la zona:', {
+        id,
+        idCliente,
+        direccion
+      });
+  
+      // Verificar si el ID de detalle de zona es null o no existe
+      if (id === 'null') {
+        console.error('ID de detalle de zona no definido.');
+        return res.status(400).json({ error: 'ID de detalle de zona no definido.' });
+      }
+  
+      const [existingDetail] = await db.query('SELECT * FROM Detalle_zona WHERE ID_detallezona = ?', [id]);
+      if (!existingDetail) {
+        console.error('El detalle de zona con el ID proporcionado no existe.');
+        return res.status(404).json({ error: 'El detalle de zona con el ID proporcionado no existe.' });
+      }
+      
+      const query = 'UPDATE Detalle_zona SET Id_cliente = ?, Direccion_clienteFK = ? WHERE ID_detallezona = ?;';
+      await db.query(query, [idCliente, direccion, id]);
+      res.json({ message: 'Detalle zona actualizado correctamente' });
+      console.log('Detalle zona actualizado');
+    } catch (error) {
+      console.error(`Error al actualizar el Detalle zona: ${error.message}`);
+      res.status(500).json({ error: `Error al actualizar el Detalle zona: ${error.message}` });
+    }
+  };
+  
+  const DetalleZona = async (req, res) => {
+    try {
+      const { idZona } = req.params;
+      const [result] = await db.query('SELECT * FROM Detalle_zona WHERE ID_zonaFK = ?', [idZona]);
+      res.json(result || []);
+    } catch (error) {
+      console.log(`Error: ${error}`);
+      res.status(500).json({ error: 'Error al obtener el detalle de la zona.' });
+    }
+  };
+  
+
+  const validarClienteEnZona = async (req, res) => {
+    try {
+      const { idZona, idCliente } = req.params;
+      const [result] = await db.query('SELECT * FROM Detalle_zona WHERE ID_zonaFK = ? AND Id_cliente = ?', [idZona, idCliente]);
+      res.json({ clienteAsociado: result.length > 0 });
+    } catch (error) {
+      console.log(`Error: ${error}`);
+      res.status(500).json({ error: 'Error al validar el cliente en la zona.' });
+    }
+  };
+  
+  
+  
+  
+  
 
 const obtenerUsuariosRol2 = async (req, res) => {
     try {
-        const query = 'SELECT * FROM Usuarios WHERE Rol_Usuario = 2';
-        const [usuarios] = await db.query(query); // Usar destructuring para obtener solo los resultados
-
-        res.json(usuarios); // Devolver directamente los resultados
+        const query = 'SELECT * FROM Usuarios WHERE Rol_Usuario = 2 AND Estado_Usuario = 2';
+        const [usuarios] = await db.query(query);
+        res.json(usuarios); 
     } catch (error) {
         console.error('Error al obtener usuarios con rol 2:', error);
         res.status(500).json({ error: 'Error al obtener usuarios con rol 2' });
+    }
+};
+
+const obtenerClientesConDetalleZona = async (req, res) => {
+  try {
+    const { idZona } = req.params;
+
+    const clientes = await db.query('SELECT * FROM Clientes');
+    const detalleZona = await db.query('SELECT * FROM Detalle_zona WHERE ID_zonaFK = ?', [idZona]);
+
+    const clientesConDetalle = clientes.map(cliente => {
+      const detalle = detalleZona.find(d => d.Id_cliente === cliente.Identificacion_Clientes);
+      return {
+        ...cliente,
+        asociado: !!detalle
+      };
+    });
+
+    res.json(clientesConDetalle);
+  } catch (error) {
+    console.error('Error al obtener los clientes y detalles de la zona:', error);
+    res.status(500).json({ error: 'Error al obtener los clientes y detalles de la zona.' });
+  }
+};
+
+
+const obtenerClientes = async (req, res) => {
+    try {
+        const query = 'SELECT * FROM Clientes WHERE Estado_Clientes = 2';
+        const [clientes] = await db.query(query);
+        res.json(clientes); 
+    } catch (error) {
+        console.error('Error al obtener clientes:', error);
+        res.status(500).json({ error: 'Error al obtener clientes' });
     }
 };
 
@@ -121,44 +222,57 @@ const cambioEstadoZona = async (req, res) => {
 };
 
 
+const obtenerInfoRuta = async (req, res) => {
+    const { idRuta } = req.params; 
+    
+    try {
+        const queryRuta = `SELECT z.ID_zona, dz.Id_cliente, c.nombre, c.direccion, c.email,
+                                  u.nombre AS NombreEmpleado, u.Apellido AS ApellidoEmpleado
+                           FROM Zona z
+                           INNER JOIN Usuarios u ON z.Id_empleado = u.Identificacion_Usuario
+                           INNER JOIN Detalle_zona dz ON z.ID_zona = dz.ID_zonaFK
+                           INNER JOIN Clientes c ON dz.Id_cliente = c.Identificacion_Clientes
+                           WHERE z.ID_zona = ?`;
+        const [infoRuta] = await db.query(queryRuta, [idRuta]);
+
+        res.json(infoRuta);
+    } catch (error) {
+        console.error('Error al obtener información de la ruta:', error);
+        res.status(500).json({ error: 'Error al obtener información de la ruta' });
+    }
+};
 
 
+const clienteElim = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { idZona } = req.body;  
 
-// const eliminarZona = async (req, res) => {
-//     try {
-//         const { id } = req.params;
-//         await db.query('DELETE FROM Registro_Proveedor WHERE ID_Registro_Proveedor_PK = ?', [id]);
-//         res.json({ message: 'Proveedor eliminado correctamente' });
-//     } catch (error) {
-//         console.log(`Error: ${error}`);
-//         res.status(500).json({ error: 'Error al eliminar el proveedor.' });
-//     }
-// };
+  
+    await db.query('DELETE FROM Detalle_zona WHERE Id_cliente = ? AND ID_zonaFK = ?', [id, idZona]);
 
-// const verificarTelefonoExistente = async (req, res) => {
-//     try {
-//         const { telefono } = req.body;
-//         const query = 'SELECT Telefono_Contacto FROM Registro_Proveedor WHERE Telefono_Contacto = ? LIMIT 1';
-//         const [rows] = await db.query(query, [telefono]);
+    res.json({ message: 'Cliente eliminado correctamente de la zona.' });
+  } catch (error) {
+    console.error(`Error: ${error}`);
+    res.status(500).json({ error: 'Error al eliminar el cliente de la zona.' });
+  }
+};
 
-//         if (rows.length > 0) {
-//             return res.status(200).json({ exists: true, message: 'El número de teléfono ya existe.' });
-//         }
-
-//         return res.status(200).json({ exists: false, message: 'El número de teléfono está disponible.' });
-//     } catch (error) {
-//         console.error('Error al verificar el número de teléfono:', error);
-//         return res.status(500).json({ error: 'Error interno del servidor.' });
-//     }
-// };
 
 module.exports = {
     obtenerZonas,
     obtenerZonaPorId,
-    crearZona,
-    actualizarZona,
-    // eliminarZona,
+    CreateZona,
+    CreateDetalleZona,
+    clienteElim,
     cambioEstadoZona,
     obtenerUsuariosRol2,
-    // verificarTelefonoExistente
+    obtenerClientes,
+    UpdateZona,
+    UpdateDetalleZona,
+    obtenerInfoRuta,
+    DetalleZona,
+    validarClienteEnZona,
+    obtenerClientesConDetalleZona
+    
 };
