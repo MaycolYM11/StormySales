@@ -16,7 +16,8 @@ const busquedaFacturaCliente = async (req, res) => {
             u.Identificacion_Usuario AS id_empleado,
             u.nombre AS nombre_empleado,
             u.Apellido AS Apellido_empleado,
-            SUM(f.total) AS importe_total
+            f.total AS importe_total,
+            E.Nombre_estado AS 'estado_Factura'
         FROM 
             Factura f
         JOIN 

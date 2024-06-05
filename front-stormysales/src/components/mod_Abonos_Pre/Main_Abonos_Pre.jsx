@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./MainAbonos.css";
 import AbonoTop from "./AbonoTop";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 const Main_Abonos_Pre = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -69,17 +70,43 @@ const Main_Abonos_Pre = () => {
     traerDatos();
   }, []);
 
+  useEffect(() => {
+    if (error === "Recargar") {
+      window.location.reload();
+    }
+  }, [error]);
+  
+  
+
   const calcularTotalRestante = (index) => {
     let totalRestante = facturaData.importe_total;
     for (let i = 0; i <= index; i++) {
       totalRestante -= abonosData[i].cantidad_abono;
     }
+    
+    console.log('cantidad abono: ', totalRestante);
+    if (calcularTotalRestante <= 0) {
+      setError("Recargar");
+      Swal.fire({
+        icon: 'error',
+        title: '¡Error!',
+        text: 'El abono no se puede registrar ya que se ha pagado con exito el total de la factura y sua estado a cambiado.',
+      });
+      return;
+    }
     return totalRestante;
   };
 
   const handleRegistrarAbono = async () => {
+
     if (!facturaData || !usuario.id || !fechaAbono || !cantidadAbono || !descAbono || !metodoPago) {
       setError("Todos los campos son obligatorios.");
+      return;
+    }
+
+    // Verificar si el total de la factura es cero
+    if (facturaData.importe_total === 0) {
+      setError("No se puede registrar un abono si el total de la factura es cero.");
       return;
     }
 
@@ -93,15 +120,18 @@ const Main_Abonos_Pre = () => {
     };
 
     try {
-      const response = await axios.post('http://localhost:3001/Abono/CrearAbono', nuevoAbono);
+      const response = await axios.post(
+        'http://localhost:3001/Abono/CrearAbono',
+        nuevoAbono
+      );
       if (response.data.message === 'Abono creado correctamente') {
         setError(null);
-        
+
         const response = await axios.get(
           `http://localhost:3001/Abono/AbonosDatos/${facturaData.ID_factura}`
         );
         setAbonosData(response.data);
-      
+
         setFechaAbono("");
         setCantidadAbono("");
         setDescAbono("");
@@ -109,6 +139,28 @@ const Main_Abonos_Pre = () => {
         setSubtotal(null);
         setIva(null);
         setTotal(null);
+
+        // Comprobar si el total de la factura es cero después de agregar el abono
+        const totalRestante = facturaData.importe_total - response.data.reduce((total, abono) => total + abono.cantidad_abono, 0);
+        if (totalRestante === 0) {
+          Swal.fire({
+            icon: 'success',
+            title: '¡Factura Pagada!',
+            text: 'La factura ha sido pagada con éxito.',
+          });
+
+          // Cambiar el estado de la factura a 5 (pagado)
+          const cambiarEstadoResponse = await axios.put(
+            `http://localhost:3001/factura/cambiarestadofactura/${facturaData.ID_factura}`
+          );
+          if (cambiarEstadoResponse.data.message === 'Estado de la factura cambiado a inactivo.') {
+            // Actualizar los datos de la factura
+            const facturaResponse = await axios.get(
+              `http://localhost:3001/factura/getidfacturasdetalles/${facturaData.ID_factura}`
+            );
+            setFacturaData(facturaResponse.data[0]);
+          }
+        }
       } else {
         setError(response.data.message);
       }
@@ -116,6 +168,7 @@ const Main_Abonos_Pre = () => {
       setError("Error al crear el abono.");
     }
   };
+
 
   const handleCalcular = () => {
     const cantidad = parseFloat(cantidadAbono);
@@ -125,19 +178,35 @@ const Main_Abonos_Pre = () => {
       setSubtotal(subtotalCalculado.toFixed(2));
       setIva(ivaCalculado.toFixed(2));
       setTotal(cantidad.toFixed(2));
+  
+      // Verificar si el total del abono es igual o menor que cero
+      if (cantidad <= 0) {
+        // Forzar un cambio en el estado para que el componente se vuelva a renderizar
+        setError("Recargar");
+      }
     } else {
       setSubtotal(null);
       setIva(null);
       setTotal(null);
       setError("Por favor, ingrese un valor válido para la cantidad de abono.");
     }
+    if (cantidad > calcularTotalRestante(abonosData.length - 1)) {
+      Swal.fire({
+        icon: 'error',
+        title: '¡Error!',
+        text: 'El abono no puede exceder el total restante de la factura.',
+      });
+      return;
+    }
   };
+  
+  
 
   const handleEliminarAbono = async (id) => {
     try {
       const response = await axios.delete(`http://localhost:3001/Abono/EliminarAbono/${id}`);
       if (response.data.message === 'Abono eliminado correctamente') {
-        
+
         const response = await axios.get(
           `http://localhost:3001/Abono/AbonosDatos/${facturaData.ID_factura}`
         );
@@ -212,20 +281,20 @@ const Main_Abonos_Pre = () => {
                       <td className="td__Abono td--Acciones">
                         <div className="AccionesAbono-Container-Row">
                           <div className="containerIconsAbono-Acciones">
-                            <button 
-                              className="BTN_iconClick-Abono" 
+                            <button
+                              className="BTN_iconClick-Abono"
                               onClick={() => handleEliminarAbono(abono.ID_abono)}>
                               <i className="bi bi-trash3"></i>
                             </button>
                           </div>
                         </div>
                       </td>
-                    </tr> 
+                    </tr>
                   ))
                 ) : (
                   <tr className="tr__Abono">
                     <td colSpan="6" className="td__Abono td--NoData">
-                    
+
                     </td>
                   </tr>
                 )}

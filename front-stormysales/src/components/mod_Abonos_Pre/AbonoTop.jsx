@@ -22,14 +22,14 @@ const AbonoTop = ({ facturaData }) => {
           <div className="grupDiv_Abono-Right">
             <span className="tittleGrup_Abono">ID Cliente:</span>
             <span className="tittleGrup_Abono">Nombre del Cliente:</span>
-            <span className="tittleGrup_Abono">NIT:</span>
             <span className="tittleGrup_Abono">Teléfono:</span>
+            <span className="tittleGrup_Abono">Total Factura:</span>
           </div>
           <div className="grupDiv_Abono-Left">
             <span className="resultGrup_Abono">{facturaData.idcliente}</span>
             <span className="resultGrup_Abono">{facturaData.nombre_cliente} {facturaData.Apellido_cliente}</span>
-            <span className="resultGrup_Abono">#0001</span>
             <span className="resultGrup_Abono">{facturaData.telefono}</span>
+            <span className="resultGrup_Abono">${facturaData.importe_total}</span>
           </div>
         </div>
         <div className="abonoMain-info"></div>
@@ -63,11 +63,13 @@ const AbonoTop = ({ facturaData }) => {
           <div className="ClienteAbono--TopRight">
             <div className="grupDiv_Abono-Right">
               <span className="tittleGrup_Abono">Dirección del Cliente:</span>
-              <span className="tittleGrup_Abono">Zona Correspondiente:</span>
+              <span className="tittleGrup_Abono">Estado de la factura:</span>
+              {/* <span className="tittleGrup_Abono">Zona Correspondiente:</span> */}
             </div>
             <div className="grupDiv_Abono-Left">
               <span className="resultGrup_Abono">{facturaData.direccion}</span>
-              <span className="resultGrup_Abono">{facturaData.zona}</span>
+              <span className="resultGrup_Abono">{facturaData.estado_Factura}</span>
+              {/* <span className="resultGrup_Abono">{facturaData.zona}</span> */}
             </div>
           </div>
         </div>

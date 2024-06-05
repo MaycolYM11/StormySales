@@ -231,7 +231,7 @@ const MainSideMenu = () => {
                                     <span className='text_SubMenu'>Ventas por Vendedor</span>
                                 </div>
                             </Link>
-                            <Link to='/informes' style={linkStyles}>
+                            <Link to='/tabla-clientes' style={linkStyles}>
                                 <div className="option_SubMenu" onClick={handleSubMenuClick}>
                                     <div className="point_SubMenu"></div>
                                     <span className='text_SubMenu'>Clientes</span>

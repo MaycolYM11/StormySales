@@ -105,7 +105,7 @@ const Tabla = () => {
             <th>Nombre</th>
             <th>Fecha de Última Venta</th>
             <th>Total de Ventas</th>
-            <th>Facturas EVOS</th>
+            <th>Facturas Registradas</th>
             <th>Estado</th>
           </tr>
         </thead>
@@ -140,7 +140,7 @@ const Tabla = () => {
               <strong>Total de Ventas:</strong> {empleadoSeleccionadoData.totalSales.toLocaleString('es-CO', { style: 'currency', currency: 'COP' })}
             </p>
             <p>
-              <strong>Facturas EVOS:</strong> {empleadoSeleccionadoData.acEVOSInvoices}
+              <strong>Facturas Registradas:</strong> {empleadoSeleccionadoData.acEVOSInvoices}
             </p>
             <p>
               <strong>Estado:</strong> <span className={obtenerClaseEstado(empleadoSeleccionadoData.status)}>{empleadoSeleccionadoData.status}</span>

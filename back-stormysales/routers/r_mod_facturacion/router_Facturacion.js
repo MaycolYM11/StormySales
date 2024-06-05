@@ -22,5 +22,8 @@ rutaFactura.put('/inactivatefactura/:id', controladorFactura.CAMBIAR_ESTADO_FACT
 rutaFactura.get('/getclientesactivos', controladorUsuarioFactura.GET_CLIENTES_ACTIVOS);
 rutaFactura.get('/getclienteactivo', controladorUsuarioFactura.GET_CLIENTE_ACTIVO);
 
+rutaFactura.put('/cambiarestadofactura/:id', controladorFactura.CAMBIAR_ESTADO_FACTURA_PAGADA);
+
+
 
 module.exports = rutaFactura

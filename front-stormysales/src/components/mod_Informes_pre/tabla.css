@@ -138,13 +138,13 @@
 }
 
 .tabla-container .status.mayor {
-  background-color: #9fffcf;
-  color: #0ce03a;
+  background-color: #9fffcfa9;
+  color: #acffbd;
 }
 
 .tabla-container .status.peor {
   background-color: #90495b;
-  color: #ff0101;
+  color: #ff6969;
 }
 
 .tabla-container .status.masbajo {
@@ -153,11 +153,11 @@
 }
 
 .tabla-container .currency {
-  color: #7e2ed9;
+  color: #9a98ff;
 }
 
 .tabla-container .purple {
-  color: #7e2ed9;
+  color: #9a98ff;
 }
 
 /* Estilos CSS */

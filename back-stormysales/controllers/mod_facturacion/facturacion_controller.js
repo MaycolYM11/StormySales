@@ -229,6 +229,27 @@ const CAMBIAR_ESTADO_FACTURA = async (req, res) => {
     }
 };
 
+// Cambiar estado de la factura
+const CAMBIAR_ESTADO_FACTURA_PAGADA = async (req, res) => {
+    const { id } = req.params;
+
+    const updateQuery = `
+        UPDATE Factura
+        SET estado_fk = 5
+        WHERE ID_factura = ?
+    `;
+
+    try {
+        await db.query(updateQuery, [id]);
+        res.json({ message: 'Estado de la factura cambiado a 5.' });
+    } catch (error) {
+        console.error('Error al cambiar el estado de la factura:', error);
+        res.status(500).json({ error: 'Error al cambiar el estado de la factura.' });
+    }
+};
+
+
+
 
 module.exports = {
     GET_LAST_FACTURA_ID,
@@ -238,5 +259,6 @@ module.exports = {
     INSERT_FACTURA_CON_DETALLES,
     ACTUALIZAR_FACTURA,
     ELIMINAR_FACTURA,
-    CAMBIAR_ESTADO_FACTURA
+    CAMBIAR_ESTADO_FACTURA,
+    CAMBIAR_ESTADO_FACTURA_PAGADA
 }
