@@ -88,7 +88,7 @@ function Tablazonas() {
       <div className='main-containerZona'>
         <div className='table-container'>
           <div className="option-container">
-            <form className="form">
+            <form className="formm">
             </form>
             <Registerzonas isOpen={registerform} closeModal={()=> setRegisterform(false)} reConsulta={actualizarTabla}/>
           </div>

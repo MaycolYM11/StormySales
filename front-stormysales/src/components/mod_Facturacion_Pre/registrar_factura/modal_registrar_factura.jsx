@@ -67,7 +67,7 @@ const handleDownloadPDF = () => {
         // Detalles de la factura
         doc.setFontSize(12);
         doc.text('Detalle de la factura:', 10, 30);
-        doc.setFontType('bold');
+        //doc.setFontType('bold');
         doc.text(`Cliente: ${cliente.Nombre} ${cliente.Apellido}`, 20, 40);
         doc.text(`Empleado: ${facturaData.empleado.nombre} ${facturaData.empleado.apellido}`, 20, 50);
         doc.text(`Fecha: ${facturaData.fecha}`, 20, 60);
@@ -75,7 +75,7 @@ const handleDownloadPDF = () => {
 
         // Resumen Totales
         doc.text('Resumen Totales:', 10, 90);
-        doc.setFontType('normal');
+        //doc.setFontType('normal');
         doc.text(`Subtotal: ${facturaData.subtotal}`, 20, 100);
         doc.text(`IVA: ${facturaData.iva}`, 20, 110);
         doc.text(`Total: ${facturaData.total}`, 20, 120);

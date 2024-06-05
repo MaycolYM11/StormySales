@@ -64,6 +64,7 @@
   background: #3d414c;
 }
 .InputBuscar {
+  color: white;
   height: 50px;
   width: 480px;
   background: #4b505d;
@@ -153,6 +154,7 @@
   width: 320px;
   height: 60px;
   margin-top: 5px;
+  color: white;
 }
 .formAbono input:hover {
   border-color: wheat transparenti;
@@ -401,6 +403,7 @@
 .th--CantidadAbono,
 .th--Calculo {
   color: var(--TxT-Color-03);
+  border-bottom: 2px solid var(--Separador-Actions--Hover-2);
 }
 
 .th--Item,

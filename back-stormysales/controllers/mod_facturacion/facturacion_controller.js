@@ -138,7 +138,7 @@ const INSERT_FACTURA_CON_DETALLES = async (req, res) => {
             INSERT INTO Factura (ID_cliente_fk, ID_vendedor_fk, fecha_venta_hora, subtotal, IVA, total, estado_fk, metodo_pago, referencia_metodo_pago)
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
         `;
-        const [facturaResult] = await db.query(insertFacturaQuery, [ID_cliente_fk, ID_vendedor_fk, fecha_venta_hora, subtotal, IVA, total, 2, metodo_pago, referencia]);
+        const [facturaResult] = await db.query(insertFacturaQuery, [ID_cliente_fk, ID_vendedor_fk, fecha_venta_hora, subtotal, IVA, total, 3, metodo_pago, referencia]);
 
         const facturaId = facturaResult.insertId;
 

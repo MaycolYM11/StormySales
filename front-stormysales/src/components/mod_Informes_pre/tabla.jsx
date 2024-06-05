@@ -11,7 +11,7 @@ const Tabla = () => {
   const [empleadoSeleccionadoData, setEmpleadoSeleccionadoData] = useState(null);
 
   useEffect(() => {
-    axios.get('http://localhost:3000/api/ventas')
+    axios.get('http://localhost:3001/api/ventas')
       .then(response => {
         setDatos(response.data);
       })

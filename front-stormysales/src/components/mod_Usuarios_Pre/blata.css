@@ -23,7 +23,7 @@ TABLA
 } */
 
 
-.content-upper {
+.form .content-upper {
     display: flex;
     justify-content: space-between;
     padding: 1% 0;
@@ -219,7 +219,7 @@ REGISTER FORM
     font-weight: bold;
 }
 
-.input-form {
+.datos-contenido .input-form {
     width: 100%;
     padding: 10px;
     margin: 5px 0;

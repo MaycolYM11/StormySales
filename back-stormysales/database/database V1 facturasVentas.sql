@@ -104,6 +104,16 @@ create table Detalle_zona(
     foreign key (Id_cliente) references Clientes(Identificacion_Clientes)
 );
 
+CREATE TABLE InformesVentas (
+    ID int AUTO_INCREMENT PRIMARY KEY,
+    ID_Vendedor varchar(30) NOT NULL,
+    Nombre_Vendedor varchar(50) NOT NULL,
+    Fecha_Ultima_Venta datetime NOT NULL,
+    Total_Ventas float NOT NULL,
+    Facturas_EVOS int NOT NULL,
+    Estado varchar(50) NOT NULL
+);
+
 
 -- insert
 
@@ -239,4 +249,10 @@ INSERT INTO Abonos (ID_factura_fk,ID_Vendedor_fk, fecha_abono, cantidad_abono,De
 VALUES 
     (2,1234567890, CURDATE(), 20000.00,'Se haran los pagos en el tiempo Establecido','Tarjeta'),
     (2,2345678901, CURDATE(), 7000.00,'Se haran los pagos en el tiempo Establecido','Tarjeta');
+    
+INSERT INTO InformesVentas (ID_Vendedor, Nombre_Vendedor, Fecha_Ultima_Venta, Total_Ventas, Facturas_EVOS, Estado)
+VALUES
+    ('0987654321', 'Jane Doe', '2024-05-28 15:30:00', 2500000.00, 5, 'Mayor que la vez pasada'),
+    ('2345678901', 'Bob Smith', '2024-05-27 10:45:00', 1500000.00, 3, 'Peor que la vez pasada'),
+    ('1234567890', 'John Doe', '2024-05-26 09:20:00', 3000000.00, 8, 'Mayor que la vez pasada');
     

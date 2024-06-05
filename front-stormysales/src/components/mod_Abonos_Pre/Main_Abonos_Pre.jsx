@@ -86,7 +86,7 @@ const Main_Abonos_Pre = () => {
     const nuevoAbono = {
       ID_factura_fk: facturaData.ID_factura,
       ID_Vendedor_fk: usuario.id,
-      fecha_abono: fechaAbono,
+      fecha_abono: new Date(fechaAbono).toISOString().split('T')[0],
       cantidad_abono: parseFloat(cantidadAbono),
       Desc_Abono: descAbono,
       Metodo_Pago: metodoPago,
@@ -220,12 +220,12 @@ const Main_Abonos_Pre = () => {
                           </div>
                         </div>
                       </td>
-                    </tr>
+                    </tr> 
                   ))
                 ) : (
                   <tr className="tr__Abono">
                     <td colSpan="6" className="td__Abono td--NoData">
-                      No hay abonos disponibles
+                    
                     </td>
                   </tr>
                 )}

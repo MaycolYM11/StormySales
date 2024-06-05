@@ -5,6 +5,7 @@ import Swal from 'sweetalert2';
 const EditVendedor = ({ closeModal, datos, consulta }) => {
     const [name, setName] = useState(datos.name);
     const [password,setPassword] = useState(datos.contrasena);
+    const [passwordIn,setPasswordIn] = useState('');
     const [lastname, setLastname] = useState(datos.lastname);
     
     // const [cel, setCel] = useState(datos.tel);
@@ -17,7 +18,7 @@ const EditVendedor = ({ closeModal, datos, consulta }) => {
                 apellido: lastname,
                 // cel: cel,
                 email: email,
-                contrasena: password
+                contrasena: passwordIn
             });
             console.log(response.data);
             consulta(); 
@@ -248,7 +249,7 @@ const EditVendedor = ({ closeModal, datos, consulta }) => {
                 </span>
                 <span>
                     <label for="password">Contraseña</label>
-                    <input className='input-form' type="password" name="password" id="password" placeholder="Contraseña" value={password} onKeyUp={Verificar_password} onBlur={Verificar_password} onChange={(e) => setPassword(e.target.value)}/>
+                    <input className='input-form' type="password" name="password" id="password" placeholder="Contraseña" value={passwordIn} onKeyUp={Verificar_password} onBlur={Verificar_password} onChange={(e) => setPasswordIn(e.target.value)}/>
                     <p id="wrongpass"></p>
                 </span>
                 <span>

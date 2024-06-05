@@ -4,6 +4,7 @@ import './informe.css';
 import { Link } from 'react-router-dom';
 
 
+
 function InformeEmpleados() {
   const [productos, setProductos] = useState([]);
 
@@ -26,10 +27,10 @@ function InformeEmpleados() {
 
   return (
     <main className='contenedor_informe'>
-      <TituloyDesc
+      {/* <TituloyDesc
         titulo='Informe Inventario'
         descripcion='Este es el módulo encargado de realizar los Informes de los productos y generar los informes de cada reporte.'
-      />
+      /> */}
       <hr />
       <section className="">
         {/* Botones de reportes */}

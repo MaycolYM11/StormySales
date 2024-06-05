@@ -4,42 +4,38 @@ const busquedaFacturaCliente = async (req, res) => {
     const { id_factura, id_cliente } = req.params;
     try {
         const query = `
-            SELECT 
-                f.ID_factura,
-                DATE(f.fecha_venta_hora) AS fecha_factura,
-                TIME(f.fecha_venta_hora) AS hora_factura,
-                c.Identificacion_Clientes AS idcliente,
-                c.nombre AS nombre_cliente,
-                c.Apellido AS Apellido_cliente,
-                c.telefono,
-                c.direccion,
-                u.Identificacion_Usuario AS id_empleado,
-                u.nombre AS nombre_empleado,
-                u.Apellido AS Apellido_empleado,
-                z.Nombre_zona AS zona,
-                SUM(d.importe_total) AS importe_total
-            FROM 
-                Factura f
-            JOIN 
-                Clientes c ON f.ID_cliente_fk = c.Identificacion_Clientes
-            JOIN 
-                Usuarios u ON f.ID_vendedor_fk = u.Identificacion_Usuario
-            JOIN 
-                Zona z ON u.Identificacion_Usuario = z.Id_empleado
-            JOIN 
-                Estado e ON f.estado_fk = e.ID_estado
-            JOIN 
-                DetalleFactura d ON f.ID_factura = d.ID_factura_fk
-            WHERE 
-                (f.ID_factura = COALESCE(NULLIF(?, ''), f.ID_factura)
-                OR c.Identificacion_Clientes = COALESCE(NULLIF(?, ''), c.Identificacion_Clientes))
-                AND e.Nombre_estado = 'Deuda'
-            GROUP BY 
-                f.ID_factura, f.fecha_venta_hora, c.Identificacion_Clientes, c.nombre, c.telefono, c.direccion, 
-                u.Identificacion_Usuario, u.nombre, z.Nombre_zona;
-        `;
+        SELECT 
+            f.ID_factura,
+            DATE(f.fecha_venta_hora) AS fecha_factura,
+            TIME(f.fecha_venta_hora) AS hora_factura,
+            c.Identificacion_Clientes AS idcliente,
+            c.nombre AS nombre_cliente,
+            c.Apellido AS Apellido_cliente,
+            c.telefono,
+            c.direccion,
+            u.Identificacion_Usuario AS id_empleado,
+            u.nombre AS nombre_empleado,
+            u.Apellido AS Apellido_empleado,
+            SUM(f.total) AS importe_total
+        FROM 
+            Factura f
+        JOIN 
+            Clientes c ON f.ID_cliente_fk = c.Identificacion_Clientes
+        JOIN 
+            Usuarios u ON f.ID_vendedor_fk = u.Identificacion_Usuario
+        JOIN 
+            Estado e ON f.estado_fk = e.ID_estado
+        JOIN 
+            DetalleFactura d ON f.ID_factura = d.ID_factura_fk
+        WHERE 
+            (f.ID_factura = ? OR c.Identificacion_Clientes = ?)
+            AND e.Nombre_estado = 'Deuda'
+        GROUP BY 
+            f.ID_factura, f.fecha_venta_hora, c.Identificacion_Clientes, c.nombre, c.Apellido, c.telefono, c.direccion, 
+            u.Identificacion_Usuario, u.nombre, u.Apellido;
+         `;
 
-        const [result] = await db.query(query, [id_factura || '', id_cliente || '']);
+        const [result] = await db.query(query, [id_factura, id_cliente]);
 
         if (result.length === 0) {
             return res.status(404).json({ message: 'No data found' });
