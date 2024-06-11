@@ -17,7 +17,7 @@ const busquedaFacturaCliente = async (req, res) => {
                 u.nombre AS nombre_empleado,
                 u.Apellido AS Apellido_empleado,
                 z.Nombre_zona AS zona,
-                SUM(d.importe_total) AS importe_total
+                f.total AS importe_total
             FROM 
                 Factura f
             JOIN 
@@ -140,10 +140,66 @@ const eliminarAbono = async (req, res) => {
     }
 };
 
+const ListadoFacturas = async (req, res) => {
+    const { query } = req.query;
+    try {
+        let sqlQuery = `
+            SELECT 
+                f.ID_factura,
+                c.Identificacion_Clientes AS id_cliente,
+                c.nombre AS nombre_cliente,
+                c.Apellido AS apellido_cliente,
+                f.total AS total_factura,
+                f.fecha_venta_hora AS fecha_hora_factura,
+                IFNULL(SUM(a.cantidad_abono), 0) AS total_abonos
+            FROM 
+                Factura f
+            JOIN 
+                Clientes c ON f.ID_cliente_fk = c.Identificacion_Clientes
+            LEFT JOIN 
+                Abonos a ON f.ID_factura = a.ID_factura_fk
+            WHERE 
+                f.estado_fk = 3
+        `;
+
+        if (query) {
+            sqlQuery += `
+                AND (
+                    f.ID_factura LIKE ? OR
+                    c.Identificacion_Clientes LIKE ? OR
+                    c.nombre LIKE ? OR
+                    c.Apellido LIKE ?
+                )
+            `;
+        }
+
+        sqlQuery += `
+            GROUP BY 
+                f.ID_factura, c.Identificacion_Clientes, c.nombre, c.Apellido, f.total, f.fecha_venta_hora
+        `;
+
+        const searchQuery = `%${query}%`;
+        const params = query ? [searchQuery, searchQuery, searchQuery, searchQuery] : [];
+        const [result] = await db.query(sqlQuery, params);
+
+        if (result.length === 0) {
+            return res.status(404).json({ message: 'No se encontraron facturas con el criterio de búsqueda dado' });
+        }
+
+        res.json(result);
+    } catch (error) {
+        console.log(`Error en la búsqueda de facturas: ${error}`);
+        res.status(500).json({ message: `Error en la búsqueda de facturas: ${error}` });
+    }
+};
+
+
+
 
 module.exports = {
     busquedaFacturaCliente,
     AbonosDatos,
     crearAbono,
-    eliminarAbono
+    eliminarAbono,
+    ListadoFacturas,
 };

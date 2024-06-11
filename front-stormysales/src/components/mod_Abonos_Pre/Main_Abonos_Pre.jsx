@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./MainAbonos.css";
 import AbonoTop from "./AbonoTop";
+import ListadoFact from "./listadoAbono";
 import axios from "axios";
 
 const Main_Abonos_Pre = () => {
@@ -16,14 +17,16 @@ const Main_Abonos_Pre = () => {
   const [subtotal, setSubtotal] = useState(null);
   const [iva, setIva] = useState(null);
   const [total, setTotal] = useState(null);
+  const [Listado, setListado] = useState(false);
 
-  const handleSearch = async () => {
+  const handleSearchlistado = async (idFactura) => {
     try {
       const response = await axios.get(
-        `http://localhost:3001/Abono/BuscarFacturaCliente/${searchQuery}/${searchQuery}`
+        `http://localhost:3001/Abono/BuscarFacturaCliente/${idFactura}/${idFactura}`
       );
       setFacturaData(response.data[0]);
       setError(null);
+      setListado(false); // Cerrar modal después de la búsqueda
     } catch (err) {
       setError("No se encontraron datos o hubo un error en la búsqueda.");
       setFacturaData(null);
@@ -150,10 +153,15 @@ const Main_Abonos_Pre = () => {
     }
   };
 
+  const abrirListado = () => {
+    setListado(true);
+  };
+
   return (
     <div className="MainContainer_Abonos">
       <div className="AbonoRight">
         <div className="BuscarFactura">
+        {/* 
           <input
             className="InputBuscar"
             type="text"
@@ -163,9 +171,11 @@ const Main_Abonos_Pre = () => {
           />
           <button className="ButtonBuscar" onClick={handleSearch}>
             Buscar
-          </button>
+          </button>*/}
+          <button className="ListadoFactura" onClick={abrirListado}>Listado de Facturas</button>
         </div>
         <div className="containerAbono-Top">
+          <ListadoFact isOpen={Listado} closeModal={() => setListado(false)} onFacturaClick={handleSearchlistado} />
           {facturaData && <AbonoTop facturaData={facturaData} />}
           {error && (
             <div className="errorTop">

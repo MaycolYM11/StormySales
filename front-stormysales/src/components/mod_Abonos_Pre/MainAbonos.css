@@ -302,6 +302,24 @@
   background: #436c72;
   transition: 0.5s;
 }
+.ListadoFactura{
+  height: 55px;
+  width: 400px;
+  background: var(--BtN-Color-BG-04);
+  color: white;
+  border: 2px solid transparent;
+  transition: border-color 0.3s;
+  border-radius: 10px;
+  box-shadow: 0px 0px 15px 0px rgba(15, 16, 23, 0.2);
+  font-weight: bold;
+}
+
+.ListadoFactura:hover{
+  border-color: white;
+  transition: 0.5s;
+  cursor: pointer;
+  font-weight: bold;
+}
 
 /* --- TABLE ----------------------> */
 
@@ -421,6 +439,86 @@
   font-style: italic;
   margin-right: 30px;
 }
+/* Modal listado ------------------> */
+
+.th__nFactura,
+.td__nFactura {
+  padding-left: 20px;
+  width: 100px;
+  text-align: center;
+}
+
+.td__nFactura {
+  color: var(--TxT-Color-01);
+}
+
+.th__fechaFactura,
+.td__fechaFactura {
+  width: 200px;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.td__fechaFactura {
+  color: var(--TxT-Color-02);
+}
+
+.th__nCliente,
+.td__nCliente {
+  padding-left: 20px;
+  width: 100px;
+  text-align: center;
+}
+
+.td__nCliente{
+  color: var(--TxT-Color-01);
+  font-weight: 700;
+}
+
+
+.th__nombreCliente,
+.td__nombreCliente {
+  padding-left: 20px;
+  width: 200px;
+  text-align: center;
+}
+
+.td__nombreCliente{
+  color: var(--TxT-Color-02);
+}
+
+.th__tFactura,
+.td__tFactura {
+  padding-left: 20px;
+  width: 150px;
+  text-align: center;
+}
+
+.td__tFactura{
+  color: var(--TxT-Color-02);
+}
+
+.th__tAbonos,
+.td__tAbonos {
+  padding-left: 20px;
+  width: 150px;
+  text-align: center;
+}
+
+.td__tAbonos{
+  color: var(--TxT-Color-02);
+}
+
+.th__nFactura,
+.th__fechaFactura,
+.th__nCliente,
+.th__nombreCliente,
+.th__tFactura,
+.th__tAbonos {
+  color: var(--TxT-Color-03);
+}
 
 /* Acciones ------------------> */
 
@@ -454,6 +552,9 @@
   cursor: pointer;
   border-radius: 15px;
   transition: background-color 0.5s ease;
+}
+.BTN_iconClick-Abono i{
+  color: white;
 }
 
 .BTN_iconClick-Abono:hover {

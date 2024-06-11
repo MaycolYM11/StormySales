@@ -114,3 +114,10 @@ Content-Type:application/json
 
 ###
 DELETE  http://localhost:3001/Abono/EliminarAbono/1 HTTP/1.1
+
+###
+GET  http://localhost:3001/Abono/ListadoFactura HTTP/1.1
+
+
+###
+GET  http://localhost:3001/Abono/BuscarFactura/1234567890 HTTP/1.1
